@@ -27,6 +27,7 @@ configure<ComposeExtension> {
     }
 }
 
-val buildAndStartService by tasks.registering(GradleBuild::class) {
-    tasks = listOf("simplecrmComposeUp")
+tasks.register("buildAndRunServices") {
+    dependsOn(gradle.includedBuild("contact-service-main").task(":app:build"));
+    dependsOn("simplecrmComposeUp")
 }
