@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+  contact-service:
+    build:
+      context: ./contact-service/contact-service-main/
+    ports:
+      - "8081:8080"
+    depends_on:
+      - kafka
+      - zookeeper
+
+  kafka:
+    image: "eventuateio/eventuate-kafka:${EVENTUATE_MESSAGING_KAFKA_IMAGE_VERSION?}"
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_LISTENERS: LC://kafka:29092,LX://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: LC://kafka:29092,LX://${DOCKER_HOST_IP:-localhost}:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LC:PLAINTEXT,LX:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LC
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_HEAP_OPTS: -Xmx192m
+
+  zookeeper:
+    image: eventuateio/eventuate-zookeeper:${EVENTUATE_COMMON_VERSION?}
+    ports:
+      - 2181:2181
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      KAFKA_HEAP_OPTS: -Xmx64m
+
+  cdc-service:
+    image: eventuateio/eventuate-cdc-service:${EVENTUATE_CDC_VERSION?}
+    ports:
+      - "8099:8080"
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
+
+  zipkin:
+    image: openzipkin/zipkin:2.23
+    ports:
+      - "9411:9411"
+    environment:
+      JAVA_OPTS: -Xmx64m
