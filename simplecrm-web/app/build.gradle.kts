@@ -1,9 +1,16 @@
-import com.github.gradle.node.task.NodeTask
+import com.github.gradle.node.npm.task.NpmTask
 
 plugins {
     id("com.simplecrm.node-application")
 }
 
-tasks.register<NodeTask>("run") {
-  script.set(file("src/main.js"))
+tasks.npmInstall {
+    nodeModulesOutputFilter {
+        exclude("notExistingFile")
+    }
+}
+
+tasks.register<NpmTask>("run") {
+    dependsOn(tasks.npmInstall)
+    npmCommand.set(listOf("run", "dev"))
 }
