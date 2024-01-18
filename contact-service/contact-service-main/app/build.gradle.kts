@@ -1,6 +1,6 @@
 plugins {
     application
-    id("com.simplecrm.spring-boot-application")
+    id("com.simplecrm.java-web-application")
 }
 
 dependencies {

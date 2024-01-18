@@ -12,9 +12,9 @@ java {
 }
 
 dependencies {
-    implementation(platform("com.simplecrm.platform:product-platform"))
+    implementation(platform("com.simplecrm.platform:java-platform"))
 
-    testImplementation(platform("com.simplecrm.platform:test-platform"))
+    testImplementation(platform("com.simplecrm.platform:java-test-platform"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

@@ -1,5 +1,5 @@
 rootProject.name = "platforms"
 
 includeBuild("plugins-platform")
-includeBuild("product-platform")
-includeBuild("test-platform")
+includeBuild("java-platform")
+includeBuild("java-test-platform")
