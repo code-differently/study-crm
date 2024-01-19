@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>app</name>
-	<comment></comment>
+	<name>simple-crm</name>
+	<comment>Project simple-crm created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -22,7 +22,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1705693787206</id>
+			<id>1705694370142</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
