@@ -33,17 +33,6 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       KAFKA_HEAP_OPTS: -Xmx64m
 
-  cdc-service:
-    image: eventuateio/eventuate-cdc-service:${EVENTUATE_CDC_VERSION?}
-    ports:
-      - "8099:8080"
-    depends_on:
-      - kafka
-      - zookeeper
-    environment:
-      EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
-      EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
-
   zipkin:
     image: openzipkin/zipkin:2.23
     ports:
