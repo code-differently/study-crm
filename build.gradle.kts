@@ -23,7 +23,7 @@ configure<ComposeExtension> {
         setProjectName(null)
         environment.putAll(mapOf("TAGS" to "feature-test,local"))
         useComposeFiles.set(listOf("docker-compose.yaml"))
-        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "contact-service", "cdc-service"))
+        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "contact-service"))
     }
 }
 
