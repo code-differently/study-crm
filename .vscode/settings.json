@@ -1,9 +1,5 @@
 {
   "java.configuration.updateBuildConfiguration": "automatic",
   "java.compile.nullAnalysis.mode": "automatic",
-  "gradle.nestedProjects": true,
-  "java.project.sourcePaths": [
-    "contact-service/contact-service-main/app/src/main/java",
-    "contact-service/contact-service-web/lib/src/main/java"
-  ]
+  "gradle.nestedProjects": true
 }
