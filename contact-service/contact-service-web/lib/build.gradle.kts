@@ -13,4 +13,5 @@ group = "com.simplecrm.contact-service.web"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
 }
