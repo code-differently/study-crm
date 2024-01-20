@@ -2,7 +2,7 @@ plugins {
     id("java-platform")
 }
 
-group = "com.simplecrm.platform"
+group = "com.codedifferently.studycrm.platform"
 
 dependencies {
     constraints {

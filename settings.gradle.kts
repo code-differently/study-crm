@@ -1,4 +1,4 @@
-rootProject.name = "simple-crm"
+rootProject.name = "study-crm"
 
 includeBuild("platforms")
 includeBuild("build-logic")

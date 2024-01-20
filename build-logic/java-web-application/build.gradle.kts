@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(platform("com.simplecrm.platform:plugins-platform"))
+    implementation(platform("com.codedifferently.studycrm.platform:plugins-platform"))
     implementation(project(":java-shared"))
     implementation("org.springframework.boot:org.springframework.boot.gradle.plugin")
 }

@@ -2,7 +2,7 @@ plugins {
     id("java-platform")
 }
 
-group = "com.simplecrm.platform"
+group = "com.codedifferently.studycrm.platform"
 
 // allow the definition of dependencies to other platforms like the JUnit 5 BOM
 javaPlatform.allowDependencies()

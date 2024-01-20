@@ -26,7 +26,7 @@ configure<ComposeExtension> {
         startedServices.set(listOf("zipkin", "zookeeper", "kafka", "contact-service-mysql"))
     }
 
-    createNested("simplecrm").apply {
+    createNested("studycrm").apply {
         setProjectName(null)
         environment.putAll(mapOf("TAGS" to "feature-test,local"))
         useComposeFiles.set(listOf("docker-compose.yaml"))
@@ -41,5 +41,5 @@ tasks.register("buildAndRunSqlInfrastructure") {
 
 tasks.register("buildAndRunServices") {
     dependsOn(gradle.includedBuild("contact-service-main").task(":contact-main-app:build"));
-    dependsOn("simplecrmComposeUp")
+    dependsOn("studycrmComposeUp")
 }

@@ -6,13 +6,13 @@
  */
 
 plugins {
-    id("com.simplecrm.java-library")
+    id("com.codedifferently.studycrm.java-library")
 }
 
-group = "com.simplecrm.contact-service.persistence"
+group = "com.codedifferently.studycrm.contact-service.persistence"
 
 dependencies {
-    implementation("com.simplecrm.contact-service.domain:contact-domain-lib")
+    implementation("com.codedifferently.studycrm.contact-service.domain:contact-domain-lib")
     
     implementation("io.eventuate.tram.core:eventuate-tram-spring-flyway")
     runtimeOnly("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-flyway")

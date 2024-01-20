@@ -6,10 +6,10 @@
  */
 
 plugins {
-    id("com.simplecrm.java-library")
+    id("com.codedifferently.studycrm.java-library")
 }
 
-group = "com.simplecrm.contact-service.domain"
+group = "com.codedifferently.studycrm.contact-service.domain"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")

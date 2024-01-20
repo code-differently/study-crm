@@ -6,14 +6,14 @@
  */
 
 plugins {
-    id("com.simplecrm.java-library")
+    id("com.codedifferently.studycrm.java-library")
 }
 
-group = "com.simplecrm.contact-service.web"
+group = "com.codedifferently.studycrm.contact-service.web"
 
 dependencies {
-    implementation("com.simplecrm.contact-service.domain:contact-domain-lib")
-    implementation("com.simplecrm.contact-service.persistence:contact-persistence-lib")
+    implementation("com.codedifferently.studycrm.contact-service.domain:contact-domain-lib")
+    implementation("com.codedifferently.studycrm.contact-service.persistence:contact-persistence-lib")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
