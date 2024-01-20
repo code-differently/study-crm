@@ -35,11 +35,11 @@ configure<ComposeExtension> {
 }
 
 tasks.register("buildAndRunSqlInfrastructure") {
-    dependsOn(gradle.includedBuild("contact-service-main").task(":app:build"));
+    dependsOn(gradle.includedBuild("contact-service-main").task(":contact-main-app:build"));
     dependsOn("mysqlinfrastructureComposeUp")
 }
 
 tasks.register("buildAndRunServices") {
-    dependsOn(gradle.includedBuild("contact-service-main").task(":app:build"));
+    dependsOn(gradle.includedBuild("contact-service-main").task(":contact-main-app:build"));
     dependsOn("simplecrmComposeUp")
 }

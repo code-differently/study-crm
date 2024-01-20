@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation("com.simplecrm.contact-service.web:lib")
+    implementation("com.simplecrm.contact-service.web:contact-web-lib")
 }
 
 application {

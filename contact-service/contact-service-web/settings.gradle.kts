@@ -21,4 +21,4 @@ includeBuild("../contact-service-domain")
 includeBuild("../contact-service-persistence")
 
 rootProject.name = "contact-service-web"
-include("lib")
+include("contact-web-lib")

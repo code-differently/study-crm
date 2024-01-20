@@ -20,4 +20,4 @@ includeBuild("../../platforms")
 includeBuild("../contact-service-web")
 
 rootProject.name = "contact-service-main"
-include("app")
+include("contact-main-app")
