@@ -9,12 +9,8 @@ plugins {
     id("com.simplecrm.java-library")
 }
 
-group = "com.simplecrm.contact-service.web"
+group = "com.simplecrm.contact-service.domain"
 
 dependencies {
-    implementation("com.simplecrm.contact-service.domain:contact-domain-lib")
-    implementation("com.simplecrm.contact-service.persistence:contact-persistence-lib")
-
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 }
