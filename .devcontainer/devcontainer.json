@@ -33,7 +33,8 @@
         "vscjava.vscode-gradle",
         "fwcd.kotlin",
         "ms-azuretools.vscode-docker",
-        "vmware.vscode-boot-dev-pack"
+        "vmware.vscode-boot-dev-pack",
+        "wmanth.jar-viewer"
       ]
     }
   }

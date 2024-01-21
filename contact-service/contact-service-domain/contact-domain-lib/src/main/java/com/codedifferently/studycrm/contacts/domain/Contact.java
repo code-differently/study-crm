@@ -1,9 +1,6 @@
-
 package com.codedifferently.studycrm.contacts.domain;
 
-import javax.persistence.*;
-import java.util.Collections;
-import java.util.Map;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Contact")

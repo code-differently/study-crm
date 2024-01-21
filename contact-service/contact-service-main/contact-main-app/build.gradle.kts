@@ -8,6 +8,5 @@ dependencies {
 }
 
 application {
-    // Define the main class for the application.
     mainClass.set("com.codedifferently.studycrm.contacts.App")
 }

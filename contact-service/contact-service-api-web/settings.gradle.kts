@@ -17,9 +17,6 @@ dependencyResolutionManagement {
     }
 }
 includeBuild("../../platforms")
-includeBuild("../contact-service-domain")
-includeBuild("../contact-service-persistence")
-includeBuild("../contact-service-api-web")
 
-rootProject.name = "contact-service-web"
-include("contact-web-lib")
+rootProject.name = "contact-service-api-web"
+include("contact-api-web-lib")

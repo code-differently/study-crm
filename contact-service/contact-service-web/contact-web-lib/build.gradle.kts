@@ -14,7 +14,9 @@ group = "com.codedifferently.studycrm.contact-service.web"
 dependencies {
     implementation("com.codedifferently.studycrm.contact-service.domain:contact-domain-lib")
     implementation("com.codedifferently.studycrm.contact-service.persistence:contact-persistence-lib")
+    implementation("com.codedifferently.studycrm.contact-service.api.web:contact-api-web-lib")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 }
