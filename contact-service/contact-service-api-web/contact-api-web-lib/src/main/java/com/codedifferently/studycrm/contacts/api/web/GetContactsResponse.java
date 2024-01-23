@@ -1,7 +1,5 @@
 package com.codedifferently.studycrm.contacts.api.web;
 
-import com.codedifferently.studycrm.contacts.api.web.GetContactResponse;
-
 import java.util.List;
 
 public class GetContactsResponse {
