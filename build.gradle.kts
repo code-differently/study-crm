@@ -23,23 +23,25 @@ configure<ComposeExtension> {
     createNested("mysqlinfrastructure").apply {
         setProjectName(null)
         useComposeFiles.set(listOf("docker-compose.yaml"))
-        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "contact-service-mysql"))
+        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "contact-service-mysql", "organization-service-mysql"))
     }
 
     createNested("studycrm").apply {
         setProjectName(null)
         environment.putAll(mapOf("TAGS" to "feature-test,local"))
         useComposeFiles.set(listOf("docker-compose.yaml"))
-        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "contact-service", "contact-service-mysql"))
+        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "contact-service", "contact-service-mysql", "organization-service", "organization-service-mysql"))
     }
 }
 
 tasks.register("buildAndRunSqlInfrastructure") {
     dependsOn(gradle.includedBuild("contact-service-main").task(":contact-main-app:build"));
+    dependsOn(gradle.includedBuild("organization-service-main").task(":organization-main-app:build"));
     dependsOn("mysqlinfrastructureComposeUp")
 }
 
 tasks.register("buildAndRunServices") {
     dependsOn(gradle.includedBuild("contact-service-main").task(":contact-main-app:build"));
+    dependsOn(gradle.includedBuild("organization-service-main").task(":organization-main-app:build"));
     dependsOn("studycrmComposeUp")
 }

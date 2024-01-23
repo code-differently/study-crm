@@ -12,6 +12,7 @@ val springBootVersion: String by project
 val springCloudContractDependenciesVersion: String by project
 val eventuatePlatformVersion: String by project
 val springDocOpenApiUiVersion: String by project
+val oktaSpringBootStarterVersion: String by project
 
 dependencies {
     api(platform("io.eventuate.platform:eventuate-platform-dependencies:$eventuatePlatformVersion"))
@@ -20,5 +21,7 @@ dependencies {
     api(platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"))
     api(platform("org.springframework.cloud:spring-cloud-contract-dependencies:$springCloudContractDependenciesVersion")) 
 
-    api(platform("org.springdoc:springdoc-openapi-ui:$springDocOpenApiUiVersion"))   
+    api(platform("org.springdoc:springdoc-openapi-ui:$springDocOpenApiUiVersion")) 
+
+    api(platform("com.okta.spring:okta-spring-boot-starter:$oktaSpringBootStarterVersion"))  
 }
