@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>organization-main-app</name>
-	<comment></comment>
+	<name>organization-domain-lib</name>
+	<comment>Project organization-domain-lib created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -22,7 +22,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1705726272450</id>
+			<id>1706048230604</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
