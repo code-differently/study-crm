@@ -21,8 +21,6 @@ export const getOrganizations = async (): Promise<{ organizations: Organization[
     },
   );
 
-  console.log(res.statusText, res.status)
-
   if (!res.ok) {
     const json = await res.json();
 

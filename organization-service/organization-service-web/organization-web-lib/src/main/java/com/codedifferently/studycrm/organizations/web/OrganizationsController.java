@@ -21,6 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class OrganizationsController {
@@ -45,6 +47,15 @@ public class OrganizationsController {
 
         @RequestMapping(value = "/organizations", method = RequestMethod.GET)
         public ResponseEntity<GetOrganizationsResponse> getAll(final JwtAuthenticationToken auth) {
+                List<String> authorities = auth.getAuthorities().stream()
+                                .map(Object::toString)
+                                .collect(Collectors.toList());
+
+                System.out.println("Authorities: " + authorities);
+
+                Map<String, Object> claims = auth.getTokenAttributes();
+                System.out.println("Claims: " + claims);
+
                 return ResponseEntity
                                 .ok(new GetOrganizationsResponse(
                                                 StreamSupport.stream(organizationRepository.findAll().spliterator(),
