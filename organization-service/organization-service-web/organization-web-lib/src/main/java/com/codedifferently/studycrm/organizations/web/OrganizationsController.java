@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @RestController
 public class OrganizationsController {
@@ -43,7 +45,6 @@ public class OrganizationsController {
 
         @RequestMapping(value = "/organizations", method = RequestMethod.GET)
         public ResponseEntity<GetOrganizationsResponse> getAll(final JwtAuthenticationToken auth) {
-                System.out.println("auth: " + auth.getPrincipal());
                 return ResponseEntity
                                 .ok(new GetOrganizationsResponse(
                                                 StreamSupport.stream(organizationRepository.findAll().spliterator(),
