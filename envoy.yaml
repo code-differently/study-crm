@@ -62,7 +62,8 @@ static_resources:
                       cache_duration:
                         seconds: 300
                     forward: true
-                    payload_in_metadata: jwt_payload
+                    jwt_cache_config:
+                      jwt_cache_size: 100
                 rules:
                   - match:
                       prefix: /organizations
@@ -75,7 +76,7 @@ static_resources:
   clusters:
     - name: organization_service
       connect_timeout: 1.25s
-      type: logical_dns
+      type: strict_dns
       dns_lookup_family: v4_only
       lb_policy: round_robin
       # Use address: 0.0.0.0 when running with Envoy directly.
@@ -89,7 +90,8 @@ static_resources:
                       address: organization-service
                       port_value: 8080
     - name: funnel_auth_cluster
-      type: STRICT_DNS
+      type: strict_dns
+      dns_lookup_family: v4_only
       connect_timeout: 500s
       load_assignment:
         cluster_name: funnel_auth_cluster
