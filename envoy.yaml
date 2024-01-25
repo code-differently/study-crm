@@ -20,10 +20,6 @@ static_resources:
           - name: envoy.access_loggers.stdout
             typed_config:
               "@type": type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog
-          http_filters:
-          - name: envoy.filters.http.router
-            typed_config:
-              "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
           route_config:
             name: local_route
             virtual_hosts:
@@ -41,6 +37,40 @@ static_resources:
                 allow_methods: GET, PUT, DELETE, POST, OPTIONS
                 allow_headers: keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,custom-header-1,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout
                 max_age: "1728000"
+          http_filters:
+            # The filter that reads the JWT is a the HTTP rather than the TCP level.
+            # https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/jwt_authn_filter
+            - name: envoy.filters.http.JwtAuthentication
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.http.jwt_authn.v3.JwtAuthentication
+                providers:
+                  # Each JWT authentication provider has a name to be used in routing rules.
+                  auth0:
+                    # The name of the entity that is providing the JWT.
+                    issuer: https://dev-l61afruwodnefots.us.auth0.com/ 
+                    from_headers: 
+                    - name: Authorization
+                      value_prefix: 'Bearer '
+                    audiences:
+                    - https://api.studycrm.com
+                    # Obtain a JSON Web Key Set from a remove server for JWT validation.
+                    remote_jwks:
+                      http_uri:
+                        uri: https://dev-l61afruwodnefots.us.auth0.com/.well-known/jwks.json
+                        cluster: funnel_auth_cluster
+                        timeout: 1s
+                      cache_duration:
+                        seconds: 300
+                    forward: true
+                    payload_in_metadata: jwt_payload
+                rules:
+                  - match:
+                      prefix: /organizations
+                    requires:
+                      provider_name: auth0
+            - name: envoy.filters.http.router
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
 
   clusters:
     - name: organization_service
@@ -58,3 +88,24 @@ static_resources:
                     socket_address:
                       address: organization-service
                       port_value: 8080
+    - name: funnel_auth_cluster
+      type: STRICT_DNS
+      connect_timeout: 500s
+      load_assignment:
+        cluster_name: funnel_auth_cluster
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: dev-l61afruwodnefots.us.auth0.com
+                      port_value: 443
+      transport_socket:
+        name: envoy.transport_sockets.tls
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
+          sni: dev-l61afruwodnefots.us.auth0.com
+          common_tls_context:
+            validation_context:
+              trusted_ca:
+                filename: /etc/ssl/certs/ca-certificates.crt
