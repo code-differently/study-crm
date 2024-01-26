@@ -1,4 +1,5 @@
 import NextAuth from "next-auth"
+import { userAgent } from "next/server";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
     providers: [{
@@ -8,24 +9,30 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       clientId: process.env.STUDYCRM_CLIENT_ID,
       clientSecret: process.env.STUDYCRM_CLIENT_SECRET,
       issuer: process.env.STUDYCRM_ISSUER_BASE_URL,
-      wellKnown: `${process.env.STUDYCRM_ISSUER_BASE_URL}/.well-known/openid-configuration`,
       authorization: { 
-        url: `${process.env.STUDYCRM_ISSUER_BASE_URL}/oauth2/authorize`,
         params: { 
           scope: "openid profile",
           response_mode: 'form_post'
         },
       },
-      token: `${process.env.STUDYCRM_ISSUER_BASE_URL}/oauth2/token`,
-      checks: ["state"],
-      profile(profile) {
-          return {
-              id: profile.sub,
-              name: profile.name,
-              email: profile.email,
-              image: profile.picture,
-          }
-      },
+      checks: ["pkce", "state", "nonce"],
     }],
+    session: {
+      strategy: "jwt",
+    },
+    callbacks: {
+      async jwt({ token, account }) {
+        // Persist the OAuth access_token to the token right after signin
+        if (account) {
+          token.accessToken = account.access_token
+        }
+        return token
+      },
+      async session({ session, token }) {
+        // Send properties to the client, like an access_token from a provider.
+        session.accessToken = token.accessToken
+        return session
+      }
+    },
     debug: true,
   });

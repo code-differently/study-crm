@@ -1,15 +1,14 @@
 import "server-only";
 
 import { Organization } from "../models/organization";
-import { auth } from "@/auth"
+import { auth, signIn } from "@/auth"
 
 
-export const getOrganizations = auth(async (req): Promise<{ organizations: Organization[]}> => {
-  const accessToken = '123';
-
+export const getOrganizations = async (): Promise<{ organizations: Organization[]}> => {
+  const accessToken = (await auth())?.accessToken;
 
   if (!accessToken) {
-    throw new Error(`Requires authorization`);
+    await signIn();
   }
 
   const res = await fetch(
@@ -30,4 +29,4 @@ export const getOrganizations = auth(async (req): Promise<{ organizations: Organ
   }
 
   return res.json();
-});
+};

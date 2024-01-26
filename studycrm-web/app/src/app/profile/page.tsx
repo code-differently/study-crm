@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import React from "react";
 import { getOrganizations } from "../services/organization.service";
 
-const Profile: NextPage = async () => {
+const Profile: NextPage = async (ctx) => { 
   const { organizations } = await getOrganizations();
 
   return (
