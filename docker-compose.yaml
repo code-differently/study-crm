@@ -5,9 +5,10 @@ services:
     image: envoyproxy/envoy:distroless-v1.29-latest
     ports:
       - "9901:9901"
-      - "8081:8081"
+      - "80:8081"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+      - "api-local.studycrm.com:0.0.0.0"
     volumes:
       - ./envoy.yaml:/etc/envoy/envoy.yaml
 
@@ -86,6 +87,8 @@ services:
       - organization-service-mysql
       - kafka
       - zookeeper
+    extra_hosts:
+      - "api-local.studycrm.com:host-gateway"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://organization-service-mysql/organization_service
       SPRING_DATASOURCE_USERNAME: mysqluser

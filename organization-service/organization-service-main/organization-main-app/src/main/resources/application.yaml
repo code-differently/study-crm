@@ -24,7 +24,7 @@ spring:
         oauth2:
             resourceserver:
                 jwt:
-                    issuer-uri: http://auth-service:8081
+                    issuer-uri: http://api-local.studycrm.com
    
 logging:
     level:

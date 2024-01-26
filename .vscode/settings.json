@@ -1,5 +1,6 @@
 {
   "java.configuration.updateBuildConfiguration": "automatic",
   "java.compile.nullAnalysis.mode": "automatic",
-  "gradle.nestedProjects": true
+  "gradle.nestedProjects": true,
+  "remote.localPortHost": "allInterfaces"
 }
