@@ -20,4 +20,4 @@ includeBuild("../../platforms")
 includeBuild("../auth-service-web")
 
 rootProject.name = "auth-service-main"
-include("auth-app-main")
+include("auth-main-app")

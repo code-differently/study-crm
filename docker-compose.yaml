@@ -5,12 +5,33 @@ services:
     image: envoyproxy/envoy:distroless-v1.29-latest
     ports:
       - "9901:9901"
-      - "8082:8082"
-      - "9000:9000"
+      - "8081:8081"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
       - ./envoy.yaml:/etc/envoy/envoy.yaml
+
+  auth-service:
+    build:
+      context: ./auth-service/auth-service-main/
+    ports:
+      - "10083:8081"
+    depends_on:
+      - auth-service-mysql
+      - kafka
+      - zookeeper
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://auth-service-mysql/auth_service
+      SPRING_DATASOURCE_USERNAME: mysqluser
+      SPRING_DATASOURCE_PASSWORD: mysqlpw
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
+      SPRING_SLEUTH_ENABLED: "true"
+      SPRING_SLEUTH_SAMPLER_PROBABILITY: 1
+      SPRING_ZIPKIN_BASE_URL: http://zipkin:9411/
+      EVENTUATE_TRAM_OUTBOX_PARTITIONING_OUTBOX_TABLES: ${EVENTUATE_OUTBOX_TABLES}
+      EVENTUATE_DATABASE_SCHEMA: none
 
   auth-service-mysql:
     image: eventuateio/eventuate-vanilla-mysql8:${EVENTUATE_COMMON_VERSION?}
@@ -27,7 +48,7 @@ services:
     build:
       context: ./contact-service/contact-service-main/
     ports:
-      - "8081:8080"
+      - "10081:8080"
     depends_on:
       - contact-service-mysql
       - kafka

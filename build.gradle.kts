@@ -30,17 +30,19 @@ configure<ComposeExtension> {
         setProjectName(null)
         environment.putAll(mapOf("TAGS" to "feature-test,local"))
         useComposeFiles.set(listOf("docker-compose.yaml"))
-        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "auth-service-mysql", "contact-service", "contact-service-mysql", "organization-service", "organization-service-mysql", "api-gateway"))
+        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "auth-service", "auth-service-mysql", "contact-service", "contact-service-mysql", "organization-service", "organization-service-mysql", "api-gateway"))
     }
 }
 
 tasks.register("buildAndRunSqlInfrastructure") {
+    dependsOn(gradle.includedBuild("auth-service-main").task(":auth-main-app:build"));
     dependsOn(gradle.includedBuild("contact-service-main").task(":contact-main-app:build"));
     dependsOn(gradle.includedBuild("organization-service-main").task(":organization-main-app:build"));
     dependsOn("mysqlinfrastructureComposeUp")
 }
 
 tasks.register("buildAndRunServices") {
+    dependsOn(gradle.includedBuild("auth-service-main").task(":auth-main-app:build"));
     dependsOn(gradle.includedBuild("contact-service-main").task(":contact-main-app:build"));
     dependsOn(gradle.includedBuild("organization-service-main").task(":organization-main-app:build"));
     dependsOn("studycrmComposeUp")
