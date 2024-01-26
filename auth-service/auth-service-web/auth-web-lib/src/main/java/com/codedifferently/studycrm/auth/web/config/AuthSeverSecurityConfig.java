@@ -79,7 +79,7 @@ public class AuthSeverSecurityConfig {
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/studycrm-client")
+                .redirectUri("http://localhost:3000/api/auth/callback/studycrm")
                 .redirectUri("https://oidcdebugger.com/debug")
                 .postLogoutRedirectUri("http://127.0.0.1:8080/")
                 .scope(OidcScopes.OPENID)

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { Inter } from 'next/font/google';
+import { SessionProvider } from "next-auth/react";
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -23,9 +23,9 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
         />
       </head>
-      <UserProvider>
+      <SessionProvider>
         <body className={inter.className}>{children}</body>
-      </UserProvider>
+      </SessionProvider>
     </html>
   )
 }

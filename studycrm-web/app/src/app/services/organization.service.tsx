@@ -1,12 +1,12 @@
 import "server-only";
 
 import { Organization } from "../models/organization";
-import { getAccessToken } from "@auth0/nextjs-auth0";
+import { auth } from "@/auth"
 
 
+export const getOrganizations = auth(async (req): Promise<{ organizations: Organization[]}> => {
+  const accessToken = '123';
 
-export const getOrganizations = async (): Promise<{ organizations: Organization[]}> => {
-  const { accessToken } = await getAccessToken();
 
   if (!accessToken) {
     throw new Error(`Requires authorization`);
@@ -30,4 +30,4 @@ export const getOrganizations = async (): Promise<{ organizations: Organization[
   }
 
   return res.json();
-};
+});
