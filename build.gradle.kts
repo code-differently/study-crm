@@ -23,14 +23,14 @@ configure<ComposeExtension> {
     createNested("mysqlinfrastructure").apply {
         setProjectName(null)
         useComposeFiles.set(listOf("docker-compose.yaml"))
-        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "contact-service-mysql", "organization-service-mysql"))
+        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "auth-service-mysql", "contact-service-mysql", "organization-service-mysql"))
     }
 
     createNested("studycrm").apply {
         setProjectName(null)
         environment.putAll(mapOf("TAGS" to "feature-test,local"))
         useComposeFiles.set(listOf("docker-compose.yaml"))
-        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "contact-service", "contact-service-mysql", "organization-service", "organization-service-mysql", "api-gateway"))
+        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "auth-service-mysql", "contact-service", "contact-service-mysql", "organization-service", "organization-service-mysql", "api-gateway"))
     }
 }
 

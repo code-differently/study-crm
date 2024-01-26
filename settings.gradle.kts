@@ -3,6 +3,7 @@ rootProject.name = "study-crm"
 includeBuild("platforms")
 includeBuild("build-logic")
 
+includeBuild("auth-service/auth-service-main")
 includeBuild("contact-service/contact-service-main")
 includeBuild("contact-service/contact-service-web")
 includeBuild("contact-service/contact-service-persistence")

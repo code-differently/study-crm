@@ -1,0 +1,43 @@
+server:
+  port: 9000
+
+logging:
+  level:
+    org.springframework.security: TRACE
+
+spring:
+  application:
+      name: auth-service
+  jpa:
+      generate-ddl: true
+  datasource:
+      url: jdbc:mysql://${DOCKER_HOST_IP:localhost}:3309/auth_service
+      username: mysqluser
+      password: mysqlpw
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      hikari:
+          initialization-fail-timeout: 30000
+  sleuth:
+      enabled: true
+      sampler:
+          probability: 1
+  zipkin:
+      base-url: http://${DOCKER_HOST_IP:localhost}:9411/
+  flyway:
+      locations: classpath:flyway/{vendor}
+      baseline-on-migrate: true
+      baseline-version: 0
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google-idp:
+            provider: google
+            client-id: 558968372674-jkalu209g122k7iua1eolr1aplkipl6l.apps.googleusercontent.com
+            client-secret: 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
+            scope: openid, https://www.googleapis.com/auth/userinfo.profile, https://www.googleapis.com/auth/userinfo.email
+            client-name: Sign in with Google
+        provider:
+          google:
+            user-name-attribute: email

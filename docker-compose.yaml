@@ -11,6 +11,17 @@ services:
     volumes:
       - ./envoy.yaml:/etc/envoy/envoy.yaml
 
+  auth-service-mysql:
+    image: eventuateio/eventuate-vanilla-mysql8:${EVENTUATE_COMMON_VERSION?}
+    ports:
+      - 3309:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_USER=mysqluser
+      - MYSQL_PASSWORD=mysqlpw
+      - EVENTUATE_OUTBOX_TABLES=${EVENTUATE_OUTBOX_TABLES}
+      - MYSQL_DATABASE=auth_service
+
   contact-service:
     build:
       context: ./contact-service/contact-service-main/
