@@ -6,6 +6,7 @@ services:
     ports:
       - "9901:9901"
       - "8082:8082"
+      - "9000:9000"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
