@@ -20,5 +20,5 @@ dependencies {
     api(platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"))
     api(platform("org.springframework.cloud:spring-cloud-contract-dependencies:$springCloudContractDependenciesVersion")) 
 
-    api(platform("org.springdoc:springdoc-openapi-ui:$springDocOpenApiUiVersion"))
+    api(platform("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocOpenApiUiVersion"))
 }

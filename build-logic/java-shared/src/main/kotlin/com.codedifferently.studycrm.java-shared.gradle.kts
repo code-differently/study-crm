@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("eclipse")
+    id("io.freefair.lombok")
 }
 
 group = "com.codedifferently.studycrm"

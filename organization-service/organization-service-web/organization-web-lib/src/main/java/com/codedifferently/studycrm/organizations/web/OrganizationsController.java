@@ -47,21 +47,23 @@ public class OrganizationsController {
 
         @RequestMapping(value = "/organizations", method = RequestMethod.GET)
         public ResponseEntity<GetOrganizationsResponse> getAll(final JwtAuthenticationToken auth) {
-                List<String> authorities = auth.getAuthorities().stream()
-                                .map(Object::toString)
-                                .collect(Collectors.toList());
+                if (auth != null) {
+                        List<String> authorities = auth.getAuthorities().stream()
+                                        .map(Object::toString)
+                                        .collect(Collectors.toList());
 
-                System.out.println("Authorities: " + authorities);
+                        System.out.println("Authorities: " + authorities);
 
-                Map<String, Object> claims = auth.getTokenAttributes();
-                System.out.println("Claims: " + claims);
+                        Map<String, Object> claims = auth.getTokenAttributes();
+                        System.out.println("Claims: " + claims);
+                }
 
                 return ResponseEntity
                                 .ok(new GetOrganizationsResponse(
                                                 StreamSupport.stream(organizationRepository.findAll().spliterator(),
                                                                 false)
                                                                 .map(c -> new GetOrganizationResponse(c.getId(),
-                                                                                c.getOrganizationName()))
+                                                                                c.getName()))
                                                                 .collect(Collectors.toList())));
         }
 
@@ -71,7 +73,7 @@ public class OrganizationsController {
                 return organizationRepository
                                 .findById(organizationId)
                                 .map(c -> new ResponseEntity<>(
-                                                new GetOrganizationResponse(c.getId(), c.getOrganizationName()),
+                                                new GetOrganizationResponse(c.getId(), c.getName()),
                                                 HttpStatus.OK))
                                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }

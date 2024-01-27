@@ -17,6 +17,7 @@ dependencyResolutionManagement {
     }
 }
 includeBuild("../../platforms")
+includeBuild("../../common/common-domain")
 
 rootProject.name = "organization-service-domain"
 include("organization-domain-lib")

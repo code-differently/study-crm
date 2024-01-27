@@ -17,6 +17,7 @@ dependencyResolutionManagement {
     }
 }
 includeBuild("../../platforms")
+includeBuild("../../common/common-domain")
 
 rootProject.name = "contact-service-domain"
 include("contact-domain-lib")

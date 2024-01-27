@@ -1,6 +1,9 @@
 package com.codedifferently.studycrm.organizations.domain;
 
+import org.springframework.util.Assert;
+
 import jakarta.transaction.Transactional;
+import java.util.Objects;
 
 public class OrganizationService {
 
@@ -12,7 +15,10 @@ public class OrganizationService {
 
     @Transactional
     public Organization createOrganization(String organizationName) {
-        Organization Organization = new Organization(organizationName);
-        return OrganizationRepository.save(Organization);
+        Organization organization = Organization.builder()
+                .name(organizationName)
+                .build();
+        Objects.requireNonNull(organization);
+        return OrganizationRepository.save(organization);
     }
 }

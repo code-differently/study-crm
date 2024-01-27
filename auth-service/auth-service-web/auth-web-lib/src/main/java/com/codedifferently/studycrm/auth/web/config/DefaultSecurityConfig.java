@@ -31,7 +31,11 @@ public class DefaultSecurityConfig {
 		http
 			.authorizeHttpRequests(authorize ->
 				authorize
-					.requestMatchers("/assets/**", "/webjars/**", "/login").permitAll()
+					.requestMatchers("/v3/api-docs").permitAll()
+					.requestMatchers("/actuator/**").permitAll()
+					.requestMatchers("/assets/**").permitAll()
+					.requestMatchers("/webjars/**").permitAll()
+					.requestMatchers("/login").permitAll()
 					.anyRequest().authenticated()
 			)
 			.formLogin(Customizer.withDefaults())

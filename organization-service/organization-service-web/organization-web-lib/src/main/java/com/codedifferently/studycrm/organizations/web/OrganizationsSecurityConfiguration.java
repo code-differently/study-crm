@@ -24,6 +24,7 @@ public class OrganizationsSecurityConfiguration {
                 return http
                                 .authorizeHttpRequests((authorize) -> authorize
                                                 .requestMatchers("/actuator/**").permitAll()
+                                                .requestMatchers("/v3/api-docs").permitAll()
                                                 .requestMatchers("/organizations/**").authenticated())
                                 .cors(withDefaults())
                                 .oauth2ResourceServer(oauth2 -> oauth2

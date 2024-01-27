@@ -17,6 +17,7 @@ dependencyResolutionManagement {
     }
 }
 includeBuild("../../platforms")
+includeBuild("../../common/common-domain")
 includeBuild("../contact-service-domain")
 includeBuild("../contact-service-persistence")
 includeBuild("../contact-service-api-web")

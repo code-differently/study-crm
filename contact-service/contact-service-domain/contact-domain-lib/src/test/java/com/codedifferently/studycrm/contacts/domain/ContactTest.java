@@ -6,19 +6,28 @@ import static org.junit.jupiter.api.Assertions.*;
 class ContactTest {
     @Test
     void testGetId() {
-        Contact contact = new Contact("John", "Doe");
+        Contact contact = Contact.builder()
+                .firstName("Doe")
+                .lastName("John")
+                .build();
         assertNull(contact.getId());
     }
 
     @Test
     void testGetFirstName() {
-        Contact contact = new Contact("John", "Doe");
+        Contact contact = Contact.builder()
+                .firstName("Doe")
+                .lastName("John")
+                .build();
         assertEquals("John", contact.getFirstName());
     }
 
     @Test
     void testGetLastName() {
-        Contact contact = new Contact("John", "Doe");
+        Contact contact = Contact.builder()
+                .firstName("Doe")
+                .lastName("John")
+                .build();
         assertEquals("Doe", contact.getLastName());
     }
 }
