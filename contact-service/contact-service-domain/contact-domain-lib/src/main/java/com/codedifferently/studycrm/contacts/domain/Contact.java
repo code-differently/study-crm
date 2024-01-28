@@ -2,6 +2,8 @@ package com.codedifferently.studycrm.contacts.domain;
 
 import com.codedifferently.studycrm.common.domain.EntityBase;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,8 +22,9 @@ import lombok.NoArgsConstructor;
 public class Contact extends EntityBase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    protected String uuid;
 
     private String firstName;
 

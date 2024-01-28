@@ -2,14 +2,9 @@ package com.codedifferently.studycrm.organizations.domain;
 
 import com.codedifferently.studycrm.common.domain.EntityBase;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import org.hibernate.annotations.GenericGenerator;
+
+import lombok.*;
 
 import jakarta.persistence.*;
 
@@ -24,8 +19,9 @@ import jakarta.persistence.*;
 public class Organization extends EntityBase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    protected String uuid;
 
     private String name;
 }

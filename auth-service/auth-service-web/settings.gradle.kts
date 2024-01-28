@@ -17,6 +17,9 @@ dependencyResolutionManagement {
     }
 }
 includeBuild("../../platforms")
+includeBuild("../auth-service-domain")
+includeBuild("../auth-service-persistence")
+includeBuild("../auth-service-api-web")
 
 rootProject.name = "auth-service-web"
 include("auth-web-lib")

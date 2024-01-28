@@ -36,6 +36,7 @@ public class DefaultSecurityConfig {
 					.requestMatchers("/assets/**").permitAll()
 					.requestMatchers("/webjars/**").permitAll()
 					.requestMatchers("/login").permitAll()
+					.requestMatchers("/users").permitAll()
 					.anyRequest().authenticated()
 			)
 			.formLogin(Customizer.withDefaults())
