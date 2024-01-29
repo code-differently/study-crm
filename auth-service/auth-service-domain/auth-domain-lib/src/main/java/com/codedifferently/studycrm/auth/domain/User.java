@@ -45,6 +45,6 @@ public class User extends EntityBase {
     private boolean isAccountLocked;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserRole> roles;
+    private List<UserAuthority> authorities;
 
 }

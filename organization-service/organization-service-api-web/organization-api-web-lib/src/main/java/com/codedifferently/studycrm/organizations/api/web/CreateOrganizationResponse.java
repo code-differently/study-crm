@@ -1,20 +1,13 @@
 package com.codedifferently.studycrm.organizations.api.web;
 
+import lombok.*;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateOrganizationResponse {
-    private Long organizationId;
 
-    public CreateOrganizationResponse() {
-    }
+    private String organizationId;
 
-    public CreateOrganizationResponse(Long organizationId) {
-        this.organizationId = organizationId;
-    }
-
-    public Long getOrganizationId() {
-        return organizationId;
-    }
-
-    public void setOrganizationId(Long organizationId) {
-        this.organizationId = organizationId;
-    }
 }

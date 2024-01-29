@@ -27,7 +27,6 @@ spring:
       locations: classpath:flyway/{vendor}
       baseline-on-migrate: true
       baseline-version: 0
-
   security:
     oauth2:
       client:
@@ -41,3 +40,11 @@ spring:
         provider:
           google:
             user-name-attribute: email
+  
+eventuatelocal:
+  kafka:
+    bootstrap:
+      servers: ${DOCKER_HOST_IP:localhost}:9092
+  zookeeper:
+    connection:
+      string: ${DOCKER_HOST_IP:localhost}:2181

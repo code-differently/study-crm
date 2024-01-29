@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AuthSeverSecurityConfigTest {
+class AuthServerSecurityConfigTest {
     @Test
     void someLibraryMethodReturnsTrue() {
-        assertNotNull(new AuthSeverSecurityConfig(),
+        assertNotNull(new AuthServerSecurityConfig(),
                 "someLibraryMethod should return 'true'");
     }
 }

@@ -42,7 +42,7 @@ public class OrganizationsController {
                         @RequestBody CreateOrganizationRequest createOrganizationRequest) {
                 Organization organization = organizationService
                                 .createOrganization(createOrganizationRequest.getOrganizationName());
-                return new CreateOrganizationResponse(organization.getId());
+                return new CreateOrganizationResponse(organization.getUuid());
         }
 
         @RequestMapping(value = "/organizations", method = RequestMethod.GET)
@@ -62,18 +62,18 @@ public class OrganizationsController {
                                 .ok(new GetOrganizationsResponse(
                                                 StreamSupport.stream(organizationRepository.findAll().spliterator(),
                                                                 false)
-                                                                .map(c -> new GetOrganizationResponse(c.getId(),
+                                                                .map(c -> new GetOrganizationResponse(c.getUuid(),
                                                                                 c.getName()))
                                                                 .collect(Collectors.toList())));
         }
 
         @RequestMapping(value = "/organizations/{organizationId}", method = RequestMethod.GET)
         public ResponseEntity<GetOrganizationResponse> getOrganization(
-                        @PathVariable("organizationId") Long organizationId) {
+                        @PathVariable("organizationId") String organizationId) {
                 return organizationRepository
                                 .findById(organizationId)
                                 .map(c -> new ResponseEntity<>(
-                                                new GetOrganizationResponse(c.getId(), c.getName()),
+                                                new GetOrganizationResponse(c.getUuid(), c.getName()),
                                                 HttpStatus.OK))
                                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }

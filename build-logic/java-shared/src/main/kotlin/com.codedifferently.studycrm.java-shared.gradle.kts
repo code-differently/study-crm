@@ -17,6 +17,8 @@ dependencies {
     implementation(platform("com.codedifferently.studycrm.platform:java-platform"))
 
     testImplementation(platform("com.codedifferently.studycrm.platform:java-test-platform"))
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.mockito:mockito-core")
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

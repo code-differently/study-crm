@@ -18,6 +18,8 @@ dependencyResolutionManagement {
 }
 includeBuild("../../platforms")
 includeBuild("../auth-service-web")
+includeBuild("../auth-service-messaging")
+includeBuild("../auth-service-persistence")
 
 rootProject.name = "auth-service-main"
 include("auth-main-app")

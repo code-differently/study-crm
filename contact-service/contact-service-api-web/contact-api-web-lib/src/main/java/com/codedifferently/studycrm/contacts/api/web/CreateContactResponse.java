@@ -1,20 +1,13 @@
 package com.codedifferently.studycrm.contacts.api.web;
 
+import lombok.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CreateContactResponse {
-    private Long contactId;
 
-    public CreateContactResponse() {
-    }
+    private String contactId;
 
-    public CreateContactResponse(Long contactId) {
-        this.contactId = contactId;
-    }
-
-    public Long getContactId() {
-        return contactId;
-    }
-
-    public void setContactId(Long contactId) {
-        this.contactId = contactId;
-    }
 }

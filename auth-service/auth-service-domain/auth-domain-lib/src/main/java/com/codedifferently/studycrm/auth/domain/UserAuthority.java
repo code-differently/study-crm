@@ -9,14 +9,14 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "UserRole")
+@Table(name = "UserAuthority")
 @Access(AccessType.FIELD)
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRole extends EntityBase {
+public class UserAuthority extends EntityBase {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -27,11 +27,7 @@ public class UserRole extends EntityBase {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date expiresAt;
+    @Column(nullable = false)
+    private String authority;
 
 }
