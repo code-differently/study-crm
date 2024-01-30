@@ -25,9 +25,6 @@ public class User extends EntityBase {
     private String username;
 
     @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
     private String firstName;
 
     @Column(nullable = false)

@@ -5,10 +5,12 @@ import com.codedifferently.studycrm.organizations.api.web.CreateOrganizationResp
 import com.codedifferently.studycrm.organizations.api.web.GetOrganizationResponse;
 import com.codedifferently.studycrm.organizations.api.web.GetOrganizationsResponse;
 import com.codedifferently.studycrm.organizations.api.web.UserDetails;
+import com.codedifferently.studycrm.organizations.domain.CreateOrganizationAndUserResult;
 import com.codedifferently.studycrm.organizations.domain.Organization;
 import com.codedifferently.studycrm.organizations.domain.OrganizationService;
 import com.codedifferently.studycrm.organizations.domain.OrganizationRepository;
 import com.codedifferently.studycrm.organizations.domain.User;
+import com.codedifferently.studycrm.organizations.sagas.OrganizationSagaService;
 
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -22,16 +24,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 public class OrganizationsController {
 
-        private OrganizationService organizationService;
+        private OrganizationSagaService organizationSagaService;
         private OrganizationRepository organizationRepository;
 
-        public OrganizationsController(OrganizationService organizationService,
+        public OrganizationsController(OrganizationSagaService organizationSagaService,
                         OrganizationRepository organizationRepository) {
-                this.organizationService = organizationService;
+                this.organizationSagaService = organizationSagaService;
                 this.organizationRepository = organizationRepository;
         }
 
@@ -42,14 +45,7 @@ public class OrganizationsController {
                                 .name(createOrganizationRequest.getOrganizationName())
                                 .build();
                 UserDetails userDetails = createOrganizationRequest.getUserDetails();
-                var newUser = User.builder()
-                                .username(userDetails.getUsername())
-                                .email(userDetails.getEmail())
-                                .password(userDetails.getPassword())
-                                .firstName(userDetails.getFirstName())
-                                .lastName(userDetails.getLastName())
-                                .build();
-                Organization organization = organizationService.saveOrganizationAndUser(newOrg, newUser);
+                Organization organization = organizationSagaService.createOrganization(newOrg, userDetails);
                 return new CreateOrganizationResponse(organization.getUuid());
         }
 

@@ -36,6 +36,8 @@ logging:
 
 eventuatelocal:
     kafka:
-        bootstrap.servers: ${DOCKER_HOST_IP:localhost}:9092
+        bootstrap:
+            servers: ${DOCKER_HOST_IP:localhost}:9092
     zookeeper:
-        connection.string: ${DOCKER_HOST_IP:localhost}:2181
+        connection:
+            string: ${DOCKER_HOST_IP:localhost}:2181

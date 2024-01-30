@@ -35,7 +35,7 @@ services:
       EVENTUATE_DATABASE_SCHEMA: none
 
   auth-service-mysql:
-    image: eventuateio/eventuate-vanilla-mysql8:${EVENTUATE_COMMON_VERSION?}
+    image: eventuateio/eventuate-mysql8:${EVENTUATE_COMMON_VERSION?}
     ports:
       - 3309:3306
     environment:
@@ -68,7 +68,7 @@ services:
       EVENTUATE_DATABASE_SCHEMA: none
 
   contact-service-mysql:
-    image: eventuateio/eventuate-vanilla-mysql8:${EVENTUATE_COMMON_VERSION?}
+    image: eventuateio/eventuate-mysql8:${EVENTUATE_COMMON_VERSION?}
     ports:
       - 3307:3306
     environment:
@@ -103,7 +103,7 @@ services:
       EVENTUATE_DATABASE_SCHEMA: none
 
   organization-service-mysql:
-    image: eventuateio/eventuate-vanilla-mysql8:${EVENTUATE_COMMON_VERSION?}
+    image: eventuateio/eventuate-mysql8:${EVENTUATE_COMMON_VERSION?}
     ports:
       - 3308:3306
     environment:

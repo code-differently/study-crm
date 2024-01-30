@@ -16,6 +16,7 @@ dependencies {
     implementation("com.codedifferently.studycrm.organization-service.domain:organization-domain-lib")
     implementation("com.codedifferently.studycrm.organization-service.persistence:organization-persistence-lib")
     implementation("com.codedifferently.studycrm.organization-service.api.web:organization-api-web-lib")
+    implementation("com.codedifferently.studycrm.organization-service.sagas:organization-sagas-lib")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")

@@ -28,7 +28,7 @@ public class OrganizationService {
     }
 
     @Transactional
-    public Organization saveOrganizationAndUser(Organization newOrg, User newUser) {
+    public CreateOrganizationAndUserResult saveOrganizationAndUser(Organization newOrg, User newUser) {
         Objects.requireNonNull(newOrg);
         Objects.requireNonNull(newUser);
 
@@ -42,7 +42,10 @@ public class OrganizationService {
         addPermission(organization, new PrincipalSid(user.getUuid()), BasePermission.ADMINISTRATION);
 
         // Return the organization
-        return organization;
+        return CreateOrganizationAndUserResult.builder()
+                .organization(organization)
+                .user(user)
+                .build();
     }
 
     public void addPermission(Organization organization, Sid recipient, Permission permission) {

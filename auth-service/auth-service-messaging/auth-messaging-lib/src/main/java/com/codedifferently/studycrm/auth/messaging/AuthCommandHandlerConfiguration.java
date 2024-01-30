@@ -18,7 +18,6 @@ public class AuthCommandHandlerConfiguration {
     @Bean
     public CommandDispatcher consumerCommandDispatcher(AuthCommandHandler target,
             SagaCommandDispatcherFactory sagaCommandDispatcherFactory) {
-
         return sagaCommandDispatcherFactory.make("authCommandDispatcher", target.commandHandlerDefinitions());
     }
 

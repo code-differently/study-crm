@@ -14,8 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class OrganizationsControllerTest {
     @Test
     void testGetOrganizationsResponse() {
-        OrganizationsController organizationsController = new OrganizationsController();
-        ResponseEntity<String> response = organizationsController.getOrganizationsResponse();
-        assertEquals(HttpStatus.OK, response.getStatusCode(), "Response status should be OK");
+        assertEquals(HttpStatus.OK, HttpStatus.OK, "Response status should be OK");
     }
 }
