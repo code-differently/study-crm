@@ -4,9 +4,11 @@ import com.codedifferently.studycrm.organizations.api.web.CreateOrganizationRequ
 import com.codedifferently.studycrm.organizations.api.web.CreateOrganizationResponse;
 import com.codedifferently.studycrm.organizations.api.web.GetOrganizationResponse;
 import com.codedifferently.studycrm.organizations.api.web.GetOrganizationsResponse;
+import com.codedifferently.studycrm.organizations.api.web.UserDetails;
 import com.codedifferently.studycrm.organizations.domain.Organization;
 import com.codedifferently.studycrm.organizations.domain.OrganizationService;
 import com.codedifferently.studycrm.organizations.domain.OrganizationRepository;
+import com.codedifferently.studycrm.organizations.domain.User;
 
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -15,12 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +29,6 @@ public class OrganizationsController {
         private OrganizationService organizationService;
         private OrganizationRepository organizationRepository;
 
-        @Autowired
         public OrganizationsController(OrganizationService organizationService,
                         OrganizationRepository organizationRepository) {
                 this.organizationService = organizationService;
@@ -40,8 +38,18 @@ public class OrganizationsController {
         @RequestMapping(value = "/organizations", method = RequestMethod.POST)
         public CreateOrganizationResponse createOrganization(
                         @RequestBody CreateOrganizationRequest createOrganizationRequest) {
-                Organization organization = organizationService
-                                .createOrganization(createOrganizationRequest.getOrganizationName());
+                var newOrg = Organization.builder()
+                                .name(createOrganizationRequest.getOrganizationName())
+                                .build();
+                UserDetails userDetails = createOrganizationRequest.getUserDetails();
+                var newUser = User.builder()
+                                .username(userDetails.getUsername())
+                                .email(userDetails.getEmail())
+                                .password(userDetails.getPassword())
+                                .firstName(userDetails.getFirstName())
+                                .lastName(userDetails.getLastName())
+                                .build();
+                Organization organization = organizationService.saveOrganizationAndUser(newOrg, newUser);
                 return new CreateOrganizationResponse(organization.getUuid());
         }
 

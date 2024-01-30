@@ -31,4 +31,5 @@ public class OrganizationsSecurityConfiguration {
                                                 .jwt(withDefaults()))
                                 .build();
         }
+
 }

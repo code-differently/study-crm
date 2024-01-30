@@ -1,16 +1,16 @@
 package com.codedifferently.studycrm.organizations.api.web;
 
+import lombok.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateOrganizationRequest {
+
+    @Getter
     private String organizationName;
 
-    public CreateOrganizationRequest() {
-    }
+    @Getter
+    private UserDetails userDetails;
 
-    public CreateOrganizationRequest(String organizationName) {
-        this.organizationName = organizationName;
-    }
-
-    public String getOrganizationName() {
-        return organizationName;
-    }
 }

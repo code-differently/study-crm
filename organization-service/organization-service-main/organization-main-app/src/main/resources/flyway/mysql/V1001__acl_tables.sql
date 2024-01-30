@@ -7,14 +7,15 @@ CREATE TABLE acl_sid (
 
 CREATE TABLE acl_class (
 	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	class VARCHAR(100) NOT NULL,
+	class VARCHAR(255) NOT NULL,
+    class_id_type varchar(255),
 	UNIQUE KEY uk_acl_class (class)
 ) ENGINE=InnoDB;
 
 CREATE TABLE acl_object_identity (
 	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	object_id_class BIGINT UNSIGNED NOT NULL,
-	object_id_identity VARCHAR(36) NOT NULL,
+	object_id_identity VARCHAR(255) NOT NULL,
 	parent_object BIGINT UNSIGNED,
 	owner_sid BIGINT UNSIGNED,
 	entries_inheriting BOOLEAN NOT NULL,

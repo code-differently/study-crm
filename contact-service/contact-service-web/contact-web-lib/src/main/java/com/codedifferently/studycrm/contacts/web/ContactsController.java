@@ -25,7 +25,6 @@ public class ContactsController {
     private ContactService contactService;
     private ContactRepository contactRepository;
 
-    @Autowired
     public ContactsController(ContactService contactService, ContactRepository contactRepository) {
         this.contactService = contactService;
         this.contactRepository = contactRepository;
