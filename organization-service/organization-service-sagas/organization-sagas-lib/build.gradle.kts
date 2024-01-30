@@ -13,7 +13,6 @@ dependencies {
 
     implementation("io.eventuate.tram.core:eventuate-tram-spring-optimistic-locking")
     implementation("io.eventuate.tram.core:eventuate-tram-spring-jdbc-kafka")
-    implementation("io.eventuate.tram.core:eventuate-tram-spring-producer-jdbc")
     implementation("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl-starter")
 
     implementation("jakarta.persistence:jakarta.persistence-api");

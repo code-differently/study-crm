@@ -1,16 +1,21 @@
 package com.codedifferently.studycrm.common.domain;
 
-import lombok.Data;
-
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@SuperBuilder
 @MappedSuperclass
 public abstract class EntityBase {
 
     @Version
-    protected Integer version;
+    @Builder.Default
+    protected Integer version = 0;
 
     protected String createdBy;
 

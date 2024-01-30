@@ -42,9 +42,10 @@ public class User extends EntityBase {
     private boolean isAccountEnabled = true;
 
     @Column(nullable = false)
-    private boolean isAccountLocked;
+    @Builder.Default
+    private boolean isAccountLocked = false;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserAuthority> authorities;
 
 }

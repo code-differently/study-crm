@@ -6,13 +6,14 @@ import io.eventuate.tram.commands.consumer.CommandDispatcher;
 import io.eventuate.tram.sagas.participant.SagaCommandDispatcherFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class AuthCommandHandlerConfiguration {
 
     @Bean
-    public AuthCommandHandler authCommandHandler(AuthService authService) {
-        return new AuthCommandHandler(authService);
+    public AuthCommandHandler authCommandHandler(AuthService authService, PasswordEncoder passwordEncoder) {
+        return new AuthCommandHandler(authService, passwordEncoder);
     }
 
     @Bean

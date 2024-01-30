@@ -61,7 +61,7 @@ public class AuthServerSecurityConfig {
     public RegisteredClientRepository registeredClientRepository() {
         RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("studycrm-client")
-                .clientSecret("{noop}secret")
+                .clientSecret("{bcrypt}$2a$10$eX85Jtm5iEo20E/Kc5Zu2unV86C5o8szNSOuNDdHCEud0.WiXULrS")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)

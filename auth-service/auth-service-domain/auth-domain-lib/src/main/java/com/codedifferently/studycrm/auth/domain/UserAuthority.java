@@ -1,10 +1,10 @@
 package com.codedifferently.studycrm.auth.domain;
 
-import java.util.Date;
-
 import com.codedifferently.studycrm.common.domain.EntityBase;
+
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Date;
 import jakarta.persistence.*;
 import lombok.*;
 
