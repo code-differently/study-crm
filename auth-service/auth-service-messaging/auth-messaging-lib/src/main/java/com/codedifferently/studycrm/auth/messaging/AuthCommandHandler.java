@@ -73,7 +73,8 @@ public class AuthCommandHandler {
             authService.saveUser(newUser);
             return withSuccess(new AuthUserCreated());
         } catch (Exception e) {
-            System.out.println(e);
+            var message = String.format("Error occurred creating auth user {}.", cm.getCommand().getUsername());
+            LOGGER.error(message, e);
             return withFailure(new AuthUserNotCreated());
         }
     }
