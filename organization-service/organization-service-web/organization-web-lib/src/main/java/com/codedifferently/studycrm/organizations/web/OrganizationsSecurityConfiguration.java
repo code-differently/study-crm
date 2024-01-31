@@ -1,12 +1,14 @@
 package com.codedifferently.studycrm.organizations.web;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-
-import static org.springframework.security.config.Customizer.withDefaults;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * Configures our application with Spring Security to restrict access to our API
@@ -23,11 +25,15 @@ public class OrganizationsSecurityConfiguration {
                  * an OAuth2 Resource Server, using JWT validation.
                  */
                 return http
+                                .csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests((authorize) -> authorize
                                                 .requestMatchers("/actuator/**").permitAll()
                                                 .requestMatchers("/v3/api-docs").permitAll()
-                                                .requestMatchers(HttpMethod.POST, "/organizations").permitAll()
+                                                .requestMatchers(new AntPathRequestMatcher("/organizations", "POST"))
+                                                .permitAll()
                                                 .anyRequest().authenticated())
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .cors(withDefaults())
                                 .oauth2ResourceServer(oauth2 -> oauth2
                                                 .jwt(withDefaults()))

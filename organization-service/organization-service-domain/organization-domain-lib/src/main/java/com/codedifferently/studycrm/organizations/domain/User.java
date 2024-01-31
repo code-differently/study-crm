@@ -33,4 +33,6 @@ public class User extends EntityBase {
     @Column(nullable = false, unique = true)
     private String email;
 
+    private String defaultOrganizationId;
+
 }

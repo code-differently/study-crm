@@ -17,24 +17,4 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Import(OptimisticLockingDecoratorConfiguration.class)
 public class OrganizationSagasConfiguration {
 
-    @Bean
-    public OrganizationSagaService organizationSagaService(
-            OrganizationRepository organizationRepository,
-            SagaInstanceFactory sagaInstanceFactory,
-            CreateOrganizationSaga createOrganizationSaga) {
-        return new OrganizationSagaService(organizationRepository, sagaInstanceFactory, createOrganizationSaga);
-    }
-
-    @Bean
-    public CreateOrganizationSaga createOrganizationSaga(
-            OrganizationService organizationService,
-            AuthServiceProxy authServiceProxy) {
-        return new CreateOrganizationSaga(organizationService, authServiceProxy);
-    }
-
-    @Bean
-    public AuthServiceProxy authServiceProxy() {
-        return new AuthServiceProxy();
-    }
-
 }

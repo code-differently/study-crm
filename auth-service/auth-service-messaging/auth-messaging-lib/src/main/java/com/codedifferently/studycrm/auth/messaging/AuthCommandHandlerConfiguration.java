@@ -10,12 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class AuthCommandHandlerConfiguration {
-
-    @Bean
-    public AuthCommandHandler authCommandHandler(AuthService authService, PasswordEncoder passwordEncoder) {
-        return new AuthCommandHandler(authService, passwordEncoder);
-    }
-
     @Bean
     public CommandDispatcher consumerCommandDispatcher(AuthCommandHandler target,
             SagaCommandDispatcherFactory sagaCommandDispatcherFactory) {

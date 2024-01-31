@@ -74,39 +74,35 @@ public final class FederatedIdentityConfigurer
         return this;
     }
 
-    // @formatter:off
-	@Override
-	public void init(HttpSecurity http) throws Exception {
-		ApplicationContext applicationContext = http.getSharedObject(ApplicationContext.class);
-		ClientRegistrationRepository clientRegistrationRepository =
-			applicationContext.getBean(ClientRegistrationRepository.class);
-		FederatedIdentityAuthenticationEntryPoint authenticationEntryPoint =
-			new FederatedIdentityAuthenticationEntryPoint(this.loginPageUrl, clientRegistrationRepository);
-		if (this.authorizationRequestUri != null) {
-			authenticationEntryPoint.setAuthorizationRequestUri(this.authorizationRequestUri);
-		}
+    @Override
+    public void init(HttpSecurity http) throws Exception {
+        ApplicationContext applicationContext = http.getSharedObject(ApplicationContext.class);
+        ClientRegistrationRepository clientRegistrationRepository = applicationContext
+                .getBean(ClientRegistrationRepository.class);
+        var authenticationEntryPoint = new FederatedIdentityAuthenticationEntryPoint(
+                this.loginPageUrl, clientRegistrationRepository);
+        if (this.authorizationRequestUri != null) {
+            authenticationEntryPoint.setAuthorizationRequestUri(this.authorizationRequestUri);
+        }
 
-		FederatedIdentityAuthenticationSuccessHandler authenticationSuccessHandler =
-			new FederatedIdentityAuthenticationSuccessHandler();
-		if (this.oauth2UserHandler != null) {
-			authenticationSuccessHandler.setOAuth2UserHandler(this.oauth2UserHandler);
-		}
-		if (this.oidcUserHandler != null) {
-			authenticationSuccessHandler.setOidcUserHandler(this.oidcUserHandler);
-		}
+        var authenticationSuccessHandler = new FederatedIdentityAuthenticationSuccessHandler();
+        if (this.oauth2UserHandler != null) {
+            authenticationSuccessHandler.setOAuth2UserHandler(this.oauth2UserHandler);
+        }
+        if (this.oidcUserHandler != null) {
+            authenticationSuccessHandler.setOidcUserHandler(this.oidcUserHandler);
+        }
 
-		http
-			.exceptionHandling(exceptionHandling ->
-				exceptionHandling.authenticationEntryPoint(authenticationEntryPoint)
-			)
-			.oauth2Login(oauth2Login -> {
-				oauth2Login.successHandler(authenticationSuccessHandler);
-				if (this.authorizationRequestUri != null) {
-					String baseUri = this.authorizationRequestUri.replace("/{registrationId}", "");
-					oauth2Login.authorizationEndpoint(authorizationEndpoint ->
-						authorizationEndpoint.baseUri(baseUri)
-					);
-				}
-			});
-	}
+        http
+                .exceptionHandling(
+                        exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPoint))
+                .oauth2Login(oauth2Login -> {
+                    oauth2Login.successHandler(authenticationSuccessHandler);
+                    if (this.authorizationRequestUri != null) {
+                        String baseUri = this.authorizationRequestUri.replace("/{registrationId}", "");
+                        oauth2Login
+                                .authorizationEndpoint(authorizationEndpoint -> authorizationEndpoint.baseUri(baseUri));
+                    }
+                });
+    }
 }

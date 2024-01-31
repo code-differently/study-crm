@@ -1,6 +1,5 @@
 package com.codedifferently.studycrm.organizations.domain;
 
-import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.acls.domain.ObjectIdentityImpl;
 import org.springframework.security.acls.domain.PrincipalSid;
 import org.springframework.security.acls.model.MutableAcl;
@@ -12,6 +11,7 @@ import org.springframework.security.acls.model.Sid;
 
 import jakarta.transaction.Transactional;
 import java.util.Objects;
+import java.util.Optional;
 
 public class OrganizationService {
 
@@ -27,25 +27,34 @@ public class OrganizationService {
         this.organizationRepository = OrganizationRepository;
     }
 
-    @Transactional
-    public CreateOrganizationAndUserResult saveOrganizationAndUser(Organization newOrg, User newUser) {
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public User saveUser(User user) {
+        Objects.requireNonNull(user);
+        return userRepository.save(user);
+    }
+
+    public void activateOrganization(String id) {
+        Objects.requireNonNull(id);
+        Organization organization = organizationRepository.findById(id).orElse(null);
+        organization.setActive(true);
+        organizationRepository.save(organization);
+    }
+
+    public Organization saveOrganization(Organization newOrg) {
         Objects.requireNonNull(newOrg);
-        Objects.requireNonNull(newUser);
+        return organizationRepository.save(newOrg);
+    }
 
-        // Create the user
-        User user = userRepository.save(newUser);
-
-        // Create the organization
-        Organization organization = organizationRepository.save(newOrg);
+    @Transactional
+    public void grantUserOrganizationAccess(User user, Organization organization, Permission permission) {
+        Objects.requireNonNull(user);
+        Objects.requireNonNull(organization);
 
         // Save the acls for the user and organization
-        addPermission(organization, new PrincipalSid(user.getUuid()), BasePermission.ADMINISTRATION);
-
-        // Return the organization
-        return CreateOrganizationAndUserResult.builder()
-                .organization(organization)
-                .user(user)
-                .build();
+        addPermission(organization, new PrincipalSid(user.getUuid()), permission);
     }
 
     public void addPermission(Organization organization, Sid recipient, Permission permission) {

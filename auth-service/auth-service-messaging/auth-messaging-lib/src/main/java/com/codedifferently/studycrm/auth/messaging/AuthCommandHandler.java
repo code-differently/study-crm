@@ -1,6 +1,7 @@
 package com.codedifferently.studycrm.auth.messaging;
 
 import com.codedifferently.studycrm.auth.api.messaging.commands.CreateAuthUserCommand;
+import com.codedifferently.studycrm.auth.api.messaging.replies.AuthUserAlreadyExists;
 import com.codedifferently.studycrm.auth.api.messaging.replies.AuthUserCreated;
 import com.codedifferently.studycrm.auth.api.messaging.replies.AuthUserNotCreated;
 import com.codedifferently.studycrm.auth.domain.AuthService;
@@ -11,7 +12,12 @@ import io.eventuate.tram.commands.consumer.CommandHandlers;
 import io.eventuate.tram.commands.consumer.CommandMessage;
 import io.eventuate.tram.messaging.common.Message;
 import io.eventuate.tram.sagas.participant.SagaCommandHandlersBuilder;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder.withFailure;
 import static io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder.withSuccess;
@@ -19,15 +25,16 @@ import static io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder.wit
 import java.util.stream.Collectors;
 import java.util.List;
 
+@Service
 public class AuthCommandHandler {
 
-    private PasswordEncoder passwordEncoder;
-    private AuthService authService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthCommandHandler.class);
 
-    public AuthCommandHandler(AuthService authService, PasswordEncoder passwordEncoder) {
-        this.authService = authService;
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthService authService;
 
     public CommandHandlers commandHandlerDefinitions() {
         return SagaCommandHandlersBuilder
@@ -38,8 +45,17 @@ public class AuthCommandHandler {
 
     public Message createUser(CommandMessage<CreateAuthUserCommand> cm) {
         try {
+            String username = cm.getCommand().getUsername();
+            User user = authService.findUserByUsername(username);
             CreateAuthUserCommand cmd = cm.getCommand();
-            User user = User.builder()
+
+            if (user != null) {
+                LOGGER.error("User {} already exists. No user created.", username);
+                authService.addUserAuthorities(user, cmd.getGrantedAuthorities());
+                return withSuccess(new AuthUserAlreadyExists());
+            }
+
+            var newUser = User.builder()
                     .uuid(cmd.getUserId())
                     .username(cmd.getUsername())
                     .email(cmd.getEmail())
@@ -50,11 +66,11 @@ public class AuthCommandHandler {
             List<UserAuthority> authorities = cmd.getGrantedAuthorities().stream()
                     .map(authority -> UserAuthority.builder()
                             .authority(authority)
-                            .user(user)
+                            .user(newUser)
                             .build())
                     .collect(Collectors.toList());
-            user.setAuthorities(authorities);
-            authService.saveUser(user);
+            newUser.setAuthorities(authorities);
+            authService.saveUser(newUser);
             return withSuccess(new AuthUserCreated());
         } catch (Exception e) {
             System.out.println(e);

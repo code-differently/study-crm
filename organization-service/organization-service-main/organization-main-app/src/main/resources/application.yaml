@@ -29,6 +29,7 @@ spring:
    
 logging:
     level:
+        com.codedifferently.studycrm: TRACE 
         org.springframework.orm.jpa: INFO
         org.hibernate.SQL: DEBUG
         io.eventuate: DEBUG

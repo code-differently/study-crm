@@ -5,8 +5,10 @@ import com.codedifferently.studycrm.organizations.api.web.UserDetails;
 import com.codedifferently.studycrm.organizations.domain.Organization;
 import com.codedifferently.studycrm.organizations.domain.OrganizationRepository;
 import io.eventuate.tram.sagas.orchestration.SagaInstanceFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class OrganizationSagaService {
 
     private final OrganizationRepository organizationRepository;

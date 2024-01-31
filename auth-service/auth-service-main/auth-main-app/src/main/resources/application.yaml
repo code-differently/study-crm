@@ -3,6 +3,7 @@ server:
 
 logging:
   level:
+    com.codedifferently.studycrm: TRACE 
     org.springframework.security: TRACE
 
 spring:
