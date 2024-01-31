@@ -29,10 +29,12 @@ public class User extends EntityBase {
     private String password;
 
     @Column(nullable = false)
-    private String firstName;
+    @Builder.Default
+    private String firstName = "";
 
     @Column(nullable = false)
-    private String lastName;
+    @Builder.Default
+    private String lastName = "";
 
     @Column(nullable = false, unique = true)
     private String email;
