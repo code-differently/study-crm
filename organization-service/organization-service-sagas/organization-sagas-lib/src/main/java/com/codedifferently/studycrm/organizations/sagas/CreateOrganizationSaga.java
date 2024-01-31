@@ -4,6 +4,7 @@ import com.codedifferently.studycrm.auth.api.messaging.replies.AuthUserCreated;
 import com.codedifferently.studycrm.auth.api.messaging.replies.AuthUserNotCreated;
 import com.codedifferently.studycrm.organizations.api.messaging.sagas.createOrganization.CreateOrganizationSagaData;
 import com.codedifferently.studycrm.organizations.api.web.UserDetails;
+import com.codedifferently.studycrm.organizations.domain.OrgRolePermission;
 import com.codedifferently.studycrm.organizations.domain.Organization;
 import com.codedifferently.studycrm.organizations.domain.OrganizationService;
 import com.codedifferently.studycrm.organizations.domain.User;
@@ -65,7 +66,7 @@ public class CreateOrganizationSaga implements SimpleSaga<CreateOrganizationSaga
         }
 
         // Grant user administrative access to organization
-        organizationService.grantUserOrganizationAccess(user, organization, BasePermission.ADMINISTRATION);
+        organizationService.grantUserOrganizationAccess(user, organization, OrgRolePermission.ADMIN);
 
         // If auth user saved, activate the organization.
         data.setOrganizationId(organization.getUuid());

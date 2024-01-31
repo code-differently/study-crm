@@ -1,5 +1,7 @@
 package com.codedifferently.studycrm.organizations.web;
 
+import com.codedifferently.studycrm.organizations.domain.BitMaskPermissionGrantingStrategy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -56,7 +58,7 @@ public class AclSecurityConfiguration {
     public AclCache aclCache() {
         return new SpringCacheBasedAclCache(
                 cacheManager.getCache("aclCache"),
-                permissionGrantingStrategy(),
+                new BitMaskPermissionGrantingStrategy(new ConsoleAuditLogger()),
                 aclAuthorizationStrategy());
     }
 
@@ -70,4 +72,5 @@ public class AclSecurityConfiguration {
         lookupStrategy.setAclClassIdSupported(true);
         return lookupStrategy;
     }
+
 }

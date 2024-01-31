@@ -1,5 +1,6 @@
 package com.codedifferently.studycrm.organizations.domain;
 
+import org.springframework.security.acls.domain.GrantedAuthoritySid;
 import org.springframework.security.acls.domain.ObjectIdentityImpl;
 import org.springframework.security.acls.domain.PrincipalSid;
 import org.springframework.security.acls.model.MutableAcl;
@@ -49,15 +50,21 @@ public class OrganizationService {
     }
 
     @Transactional
-    public void grantUserOrganizationAccess(User user, Organization organization, Permission permission) {
+    public void grantUserOrganizationAccess(User user, Organization organization, OrgRolePermission permission) {
         Objects.requireNonNull(user);
         Objects.requireNonNull(organization);
 
         // Save the acls for the user and organization
-        addPermission(organization, new PrincipalSid(user.getUuid()), permission);
+        createRoleAcl(organization, permission);
     }
 
-    public void addPermission(Organization organization, Sid recipient, Permission permission) {
+    private void createRoleAcl(Organization organization, OrgRolePermission role) {
+        var orgRolePricipal = new GrantedAuthoritySid(
+                String.format("ROLE_org:%s:%s", organization.getUuid(), role.name().toLowerCase()));
+        addPermission(organization, orgRolePricipal, role.getPermission());
+    }
+
+    private void addPermission(Organization organization, Sid recipient, Permission permission) {
         MutableAcl acl;
         ObjectIdentity oid = new ObjectIdentityImpl(Organization.class, organization.getUuid());
 
