@@ -1,4 +1,4 @@
-package com.codedifferently.studycrm.organizations.domain;
+package com.codedifferently.studycrm.common.domain;
 
 import org.springframework.security.acls.domain.AuditLogger;
 import org.springframework.security.acls.domain.DefaultPermissionGrantingStrategy;

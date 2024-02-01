@@ -1,6 +1,4 @@
-package com.codedifferently.studycrm.organizations.web;
-
-import com.codedifferently.studycrm.organizations.domain.Organization;
+package com.codedifferently.studycrm.organizations.domain;
 
 import org.springframework.stereotype.Component;
 

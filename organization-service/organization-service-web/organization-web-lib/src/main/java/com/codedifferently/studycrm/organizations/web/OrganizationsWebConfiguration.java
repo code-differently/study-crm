@@ -1,5 +1,6 @@
 package com.codedifferently.studycrm.organizations.web;
 
+import com.codedifferently.studycrm.common.domain.AclSecurityConfiguration;
 import com.codedifferently.studycrm.common.web.exceptions.GlobalExceptionHandler;
 
 import org.springframework.context.annotation.ComponentScan;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @Configuration
 @ComponentScan
-@Import(GlobalExceptionHandler.class)
+@Import({ GlobalExceptionHandler.class, AclSecurityConfiguration.class })
 public class OrganizationsWebConfiguration implements WebMvcConfigurer {
 
     @Override
