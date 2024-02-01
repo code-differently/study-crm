@@ -1,7 +1,15 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        google()
+    }
+    includeBuild("build-logic")
+}
+
 rootProject.name = "study-crm"
 
 includeBuild("platforms")
-includeBuild("build-logic")
 
 includeBuild("auth-service/auth-service-api-messaging")
 includeBuild("auth-service/auth-service-api-web")

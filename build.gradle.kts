@@ -2,7 +2,7 @@ import com.avast.gradle.dockercompose.ComposeExtension
 
 plugins {
     `kotlin-dsl`
-    jacoco
+    id("com.codedifferently.studycrm.java-shared")
     id("jacoco-report-aggregation")
     id("com.avast.gradle.docker-compose") version "0.17.6"
 }
@@ -85,6 +85,60 @@ tasks.test {
     dependsOn(gradle.includedBuild("organization-service-web").task(":organization-web-lib:test"))
 
     finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.spotlessCheck {
+    dependsOn(gradle.includedBuild("common-domain").task(":common-domain-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("common-web").task(":common-web-lib:spotlessCheck"))
+
+    dependsOn(gradle.includedBuild("auth-service-api-messaging").task(":auth-api-messaging-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("auth-service-api-web").task(":auth-api-web-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("auth-service-domain").task(":auth-domain-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("auth-service-main").task(":auth-main-app:spotlessCheck"))
+    dependsOn(gradle.includedBuild("auth-service-messaging").task(":auth-messaging-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("auth-service-persistence").task(":auth-persistence-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("auth-service-web").task(":auth-web-lib:spotlessCheck"))
+
+    dependsOn(gradle.includedBuild("contact-service-api-web").task(":contact-api-web-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("contact-service-domain").task(":contact-domain-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("contact-service-main").task(":contact-main-app:spotlessCheck"))
+    dependsOn(gradle.includedBuild("contact-service-persistence").task(":contact-persistence-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("contact-service-web").task(":contact-web-lib:spotlessCheck"))
+
+    dependsOn(gradle.includedBuild("organization-service-api-messaging").task(":organization-api-messaging-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("organization-service-api-web").task(":organization-api-web-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("organization-service-domain").task(":organization-domain-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("organization-service-main").task(":organization-main-app:spotlessCheck"))
+    dependsOn(gradle.includedBuild("organization-service-persistence").task(":organization-persistence-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("organization-service-sagas").task(":organization-sagas-lib:spotlessCheck"))
+    dependsOn(gradle.includedBuild("organization-service-web").task(":organization-web-lib:spotlessCheck"))
+}
+
+tasks.spotlessApply {
+    dependsOn(gradle.includedBuild("common-domain").task(":common-domain-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("common-web").task(":common-web-lib:spotlessApply"))
+
+    dependsOn(gradle.includedBuild("auth-service-api-messaging").task(":auth-api-messaging-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("auth-service-api-web").task(":auth-api-web-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("auth-service-domain").task(":auth-domain-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("auth-service-main").task(":auth-main-app:spotlessApply"))
+    dependsOn(gradle.includedBuild("auth-service-messaging").task(":auth-messaging-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("auth-service-persistence").task(":auth-persistence-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("auth-service-web").task(":auth-web-lib:spotlessApply"))
+
+    dependsOn(gradle.includedBuild("contact-service-api-web").task(":contact-api-web-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("contact-service-domain").task(":contact-domain-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("contact-service-main").task(":contact-main-app:spotlessApply"))
+    dependsOn(gradle.includedBuild("contact-service-persistence").task(":contact-persistence-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("contact-service-web").task(":contact-web-lib:spotlessApply"))
+
+    dependsOn(gradle.includedBuild("organization-service-api-messaging").task(":organization-api-messaging-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("organization-service-api-web").task(":organization-api-web-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("organization-service-domain").task(":organization-domain-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("organization-service-main").task(":organization-main-app:spotlessApply"))
+    dependsOn(gradle.includedBuild("organization-service-persistence").task(":organization-persistence-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("organization-service-sagas").task(":organization-sagas-lib:spotlessApply"))
+    dependsOn(gradle.includedBuild("organization-service-web").task(":organization-web-lib:spotlessApply"))
 }
 
 tasks.check {
