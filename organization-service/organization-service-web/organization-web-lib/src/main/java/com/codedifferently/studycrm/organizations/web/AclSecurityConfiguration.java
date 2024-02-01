@@ -50,15 +50,14 @@ public class AclSecurityConfiguration {
 
     @Bean
     public PermissionGrantingStrategy permissionGrantingStrategy() {
-        return new DefaultPermissionGrantingStrategy(
-                new ConsoleAuditLogger());
+        return new BitMaskPermissionGrantingStrategy(new ConsoleAuditLogger());
     }
 
     @Bean
     public AclCache aclCache() {
         return new SpringCacheBasedAclCache(
                 cacheManager.getCache("aclCache"),
-                new BitMaskPermissionGrantingStrategy(new ConsoleAuditLogger()),
+                permissionGrantingStrategy(),
                 aclAuthorizationStrategy());
     }
 

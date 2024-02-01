@@ -1,8 +1,13 @@
 package com.codedifferently.studycrm.organizations.domain;
 
+import java.util.Optional;
+
+import org.springframework.data.repository.query.Param;
+import org.springframework.lang.NonNull;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.acls.domain.GrantedAuthoritySid;
 import org.springframework.security.acls.domain.ObjectIdentityImpl;
-import org.springframework.security.acls.domain.PrincipalSid;
 import org.springframework.security.acls.model.MutableAcl;
 import org.springframework.security.acls.model.MutableAclService;
 import org.springframework.security.acls.model.NotFoundException;
@@ -11,8 +16,6 @@ import org.springframework.security.acls.model.Permission;
 import org.springframework.security.acls.model.Sid;
 
 import jakarta.transaction.Transactional;
-import java.util.Objects;
-import java.util.Optional;
 
 public class OrganizationService {
 
@@ -32,28 +35,34 @@ public class OrganizationService {
         return userRepository.findByUsername(username);
     }
 
-    public User saveUser(User user) {
-        Objects.requireNonNull(user);
+    @PreAuthorize("hasPermission(#id, @orgVars.ORGANIZATION_TYPE, read)")
+    public Optional<Organization> findOrganizationById(@NonNull @Param("id") String id) {
+        return organizationRepository.findById(id);
+    }
+
+    @PostFilter("hasPermission(filterObject, read)")
+    public Iterable<Organization> findAllOrganizations() {
+        return organizationRepository.findAll();
+    }
+
+    public User saveUser(@NonNull User user) {
         return userRepository.save(user);
     }
 
-    public void activateOrganization(String id) {
-        Objects.requireNonNull(id);
+    public void activateOrganization(@NonNull String id) {
         Organization organization = organizationRepository.findById(id).orElse(null);
         organization.setActive(true);
         organizationRepository.save(organization);
     }
 
-    public Organization saveOrganization(Organization newOrg) {
-        Objects.requireNonNull(newOrg);
+    public Organization saveOrganization(@NonNull Organization newOrg) {
         return organizationRepository.save(newOrg);
     }
 
     @Transactional
-    public void grantUserOrganizationAccess(User user, Organization organization, OrgRolePermission permission) {
-        Objects.requireNonNull(user);
-        Objects.requireNonNull(organization);
-
+    public void grantUserOrganizationAccess(
+            @NonNull User user, @NonNull Organization organization,
+            OrgRolePermission permission) {
         // Save the acls for the user and organization
         createRoleAcl(organization, permission);
     }

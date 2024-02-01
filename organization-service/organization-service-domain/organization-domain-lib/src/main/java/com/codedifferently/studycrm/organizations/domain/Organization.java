@@ -26,4 +26,8 @@ public class Organization extends EntityBase {
     private String name;
 
     private boolean isActive;
+
+    public String getId() {
+        return uuid;
+    }
 }
