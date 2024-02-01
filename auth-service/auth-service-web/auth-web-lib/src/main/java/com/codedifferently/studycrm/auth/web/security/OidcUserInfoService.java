@@ -3,10 +3,6 @@ package com.codedifferently.studycrm.auth.web.security;
 import com.codedifferently.studycrm.auth.domain.User;
 import com.codedifferently.studycrm.auth.domain.UserRepository;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,6 @@
 package com.codedifferently.studycrm.auth.web.config;
 
 import com.codedifferently.studycrm.auth.domain.User;
-import com.codedifferently.studycrm.auth.domain.UserAuthority;
 import com.codedifferently.studycrm.auth.domain.UserRepository;
 import com.codedifferently.studycrm.auth.web.security.FederatedIdentityConfigurer;
 import com.codedifferently.studycrm.auth.web.security.RepositoryUserDetailsService;
@@ -9,7 +8,6 @@ import com.codedifferently.studycrm.auth.web.security.UserRepositoryOAuth2UserHa
 import com.codedifferently.studycrm.auth.web.security.UserRepositoryOidcUserHandler;
 
 import java.util.HashMap;
-import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,7 +20,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

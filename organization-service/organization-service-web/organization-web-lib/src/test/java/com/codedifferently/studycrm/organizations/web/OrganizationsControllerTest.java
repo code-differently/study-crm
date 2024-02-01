@@ -5,9 +5,6 @@ package com.codedifferently.studycrm.organizations.web;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import com.codedifferently.studycrm.organizations.web.OrganizationsController;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

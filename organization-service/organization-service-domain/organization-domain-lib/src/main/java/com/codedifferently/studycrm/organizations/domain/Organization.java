@@ -2,10 +2,8 @@ package com.codedifferently.studycrm.organizations.domain;
 
 import com.codedifferently.studycrm.common.domain.EntityBase;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import lombok.*;
-
+import lombok.experimental.SuperBuilder;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,7 +11,7 @@ import jakarta.persistence.*;
 @Access(AccessType.FIELD)
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Organization extends EntityBase {

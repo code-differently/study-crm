@@ -1,6 +1,5 @@
 package com.codedifferently.studycrm.organizations.sagas;
 
-import com.codedifferently.studycrm.auth.api.messaging.replies.AuthUserCreated;
 import com.codedifferently.studycrm.auth.api.messaging.replies.AuthUserNotCreated;
 import com.codedifferently.studycrm.organizations.api.messaging.sagas.createOrganization.CreateOrganizationSagaData;
 import com.codedifferently.studycrm.organizations.api.web.UserDetails;
@@ -9,15 +8,12 @@ import com.codedifferently.studycrm.organizations.domain.Organization;
 import com.codedifferently.studycrm.organizations.domain.OrganizationService;
 import com.codedifferently.studycrm.organizations.domain.User;
 
-import java.util.Objects;
-
 import io.eventuate.tram.commands.consumer.CommandWithDestination;
 import io.eventuate.tram.sagas.orchestration.SagaDefinition;
 import io.eventuate.tram.sagas.simpledsl.SimpleSaga;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.stereotype.Service;
 
 @Service
