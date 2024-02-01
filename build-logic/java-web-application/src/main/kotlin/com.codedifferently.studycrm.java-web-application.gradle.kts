@@ -4,6 +4,14 @@ plugins {
 }
 
 dependencies {
+    implementation("org.ehcache:ehcache:3.10.8") {
+        capabilities {
+            requireCapability("org.ehcache:ehcache-jakarta")
+        }
+    }
+
+    implementation("javax.cache:cache-api:1.1.1")
+
     implementation("io.eventuate.tram.core:eventuate-tram-spring-logging")
     implementation("io.eventuate.tram.springcloudsleuth:eventuate-tram-spring-cloud-sleuth-tram-starter")
 
@@ -11,5 +19,5 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
     implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")    
 }

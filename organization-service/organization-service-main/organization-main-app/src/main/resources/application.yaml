@@ -20,6 +20,9 @@ spring:
         locations: classpath:flyway/{vendor}
         baseline-on-migrate: true
         baseline-version: 0  
+    cache:
+        jcache:
+            config: classpath:ehcache.xml
     security:
         oauth2:
             resourceserver:
