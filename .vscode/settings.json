@@ -3,5 +3,7 @@
   "java.compile.nullAnalysis.mode": "automatic",
   "gradle.nestedProjects": true,
   "remote.localPortHost": "allInterfaces",
-  "java.debug.settings.onBuildFailureProceed": true
+  "java.debug.settings.onBuildFailureProceed": true,
+  "java.format.enabled": false,
+  "files.trimTrailingWhitespace": false
 }
