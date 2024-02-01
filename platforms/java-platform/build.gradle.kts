@@ -12,6 +12,7 @@ val springBootVersion: String by project
 val springCloudContractDependenciesVersion: String by project
 val eventuatePlatformVersion: String by project
 val springDocOpenApiUiVersion: String by project
+val hibernateValidatorVersion: String by project
 
 dependencies {
     api(platform("io.eventuate.platform:eventuate-platform-dependencies:$eventuatePlatformVersion"))
@@ -21,4 +22,6 @@ dependencies {
     api(platform("org.springframework.cloud:spring-cloud-contract-dependencies:$springCloudContractDependenciesVersion")) 
 
     api(platform("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocOpenApiUiVersion"))
+    
+    api(platform("org.hibernate.validator:hibernate-validator:$hibernateValidatorVersion"))
 }

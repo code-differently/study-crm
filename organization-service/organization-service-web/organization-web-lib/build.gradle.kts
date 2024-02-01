@@ -28,4 +28,5 @@ dependencies {
     implementation("org.springframework.security:spring-security-oauth2-resource-server")
 
 	runtimeOnly("org.springframework:spring-context-support")
+    implementation("org.hibernate.validator:hibernate-validator")
 }

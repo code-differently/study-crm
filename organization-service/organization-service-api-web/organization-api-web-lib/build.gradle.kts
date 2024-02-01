@@ -12,5 +12,6 @@ plugins {
 group = "com.codedifferently.studycrm.organization-service.api.web"
 
 dependencies {
+    implementation("org.hibernate.validator:hibernate-validator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 }
