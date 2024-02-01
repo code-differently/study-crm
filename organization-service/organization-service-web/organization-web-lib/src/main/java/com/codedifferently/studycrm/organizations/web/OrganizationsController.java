@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codedifferently.studycrm.organizations.api.web.CreateOrganizationRequest;
@@ -24,7 +25,10 @@ import com.codedifferently.studycrm.organizations.domain.Organization;
 import com.codedifferently.studycrm.organizations.domain.OrganizationService;
 import com.codedifferently.studycrm.organizations.sagas.OrganizationSagaService;
 
+import jakarta.validation.Valid;
+
 @RestController
+@RequestMapping(value = "/organizations")
 public class OrganizationsController {
 
 	@Autowired
@@ -33,9 +37,9 @@ public class OrganizationsController {
 	@Autowired
 	private OrganizationService organizationService;
 
-	@PostMapping(value = "/organizations")
+	@PostMapping
 	public CreateOrganizationResponse createOrganization(
-			@RequestBody CreateOrganizationRequest createOrganizationRequest) {
+			@Valid @RequestBody CreateOrganizationRequest createOrganizationRequest) {
 		var newOrg = Organization.builder()
 				.name(createOrganizationRequest.getOrganizationName())
 				.build();
@@ -44,7 +48,7 @@ public class OrganizationsController {
 		return new CreateOrganizationResponse(organization.getId());
 	}
 
-	@GetMapping(value = "/organizations")
+	@GetMapping
 	public ResponseEntity<GetOrganizationsResponse> getAll(final JwtAuthenticationToken auth) {
 		return ResponseEntity
 				.ok(new GetOrganizationsResponse(
@@ -55,7 +59,7 @@ public class OrganizationsController {
 								.collect(Collectors.toList())));
 	}
 
-	@GetMapping(value = "/organizations/{organizationId}")
+	@GetMapping(value = "/{organizationId}")
 	public ResponseEntity<GetOrganizationResponse> getOrganization(
 			@PathVariable("organizationId") @Param("organizationId") UUID organizationId) {
 		return organizationService
@@ -65,4 +69,5 @@ public class OrganizationsController {
 						HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
+
 }

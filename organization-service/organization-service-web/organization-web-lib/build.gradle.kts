@@ -13,6 +13,7 @@ group = "com.codedifferently.studycrm.organization-service.web"
 
 dependencies {
     implementation("com.codedifferently.studycrm.common.domain:common-domain-lib")
+    implementation("com.codedifferently.studycrm.common.web:common-web-lib")
     implementation("com.codedifferently.studycrm.organization-service.domain:organization-domain-lib")
     implementation("com.codedifferently.studycrm.organization-service.persistence:organization-persistence-lib")
     implementation("com.codedifferently.studycrm.organization-service.api.web:organization-api-web-lib")
@@ -22,6 +23,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.security:spring-security-acl")
 	implementation("org.springframework.security:spring-security-config")
     implementation("org.springframework.security:spring-security-oauth2-jose")

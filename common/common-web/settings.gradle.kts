@@ -17,12 +17,6 @@ dependencyResolutionManagement {
     }
 }
 includeBuild("../../platforms")
-includeBuild("../../common/common-domain")
-includeBuild("../../common/common-web")
-includeBuild("../organization-service-domain")
-includeBuild("../organization-service-persistence")
-includeBuild("../organization-service-api-web")
-includeBuild("../organization-service-sagas")
 
-rootProject.name = "organization-service-web"
-include("organization-web-lib")
+rootProject.name = "common-web"
+include("common-web-lib")

@@ -9,11 +9,11 @@ import lombok.*;
 public class UserDetails {
 
     @Getter
-    @NotBlank
+    @NotBlank(message = "Username is required")
     private String username;
 
     @Getter
-    @NotBlank
+    @NotBlank(message = "Email is required")
     private String email;
 
     @Getter
