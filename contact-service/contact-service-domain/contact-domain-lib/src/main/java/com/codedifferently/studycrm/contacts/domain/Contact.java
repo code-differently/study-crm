@@ -21,11 +21,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Contact extends EntityBase {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    protected String uuid;
-
     private String firstName;
 
     private String lastName;

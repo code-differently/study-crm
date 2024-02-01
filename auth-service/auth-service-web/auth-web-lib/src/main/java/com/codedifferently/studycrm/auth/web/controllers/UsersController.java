@@ -33,7 +33,7 @@ public class UsersController {
                 .build();
         User newUser = userRepository.save(user);
         var response = CreateUserResponse.builder()
-                .userId(newUser.getUuid())
+                .userId(newUser.getId())
                 .build();
         return response;
     }

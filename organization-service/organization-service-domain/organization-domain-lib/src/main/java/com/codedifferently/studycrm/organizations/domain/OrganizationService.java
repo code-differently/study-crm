@@ -69,13 +69,13 @@ public class OrganizationService {
 
     private void createRoleAcl(Organization organization, OrgRolePermission role) {
         var orgRolePricipal = new GrantedAuthoritySid(
-                String.format("ROLE_org:%s:%s", organization.getUuid(), role.name().toLowerCase()));
+                String.format("ROLE_org:%s:%s", organization.getId(), role.name().toLowerCase()));
         addPermission(organization, orgRolePricipal, role.getPermission());
     }
 
     private void addPermission(Organization organization, Sid recipient, Permission permission) {
         MutableAcl acl;
-        ObjectIdentity oid = new ObjectIdentityImpl(Organization.class, organization.getUuid());
+        ObjectIdentity oid = new ObjectIdentityImpl(Organization.class, organization.getId());
 
         try {
             acl = (MutableAcl) this.mutableAclService.readAclById(oid);

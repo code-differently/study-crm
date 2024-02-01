@@ -60,7 +60,7 @@ public class CreateOrganizationSaga implements SimpleSaga<CreateOrganizationSaga
                     .email(userDetails.getEmail())
                     .firstName(userDetails.getFirstName())
                     .lastName(userDetails.getLastName())
-                    .defaultOrganizationId(organization.getUuid())
+                    .defaultOrganizationId(organization.getId())
                     .build();
             user = organizationService.saveUser(user);
         }
@@ -69,8 +69,8 @@ public class CreateOrganizationSaga implements SimpleSaga<CreateOrganizationSaga
         organizationService.grantUserOrganizationAccess(user, organization, OrgRolePermission.ADMIN);
 
         // If auth user saved, activate the organization.
-        data.setOrganizationId(organization.getUuid());
-        data.setUserId(user.getUuid());
+        data.setOrganizationId(organization.getId());
+        data.setUserId(user.getId());
     }
 
     private CommandWithDestination createAuthUser(CreateOrganizationSagaData data) {

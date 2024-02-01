@@ -18,11 +18,6 @@ import lombok.*;
 @AllArgsConstructor
 public class UserAuthority extends EntityBase {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    protected String uuid;
-
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

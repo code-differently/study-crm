@@ -56,7 +56,7 @@ public class AuthCommandHandler {
             }
 
             var newUser = User.builder()
-                    .uuid(cmd.getUserId())
+                    .id(cmd.getUserId())
                     .username(cmd.getUsername())
                     .email(cmd.getEmail())
                     .password(passwordEncoder.encode(cmd.getPassword()))

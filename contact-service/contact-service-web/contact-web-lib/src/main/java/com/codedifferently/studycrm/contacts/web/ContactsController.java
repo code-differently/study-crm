@@ -34,14 +34,14 @@ public class ContactsController {
     public CreateContactResponse createContact(@RequestBody CreateContactRequest createContactRequest) {
         Contact contact = contactService.createContact(createContactRequest.getFirstName(),
                 createContactRequest.getLastName());
-        return new CreateContactResponse(contact.getUuid());
+        return new CreateContactResponse(contact.getId());
     }
 
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public ResponseEntity<GetContactsResponse> getAll() {
         return ResponseEntity
                 .ok(new GetContactsResponse(StreamSupport.stream(contactRepository.findAll().spliterator(), false)
-                        .map(c -> new GetContactResponse(c.getUuid(), c.getFirstName(), c.getLastName()))
+                        .map(c -> new GetContactResponse(c.getId(), c.getFirstName(), c.getLastName()))
                         .collect(Collectors.toList())));
     }
 
@@ -49,7 +49,7 @@ public class ContactsController {
     public ResponseEntity<GetContactResponse> getContact(@PathVariable("contactId") String contactId) {
         return contactRepository
                 .findById(contactId)
-                .map(c -> new ResponseEntity<>(new GetContactResponse(c.getUuid(), c.getFirstName(), c.getFirstName()),
+                .map(c -> new ResponseEntity<>(new GetContactResponse(c.getId(), c.getFirstName(), c.getFirstName()),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

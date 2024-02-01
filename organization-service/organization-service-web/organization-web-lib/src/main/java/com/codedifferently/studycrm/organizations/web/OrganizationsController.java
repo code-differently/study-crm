@@ -40,7 +40,7 @@ public class OrganizationsController {
 				.build();
 		UserDetails userDetails = createOrganizationRequest.getUserDetails();
 		Organization organization = organizationSagaService.createOrganization(newOrg, userDetails);
-		return new CreateOrganizationResponse(organization.getUuid());
+		return new CreateOrganizationResponse(organization.getId());
 	}
 
 	@GetMapping(value = "/organizations")
@@ -49,7 +49,7 @@ public class OrganizationsController {
 				.ok(new GetOrganizationsResponse(
 						StreamSupport.stream(organizationService.findAllOrganizations().spliterator(),
 								false)
-								.map(c -> new GetOrganizationResponse(c.getUuid(),
+								.map(c -> new GetOrganizationResponse(c.getId(),
 										c.getName()))
 								.collect(Collectors.toList())));
 	}
@@ -60,7 +60,7 @@ public class OrganizationsController {
 		return organizationService
 				.findOrganizationById(organizationId)
 				.map(c -> new ResponseEntity<>(
-						new GetOrganizationResponse(c.getUuid(), c.getName()),
+						new GetOrganizationResponse(c.getId(), c.getName()),
 						HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}

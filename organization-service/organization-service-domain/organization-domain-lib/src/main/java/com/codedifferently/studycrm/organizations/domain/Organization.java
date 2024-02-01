@@ -18,16 +18,8 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 public class Organization extends EntityBase {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    protected String uuid;
-
     private String name;
 
     private boolean isActive;
 
-    public String getId() {
-        return uuid;
-    }
 }

@@ -6,12 +6,19 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 @MappedSuperclass
 public abstract class EntityBase {
+
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    protected String id;
 
     @Version
     @Builder.Default

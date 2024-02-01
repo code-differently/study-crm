@@ -17,11 +17,6 @@ import lombok.*;
 @AllArgsConstructor
 public class User extends EntityBase {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    protected String uuid;
-
     @Column(nullable = false, unique = true)
     private String username;
 

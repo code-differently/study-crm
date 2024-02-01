@@ -22,7 +22,7 @@ public class AuthServiceProxy {
                 .password(user.getPassword())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
-                .grantedAuthorities(Arrays.asList(String.format("org:%s:admin", organization.getUuid())))
+                .grantedAuthorities(Arrays.asList(String.format("org:%s:admin", organization.getId())))
                 .build();
         return send(command).to("authService").build();
     }
