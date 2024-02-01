@@ -1,5 +1,6 @@
 package com.codedifferently.studycrm.contacts.api.web;
 
+import java.util.UUID;
 import lombok.*;
 
 @Data
@@ -8,6 +9,6 @@ import lombok.*;
 @Builder
 public class CreateContactResponse {
 
-    private String contactId;
+    private UUID contactId;
 
 }

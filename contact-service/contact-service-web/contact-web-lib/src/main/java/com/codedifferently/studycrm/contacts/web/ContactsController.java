@@ -10,6 +10,8 @@ import com.codedifferently.studycrm.contacts.domain.ContactRepository;
 
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import java.util.UUID;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,7 +47,7 @@ public class ContactsController {
     }
 
     @RequestMapping(value = "/contacts/{contactId}", method = RequestMethod.GET)
-    public ResponseEntity<GetContactResponse> getContact(@PathVariable("contactId") String contactId) {
+    public ResponseEntity<GetContactResponse> getContact(@PathVariable("contactId") UUID contactId) {
         return contactRepository
                 .findById(contactId)
                 .map(c -> new ResponseEntity<>(new GetContactResponse(c.getId(), c.getFirstName(), c.getFirstName()),

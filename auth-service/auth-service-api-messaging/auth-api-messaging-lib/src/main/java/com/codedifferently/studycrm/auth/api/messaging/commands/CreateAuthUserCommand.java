@@ -1,6 +1,7 @@
 package com.codedifferently.studycrm.auth.api.messaging.commands;
 
 import java.util.List;
+import java.util.UUID;
 import io.eventuate.tram.commands.common.Command;
 import lombok.*;
 
@@ -10,7 +11,7 @@ import lombok.*;
 @Builder
 public class CreateAuthUserCommand implements Command {
 
-    private String userId;
+    private UUID userId;
 
     private String username;
 

@@ -1,5 +1,7 @@
 package com.codedifferently.studycrm.organizations.api.web;
 
+import java.util.UUID;
+
 import lombok.*;
 
 @Data
@@ -8,7 +10,7 @@ import lombok.*;
 @Builder
 public class GetOrganizationResponse {
 
-    private String organizationId;
+    private UUID organizationId;
 
     private String name;
 

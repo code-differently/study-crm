@@ -1,5 +1,6 @@
 package com.codedifferently.studycrm.organizations.api.web;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Data
@@ -8,9 +9,11 @@ import lombok.*;
 public class UserDetails {
 
     @Getter
+    @NotBlank
     private String username;
 
     @Getter
+    @NotBlank
     private String email;
 
     @Getter

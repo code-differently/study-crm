@@ -1,5 +1,6 @@
 package com.codedifferently.studycrm.auth.api.web;
 
+import java.util.UUID;
 import lombok.*;
 
 @NoArgsConstructor
@@ -9,6 +10,6 @@ import lombok.*;
 public class CreateUserResponse {
 
     @Getter
-    private String userId;
+    private UUID userId;
 
 }

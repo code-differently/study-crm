@@ -2,6 +2,7 @@ package com.codedifferently.studycrm.organizations.web;
 
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -56,7 +57,7 @@ public class OrganizationsController {
 
 	@GetMapping(value = "/organizations/{organizationId}")
 	public ResponseEntity<GetOrganizationResponse> getOrganization(
-			@PathVariable("organizationId") @Param("organizationId") String organizationId) {
+			@PathVariable("organizationId") @Param("organizationId") UUID organizationId) {
 		return organizationService
 				.findOrganizationById(organizationId)
 				.map(c -> new ResponseEntity<>(

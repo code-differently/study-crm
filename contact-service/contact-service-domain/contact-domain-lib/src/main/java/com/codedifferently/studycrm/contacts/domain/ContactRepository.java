@@ -2,5 +2,7 @@ package com.codedifferently.studycrm.contacts.domain;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface ContactRepository extends CrudRepository<Contact, String> {
+import java.util.UUID;
+
+public interface ContactRepository extends CrudRepository<Contact, UUID> {
 }

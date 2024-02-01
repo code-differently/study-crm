@@ -5,8 +5,10 @@ import lombok.experimental.SuperBuilder;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.UUID;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
 
 @Data
 @AllArgsConstructor
@@ -16,9 +18,9 @@ import org.hibernate.annotations.GenericGenerator;
 public abstract class EntityBase {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    protected String id;
+    @GeneratedValue
+    @JdbcType(VarcharJdbcType.class)
+    protected UUID id;
 
     @Version
     @Builder.Default

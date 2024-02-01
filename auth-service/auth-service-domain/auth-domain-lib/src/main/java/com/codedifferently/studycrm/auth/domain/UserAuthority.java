@@ -4,13 +4,14 @@ import com.codedifferently.studycrm.common.domain.EntityBase;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "UserAuthority")
 @Access(AccessType.FIELD)
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserAuthority extends EntityBase {

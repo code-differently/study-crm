@@ -1,5 +1,6 @@
 package com.codedifferently.studycrm.organizations.api.web;
 
+import java.util.UUID;
 import lombok.*;
 
 @Data
@@ -8,6 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 public class CreateOrganizationResponse {
 
-    private String organizationId;
+    private UUID organizationId;
 
 }

@@ -3,6 +3,7 @@ package com.codedifferently.studycrm.organizations.domain;
 import com.codedifferently.studycrm.common.domain.EntityBase;
 
 import jakarta.persistence.*;
+import java.util.UUID;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -28,6 +29,6 @@ public class User extends EntityBase {
     @Column(nullable = false, unique = true)
     private String email;
 
-    private String defaultOrganizationId;
+    private UUID defaultOrganizationId;
 
 }

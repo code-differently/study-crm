@@ -1,6 +1,7 @@
 package com.codedifferently.studycrm.organizations.domain;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.repository.query.Param;
 import org.springframework.lang.NonNull;
@@ -36,7 +37,7 @@ public class OrganizationService {
     }
 
     @PreAuthorize("hasPermission(#id, @orgVars.ORGANIZATION_TYPE, read)")
-    public Optional<Organization> findOrganizationById(@NonNull @Param("id") String id) {
+    public Optional<Organization> findOrganizationById(@NonNull @Param("id") UUID id) {
         return organizationRepository.findById(id);
     }
 
@@ -49,7 +50,7 @@ public class OrganizationService {
         return userRepository.save(user);
     }
 
-    public void activateOrganization(@NonNull String id) {
+    public void activateOrganization(@NonNull UUID id) {
         Organization organization = organizationRepository.findById(id).orElse(null);
         organization.setActive(true);
         organizationRepository.save(organization);
