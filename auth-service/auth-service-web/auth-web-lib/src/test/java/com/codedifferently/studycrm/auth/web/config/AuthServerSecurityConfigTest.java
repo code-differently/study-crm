@@ -3,14 +3,13 @@
  */
 package com.codedifferently.studycrm.auth.web.config;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 class AuthServerSecurityConfigTest {
-    @Test
-    void someLibraryMethodReturnsTrue() {
-        assertNotNull(new AuthServerSecurityConfig(),
-                "someLibraryMethod should return 'true'");
-    }
+  @Test
+  void someLibraryMethodReturnsTrue() {
+    assertNotNull(new AuthServerSecurityConfig(), "someLibraryMethod should return 'true'");
+  }
 }

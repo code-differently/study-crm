@@ -3,12 +3,13 @@
  */
 package com.codedifferently.studycrm.organizations.api.messaging.sagas.createOrganization;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 class CreateOrganizationSagaDataTest {
-    @Test
-    void someLibraryMethodReturnsTrue() {
-        assertNotNull(new CreateOrganizationSagaData(), "someLibraryMethod should return 'true'");
-    }
+  @Test
+  void someLibraryMethodReturnsTrue() {
+    assertNotNull(new CreateOrganizationSagaData(), "someLibraryMethod should return 'true'");
+  }
 }

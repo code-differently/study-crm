@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = { OrganizationRepository.class, UserRepository.class })
-@EntityScan(basePackageClasses = { Organization.class })
-public class OrganizationPersistenceConfiguration {
-
-}
+@EnableJpaRepositories(basePackageClasses = {OrganizationRepository.class, UserRepository.class})
+@EntityScan(basePackageClasses = {Organization.class})
+public class OrganizationPersistenceConfiguration {}

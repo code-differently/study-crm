@@ -1,8 +1,6 @@
 package com.codedifferently.studycrm.organizations.domain;
 
+import java.util.UUID;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.UUID;
-
-public interface OrganizationRepository extends CrudRepository<Organization, UUID> {
-}
+public interface OrganizationRepository extends CrudRepository<Organization, UUID> {}

@@ -9,7 +9,5 @@ import lombok.*;
 @Builder
 public class CreateUserResponse {
 
-    @Getter
-    private UUID userId;
-
+  @Getter private UUID userId;
 }

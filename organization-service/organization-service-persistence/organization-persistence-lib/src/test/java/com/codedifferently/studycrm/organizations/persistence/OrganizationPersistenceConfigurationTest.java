@@ -3,12 +3,14 @@
  */
 package com.codedifferently.studycrm.organizations.persistence;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 class OrganizationPersistenceConfigurationTest {
-    @Test
-    void someLibraryMethodReturnsTrue() {
-        assertNotNull(new OrganizationPersistenceConfiguration(), "someLibraryMethod should return 'true'");
-    }
+  @Test
+  void someLibraryMethodReturnsTrue() {
+    assertNotNull(
+        new OrganizationPersistenceConfiguration(), "someLibraryMethod should return 'true'");
+  }
 }

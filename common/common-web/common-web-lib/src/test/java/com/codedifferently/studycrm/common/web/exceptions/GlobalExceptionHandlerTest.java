@@ -3,12 +3,13 @@
  */
 package com.codedifferently.studycrm.common.web.exceptions;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 class GlobalExceptionHandlerTest {
-    @Test
-    void someLibraryMethodReturnsTrue() {
-        assertNotNull(new GlobalExceptionHandler(), "someLibraryMethod should return 'true'");
-    }
+  @Test
+  void someLibraryMethodReturnsTrue() {
+    assertNotNull(new GlobalExceptionHandler(), "someLibraryMethod should return 'true'");
+  }
 }

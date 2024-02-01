@@ -3,12 +3,13 @@
  */
 package com.codedifferently.studycrm.organizations.sagas;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 class AuthServiceProxyTest {
-    @Test
-    void someLibraryMethodReturnsTrue() {
-        assertNotNull(new AuthServiceProxy(), "someLibraryMethod should return 'true'");
-    }
+  @Test
+  void someLibraryMethodReturnsTrue() {
+    assertNotNull(new AuthServiceProxy(), "someLibraryMethod should return 'true'");
+  }
 }

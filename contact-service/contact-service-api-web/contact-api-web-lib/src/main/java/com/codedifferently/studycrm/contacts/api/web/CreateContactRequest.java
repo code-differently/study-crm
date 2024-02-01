@@ -8,8 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 public class CreateContactRequest {
 
-    private String firstName;
+  private String firstName;
 
-    private String lastName;
-
+  private String lastName;
 }

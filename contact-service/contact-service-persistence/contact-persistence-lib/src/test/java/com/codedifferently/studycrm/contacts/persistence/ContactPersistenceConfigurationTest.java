@@ -3,12 +3,13 @@
  */
 package com.codedifferently.studycrm.contacts.persistence;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 class ContactPersistenceConfigurationTest {
-    @Test
-    void someLibraryMethodReturnsTrue() {
-        assertNotNull(new ContactPersistenceConfiguration(), "someLibraryMethod should return 'true'");
-    }
+  @Test
+  void someLibraryMethodReturnsTrue() {
+    assertNotNull(new ContactPersistenceConfiguration(), "someLibraryMethod should return 'true'");
+  }
 }

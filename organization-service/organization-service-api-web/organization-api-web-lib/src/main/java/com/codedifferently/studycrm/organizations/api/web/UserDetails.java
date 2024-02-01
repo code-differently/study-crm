@@ -9,21 +9,17 @@ import lombok.*;
 @Builder
 public class UserDetails {
 
-    @Getter
-    @NotBlank(message = "Username is required")
-    private String username;
+  @Getter
+  @NotBlank(message = "Username is required")
+  private String username;
 
-    @Getter
-    @NotBlank(message = "Email is required")
-    private String email;
+  @Getter
+  @NotBlank(message = "Email is required")
+  private String email;
 
-    @Getter
-    private String password;
+  @Getter private String password;
 
-    @Getter
-    private String firstName;
+  @Getter private String firstName;
 
-    @Getter
-    private String lastName;
-
+  @Getter private String lastName;
 }

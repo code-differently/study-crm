@@ -3,12 +3,13 @@
  */
 package com.codedifferently.studycrm.auth;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 class AppTest {
-    @Test
-    void appHasAGreeting() {
-        assertNotNull(new App(), "app should have a greeting");
-    }
+  @Test
+  void appHasAGreeting() {
+    assertNotNull(new App(), "app should have a greeting");
+  }
 }

@@ -1,7 +1,6 @@
 package com.codedifferently.studycrm.common.web.exceptions;
 
 import jakarta.validation.ConstraintViolationException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,33 +17,32 @@ import org.springframework.web.context.request.WebRequest;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex,
-            WebRequest request) {
-        Map<String, List<String>> body = new HashMap<>();
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(
+      MethodArgumentNotValidException ex, WebRequest request) {
+    Map<String, List<String>> body = new HashMap<>();
 
-        List<String> errors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .collect(Collectors.toList());
+    List<String> errors =
+        ex.getBindingResult().getFieldErrors().stream()
+            .map(DefaultMessageSourceResolvable::getDefaultMessage)
+            .collect(Collectors.toList());
 
-        body.put("errors", errors);
+    body.put("errors", errors);
 
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-    }
+    return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+  }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<?> handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
-        List<String> errors = new ArrayList<>();
+  @ExceptionHandler(ConstraintViolationException.class)
+  public ResponseEntity<?> handleConstraintViolationException(
+      ConstraintViolationException ex, WebRequest request) {
+    List<String> errors = new ArrayList<>();
 
-        ex.getConstraintViolations().forEach(cv -> errors.add(cv.getMessage()));
+    ex.getConstraintViolations().forEach(cv -> errors.add(cv.getMessage()));
 
-        Map<String, List<String>> result = new HashMap<>();
+    Map<String, List<String>> result = new HashMap<>();
 
-        result.put("errors", errors);
+    result.put("errors", errors);
 
-        return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-    }
+    return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+  }
 }

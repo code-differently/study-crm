@@ -9,6 +9,5 @@ import lombok.*;
 @Builder
 public class CreateContactResponse {
 
-    private UUID contactId;
-
+  private UUID contactId;
 }

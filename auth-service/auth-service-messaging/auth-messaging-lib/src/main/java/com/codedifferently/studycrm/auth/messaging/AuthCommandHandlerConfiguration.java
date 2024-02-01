@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AuthCommandHandlerConfiguration {
-    @Bean
-    public CommandDispatcher consumerCommandDispatcher(AuthCommandHandler target,
-            SagaCommandDispatcherFactory sagaCommandDispatcherFactory) {
-        return sagaCommandDispatcherFactory.make("authCommandDispatcher", target.commandHandlerDefinitions());
-    }
-
+  @Bean
+  public CommandDispatcher consumerCommandDispatcher(
+      AuthCommandHandler target, SagaCommandDispatcherFactory sagaCommandDispatcherFactory) {
+    return sagaCommandDispatcherFactory.make(
+        "authCommandDispatcher", target.commandHandlerDefinitions());
+  }
 }

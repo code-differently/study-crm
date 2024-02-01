@@ -7,8 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = { ContactRepository.class })
-@EntityScan(basePackageClasses = { Contact.class })
-public class ContactPersistenceConfiguration {
-
-}
+@EnableJpaRepositories(basePackageClasses = {ContactRepository.class})
+@EntityScan(basePackageClasses = {Contact.class})
+public class ContactPersistenceConfiguration {}

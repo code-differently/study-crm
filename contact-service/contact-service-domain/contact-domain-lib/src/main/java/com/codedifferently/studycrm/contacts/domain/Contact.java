@@ -1,10 +1,8 @@
 package com.codedifferently.studycrm.contacts.domain;
 
 import com.codedifferently.studycrm.common.domain.EntityBase;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -20,8 +18,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class Contact extends EntityBase {
 
-    private String firstName;
+  private String firstName;
 
-    private String lastName;
-
+  private String lastName;
 }

@@ -3,13 +3,13 @@
  */
 package com.codedifferently.studycrm.contacts.web;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.Test;
+
 class ContactsControllerTest {
-    @Test
-    void testGetContactsResponse() {
-        assertNotNull(new ContactsController(), "Response status should be OK");
-    }
+  @Test
+  void testGetContactsResponse() {
+    assertNotNull(new ContactsController(), "Response status should be OK");
+  }
 }

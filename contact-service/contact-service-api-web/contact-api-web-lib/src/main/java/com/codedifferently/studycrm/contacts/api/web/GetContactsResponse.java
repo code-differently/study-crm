@@ -9,6 +9,5 @@ import lombok.*;
 @Builder
 public class GetContactsResponse {
 
-    private List<GetContactResponse> contacts;
-
+  private List<GetContactResponse> contacts;
 }

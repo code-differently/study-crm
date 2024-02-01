@@ -3,19 +3,17 @@
  */
 package com.codedifferently.studycrm.auth.messaging;
 
-import com.codedifferently.studycrm.auth.domain.AuthService;
+import static org.junit.jupiter.api.Assertions.*;
 
+import com.codedifferently.studycrm.auth.domain.AuthService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class AuthCommandHandlerTest {
-    @MockBean
-    private AuthService customerService;
+  @MockBean private AuthService customerService;
 
-    @Test
-    void someLibraryMethodReturnsTrue() {
-        assertNotNull(new AuthCommandHandler(), "someLibraryMethod should return 'true'");
-    }
+  @Test
+  void someLibraryMethodReturnsTrue() {
+    assertNotNull(new AuthCommandHandler(), "someLibraryMethod should return 'true'");
+  }
 }

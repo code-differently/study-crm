@@ -6,9 +6,7 @@ import com.codedifferently.studycrm.auth.web.security.FederatedIdentityConfigure
 import com.codedifferently.studycrm.auth.web.security.RepositoryUserDetailsService;
 import com.codedifferently.studycrm.auth.web.security.UserRepositoryOAuth2UserHandler;
 import com.codedifferently.studycrm.auth.web.security.UserRepositoryOidcUserHandler;
-
 import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -34,81 +32,87 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @Configuration(proxyBeanMethods = false)
 public class DefaultSecurityConfig {
 
-	@Autowired
-	private UserRepositoryOAuth2UserHandler userRepositoryOAuth2UserHandler;
+  @Autowired private UserRepositoryOAuth2UserHandler userRepositoryOAuth2UserHandler;
 
-	@Autowired
-	private UserRepositoryOidcUserHandler userRepositoryOidcUserHandler;
+  @Autowired private UserRepositoryOidcUserHandler userRepositoryOidcUserHandler;
 
-	@Bean
-	public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-		FederatedIdentityConfigurer federatedIdentityConfigurer = new FederatedIdentityConfigurer();
-		federatedIdentityConfigurer.oauth2UserHandler(userRepositoryOAuth2UserHandler);
-		federatedIdentityConfigurer.oidcUserHandler(userRepositoryOidcUserHandler);
-		http
-				.authorizeHttpRequests(authorize -> authorize
-						.requestMatchers("/v3/api-docs").permitAll()
-						.requestMatchers("/actuator/**").permitAll()
-						.requestMatchers("/assets/**").permitAll()
-						.requestMatchers("/webjars/**").permitAll()
-						.requestMatchers("/login").permitAll()
-						.requestMatchers("/users").permitAll()
-						.anyRequest().authenticated())
-				.formLogin(Customizer.withDefaults())
-				.apply(federatedIdentityConfigurer);
-		return http.build();
-	}
+  @Bean
+  public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+    FederatedIdentityConfigurer federatedIdentityConfigurer = new FederatedIdentityConfigurer();
+    federatedIdentityConfigurer.oauth2UserHandler(userRepositoryOAuth2UserHandler);
+    federatedIdentityConfigurer.oidcUserHandler(userRepositoryOidcUserHandler);
+    http.authorizeHttpRequests(
+            authorize ->
+                authorize
+                    .requestMatchers("/v3/api-docs")
+                    .permitAll()
+                    .requestMatchers("/actuator/**")
+                    .permitAll()
+                    .requestMatchers("/assets/**")
+                    .permitAll()
+                    .requestMatchers("/webjars/**")
+                    .permitAll()
+                    .requestMatchers("/login")
+                    .permitAll()
+                    .requestMatchers("/users")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
+        .formLogin(Customizer.withDefaults())
+        .apply(federatedIdentityConfigurer);
+    return http.build();
+  }
 
-	@Bean
-	public AuthenticationProvider authenticationProvider(RepositoryUserDetailsService repositoryUserDetailsService) {
-		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-		provider.setUserDetailsService(repositoryUserDetailsService);
-		provider.setPasswordEncoder(passwordEncoder());
-		return provider;
+  @Bean
+  public AuthenticationProvider authenticationProvider(
+      RepositoryUserDetailsService repositoryUserDetailsService) {
+    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+    provider.setUserDetailsService(repositoryUserDetailsService);
+    provider.setPasswordEncoder(passwordEncoder());
+    return provider;
+  }
 
-	}
+  @Bean
+  public CommandLineRunner loadData(UserRepository repository) {
+    return args -> {
+      User user = repository.findByUsername("user");
 
-	@Bean
-	public CommandLineRunner loadData(UserRepository repository) {
-		return args -> {
-			User user = repository.findByUsername("user");
+      if (user != null) {
+        return;
+      }
 
-			if (user != null) {
-				return;
-			}
+      var newUser =
+          User.builder()
+              .username("user")
+              .password(passwordEncoder().encode("password"))
+              .email("root@localhost")
+              .firstName("Root")
+              .lastName("User")
+              .build();
 
-			var newUser = User.builder()
-					.username("user")
-					.password(passwordEncoder().encode("password"))
-					.email("root@localhost")
-					.firstName("Root")
-					.lastName("User")
-					.build();
+      repository.save(newUser);
+    };
+  }
 
-			repository.save(newUser);
-		};
-	}
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    var defaultEncoder = new BCryptPasswordEncoder();
+    var encoders = new HashMap<String, PasswordEncoder>();
+    encoders.put("bcrypt", defaultEncoder);
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		var defaultEncoder = new BCryptPasswordEncoder();
-		var encoders = new HashMap<String, PasswordEncoder>();
-		encoders.put("bcrypt", defaultEncoder);
+    DelegatingPasswordEncoder passworEncoder = new DelegatingPasswordEncoder("bcrypt", encoders);
+    passworEncoder.setDefaultPasswordEncoderForMatches(defaultEncoder);
 
-		DelegatingPasswordEncoder passworEncoder = new DelegatingPasswordEncoder("bcrypt", encoders);
-		passworEncoder.setDefaultPasswordEncoderForMatches(defaultEncoder);
+    return passworEncoder;
+  }
 
-		return passworEncoder;
-	}
+  @Bean
+  public SessionRegistry sessionRegistry() {
+    return new SessionRegistryImpl();
+  }
 
-	@Bean
-	public SessionRegistry sessionRegistry() {
-		return new SessionRegistryImpl();
-	}
-
-	@Bean
-	public HttpSessionEventPublisher httpSessionEventPublisher() {
-		return new HttpSessionEventPublisher();
-	}
-
+  @Bean
+  public HttpSessionEventPublisher httpSessionEventPublisher() {
+    return new HttpSessionEventPublisher();
+  }
 }

@@ -1,8 +1,7 @@
 package com.codedifferently.studycrm.organizations.api.messaging.sagas.createOrganization;
 
-import com.codedifferently.studycrm.organizations.domain.Organization;
 import com.codedifferently.studycrm.organizations.api.web.UserDetails;
-
+import com.codedifferently.studycrm.organizations.domain.Organization;
 import java.util.UUID;
 import lombok.*;
 
@@ -12,12 +11,11 @@ import lombok.*;
 @Builder
 public class CreateOrganizationSagaData {
 
-    private Organization organization;
+  private Organization organization;
 
-    private UserDetails userDetails;
+  private UserDetails userDetails;
 
-    private UUID userId;
+  private UUID userId;
 
-    private UUID organizationId;
-
+  private UUID organizationId;
 }

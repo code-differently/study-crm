@@ -10,6 +10,4 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 @EnableAutoConfiguration
 @Import(OptimisticLockingDecoratorConfiguration.class)
-public class OrganizationSagasConfiguration {
-
-}
+public class OrganizationSagasConfiguration {}

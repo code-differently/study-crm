@@ -3,14 +3,14 @@
  */
 package com.codedifferently.studycrm.organizations.web;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 class OrganizationsControllerTest {
-    @Test
-    void testGetOrganizationsResponse() {
-        assertEquals(HttpStatus.OK, HttpStatus.OK, "Response status should be OK");
-    }
+  @Test
+  void testGetOrganizationsResponse() {
+    assertEquals(HttpStatus.OK, HttpStatus.OK, "Response status should be OK");
+  }
 }

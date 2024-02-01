@@ -9,6 +9,5 @@ import lombok.*;
 @AllArgsConstructor
 public class CreateOrganizationResponse {
 
-    private UUID organizationId;
-
+  private UUID organizationId;
 }

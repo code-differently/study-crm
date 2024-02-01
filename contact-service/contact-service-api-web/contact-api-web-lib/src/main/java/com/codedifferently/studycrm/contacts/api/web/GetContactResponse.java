@@ -9,10 +9,9 @@ import lombok.*;
 @Builder
 public class GetContactResponse {
 
-    private UUID contactId;
+  private UUID contactId;
 
-    private String firstName;
+  private String firstName;
 
-    private String lastName;
-
+  private String lastName;
 }

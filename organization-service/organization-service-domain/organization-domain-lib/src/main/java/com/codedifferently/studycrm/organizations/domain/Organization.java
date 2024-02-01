@@ -1,10 +1,9 @@
 package com.codedifferently.studycrm.organizations.domain;
 
 import com.codedifferently.studycrm.common.domain.EntityBase;
-
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Organization")
@@ -16,8 +15,7 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 public class Organization extends EntityBase {
 
-    private String name;
+  private String name;
 
-    private boolean isActive;
-
+  private boolean isActive;
 }

@@ -1,7 +1,7 @@
 package com.codedifferently.studycrm.organizations.api.web;
 
-import lombok.*;
 import java.util.List;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
@@ -9,6 +9,5 @@ import java.util.List;
 @Builder
 public class GetOrganizationsResponse {
 
-    private List<GetOrganizationResponse> organizations;
-
+  private List<GetOrganizationResponse> organizations;
 }
