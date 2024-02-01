@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "User")
 @Access(AccessType.FIELD)
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor

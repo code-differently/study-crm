@@ -3,6 +3,8 @@ plugins {
     id("com.codedifferently.studycrm.java-web-application")
 }
 
+group = "com.codedifferently.studycrm.organization-service.main"
+
 dependencies {
     implementation("com.codedifferently.studycrm.organization-service.web:organization-web-lib")
 }

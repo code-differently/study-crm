@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("jacoco")
     id("eclipse")
     id("io.freefair.lombok")
 }
@@ -25,4 +26,5 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
 }

@@ -2,6 +2,8 @@ import com.avast.gradle.dockercompose.ComposeExtension
 
 plugins {
     `kotlin-dsl`
+    jacoco
+    id("jacoco-report-aggregation")
     id("com.avast.gradle.docker-compose") version "0.17.6"
 }
 
@@ -43,4 +45,48 @@ tasks.register("buildAndRunServices") {
     dependsOn(gradle.includedBuild("contact-service-main").task(":contact-main-app:build"));
     dependsOn(gradle.includedBuild("organization-service-main").task(":organization-main-app:build"));
     dependsOn("studycrmComposeUp")
+}
+
+dependencies {
+    implementation("com.codedifferently.studycrm.auth-service.main:auth-main-app")
+    implementation("com.codedifferently.studycrm.contact-service.main:contact-main-app")
+    implementation("com.codedifferently.studycrm.organization-service.main:organization-main-app")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+tasks.test {
+    useJUnitPlatform()
+
+    dependsOn(gradle.includedBuild("common-domain").task(":common-domain-lib:test"))
+    dependsOn(gradle.includedBuild("common-web").task(":common-web-lib:test"))
+
+    dependsOn(gradle.includedBuild("auth-service-api-messaging").task(":auth-api-messaging-lib:test"))
+    dependsOn(gradle.includedBuild("auth-service-api-web").task(":auth-api-web-lib:test"))
+    dependsOn(gradle.includedBuild("auth-service-domain").task(":auth-domain-lib:test"))
+    dependsOn(gradle.includedBuild("auth-service-main").task(":auth-main-app:test"))
+    dependsOn(gradle.includedBuild("auth-service-messaging").task(":auth-messaging-lib:test"))
+    dependsOn(gradle.includedBuild("auth-service-persistence").task(":auth-persistence-lib:test"))
+    dependsOn(gradle.includedBuild("auth-service-web").task(":auth-web-lib:test"))
+
+    dependsOn(gradle.includedBuild("contact-service-api-web").task(":contact-api-web-lib:test"))
+    dependsOn(gradle.includedBuild("contact-service-domain").task(":contact-domain-lib:test"))
+    dependsOn(gradle.includedBuild("contact-service-main").task(":contact-main-app:test"))
+    dependsOn(gradle.includedBuild("contact-service-persistence").task(":contact-persistence-lib:test"))
+    dependsOn(gradle.includedBuild("contact-service-web").task(":contact-web-lib:test"))
+
+    dependsOn(gradle.includedBuild("organization-service-api-messaging").task(":organization-api-messaging-lib:test"))
+    dependsOn(gradle.includedBuild("organization-service-api-web").task(":organization-api-web-lib:test"))
+    dependsOn(gradle.includedBuild("organization-service-domain").task(":organization-domain-lib:test"))
+    dependsOn(gradle.includedBuild("organization-service-main").task(":organization-main-app:test"))
+    dependsOn(gradle.includedBuild("organization-service-persistence").task(":organization-persistence-lib:test"))
+    dependsOn(gradle.includedBuild("organization-service-sagas").task(":organization-sagas-lib:test"))
+    dependsOn(gradle.includedBuild("organization-service-web").task(":organization-web-lib:test"))
+
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.check {
+    dependsOn(tasks.named<JacocoReport>("testCodeCoverageReport")) 
 }

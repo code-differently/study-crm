@@ -6,9 +6,9 @@ package com.codedifferently.studycrm.contacts.persistence;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class LibraryTest {
-    @Test void someLibraryMethodReturnsTrue() {
-        Library classUnderTest = new Library();
-        assertTrue(classUnderTest.someLibraryMethod(), "someLibraryMethod should return 'true'");
+class ContactPersistenceConfigurationTest {
+    @Test
+    void someLibraryMethodReturnsTrue() {
+        assertNotNull(new ContactPersistenceConfiguration(), "someLibraryMethod should return 'true'");
     }
 }

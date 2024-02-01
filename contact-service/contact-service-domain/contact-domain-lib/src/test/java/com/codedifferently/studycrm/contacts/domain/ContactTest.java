@@ -7,27 +7,11 @@ class ContactTest {
     @Test
     void testGetId() {
         Contact contact = Contact.builder()
-                .firstName("Doe")
-                .lastName("John")
+                .firstName("John")
+                .lastName("Doe")
                 .build();
         assertNull(contact.getId());
-    }
-
-    @Test
-    void testGetFirstName() {
-        Contact contact = Contact.builder()
-                .firstName("Doe")
-                .lastName("John")
-                .build();
         assertEquals("John", contact.getFirstName());
-    }
-
-    @Test
-    void testGetLastName() {
-        Contact contact = Contact.builder()
-                .firstName("Doe")
-                .lastName("John")
-                .build();
         assertEquals("Doe", contact.getLastName());
     }
 }

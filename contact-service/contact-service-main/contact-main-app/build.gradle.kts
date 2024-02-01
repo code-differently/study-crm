@@ -3,6 +3,8 @@ plugins {
     id("com.codedifferently.studycrm.java-web-application")
 }
 
+group = "com.codedifferently.studycrm.contact-service.main"
+
 dependencies {
     implementation("com.codedifferently.studycrm.contact-service.web:contact-web-lib")
 }

@@ -16,6 +16,6 @@ class AuthCommandHandlerTest {
 
     @Test
     void someLibraryMethodReturnsTrue() {
-        assertNotNull(new AuthCommandHandler(customerService), "someLibraryMethod should return 'true'");
+        assertNotNull(new AuthCommandHandler(), "someLibraryMethod should return 'true'");
     }
 }
