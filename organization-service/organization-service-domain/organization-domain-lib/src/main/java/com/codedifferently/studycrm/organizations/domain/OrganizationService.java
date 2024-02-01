@@ -1,5 +1,8 @@
 package com.codedifferently.studycrm.organizations.domain;
 
+import com.codedifferently.studycrm.common.domain.EntityAclManager;
+import com.codedifferently.studycrm.common.domain.RolePermission;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -8,13 +11,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.acls.domain.GrantedAuthoritySid;
-import org.springframework.security.acls.domain.ObjectIdentityImpl;
-import org.springframework.security.acls.model.MutableAcl;
-import org.springframework.security.acls.model.MutableAclService;
-import org.springframework.security.acls.model.NotFoundException;
-import org.springframework.security.acls.model.ObjectIdentity;
-import org.springframework.security.acls.model.Permission;
-import org.springframework.security.acls.model.Sid;
 
 import jakarta.transaction.Transactional;
 
@@ -22,12 +18,12 @@ public class OrganizationService {
 
     private UserRepository userRepository;
     private OrganizationRepository organizationRepository;
-    private MutableAclService mutableAclService;
+    private EntityAclManager entityAclManager;
 
     public OrganizationService(
-            MutableAclService mutableAclService, UserRepository userRepository,
+            EntityAclManager entityAclManager, UserRepository userRepository,
             OrganizationRepository OrganizationRepository) {
-        this.mutableAclService = mutableAclService;
+        this.entityAclManager = entityAclManager;
         this.userRepository = userRepository;
         this.organizationRepository = OrganizationRepository;
     }
@@ -63,28 +59,15 @@ public class OrganizationService {
     @Transactional
     public void grantUserOrganizationAccess(
             @NonNull User user, @NonNull Organization organization,
-            OrgRolePermission permission) {
+            RolePermission permission) {
         // Save the acls for the user and organization
         createRoleAcl(organization, permission);
     }
 
-    private void createRoleAcl(Organization organization, OrgRolePermission role) {
+    private void createRoleAcl(Organization organization, RolePermission role) {
         var orgRolePricipal = new GrantedAuthoritySid(
                 String.format("ROLE_org:%s:%s", organization.getId(), role.name().toLowerCase()));
-        addPermission(organization, orgRolePricipal, role.getPermission());
+        entityAclManager.addPermission(organization, orgRolePricipal, role.getPermission());
     }
 
-    private void addPermission(Organization organization, Sid recipient, Permission permission) {
-        MutableAcl acl;
-        ObjectIdentity oid = new ObjectIdentityImpl(Organization.class, organization.getId());
-
-        try {
-            acl = (MutableAcl) this.mutableAclService.readAclById(oid);
-        } catch (NotFoundException nfe) {
-            acl = this.mutableAclService.createAcl(oid);
-        }
-
-        acl.insertAce(acl.getEntries().size(), permission, recipient, true);
-        this.mutableAclService.updateAcl(acl);
-    }
 }

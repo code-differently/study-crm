@@ -86,4 +86,9 @@ public class AclSecurityConfiguration {
         return new AclPermissionEvaluator(aclService);
     }
 
+    @Bean
+    public EntityAclManager entityAclManager() {
+        return new EntityAclManager();
+    }
+
 }
