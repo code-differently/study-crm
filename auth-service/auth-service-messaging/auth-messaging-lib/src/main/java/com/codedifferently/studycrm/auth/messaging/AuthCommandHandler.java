@@ -13,11 +13,10 @@ import io.eventuate.tram.commands.consumer.CommandMessage;
 import io.eventuate.tram.messaging.common.Message;
 import io.eventuate.tram.sagas.participant.SagaCommandHandlersBuilder;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder.withFailure;
 import static io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder.withSuccess;
@@ -26,9 +25,8 @@ import java.util.stream.Collectors;
 import java.util.List;
 
 @Service
+@Slf4j
 public class AuthCommandHandler {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthCommandHandler.class);
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -50,7 +48,7 @@ public class AuthCommandHandler {
             CreateAuthUserCommand cmd = cm.getCommand();
 
             if (user != null) {
-                LOGGER.error("User {} already exists. No user created.", username);
+                log.error("User {} already exists. No user created.", username);
                 authService.addUserAuthorities(user, cmd.getGrantedAuthorities());
                 return withSuccess(new AuthUserAlreadyExists());
             }
@@ -74,7 +72,7 @@ public class AuthCommandHandler {
             return withSuccess(new AuthUserCreated());
         } catch (Exception e) {
             var message = String.format("Error occurred creating auth user {}.", cm.getCommand().getUsername());
-            LOGGER.error(message, e);
+            log.error(message, e);
             return withFailure(new AuthUserNotCreated());
         }
     }

@@ -12,14 +12,13 @@ import io.eventuate.tram.commands.consumer.CommandWithDestination;
 import io.eventuate.tram.sagas.orchestration.SagaDefinition;
 import io.eventuate.tram.sagas.simpledsl.SimpleSaga;
 import jakarta.transaction.Transactional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class CreateOrganizationSaga implements SimpleSaga<CreateOrganizationSagaData> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CreateOrganizationSaga.class);
     private OrganizationService organizationService;
     private AuthServiceProxy authServiceProxy;
 
@@ -80,6 +79,6 @@ public class CreateOrganizationSaga implements SimpleSaga<CreateOrganizationSaga
     }
 
     private void handleAuthUserNotCreated(CreateOrganizationSagaData data, AuthUserNotCreated reply) {
-        LOGGER.error("Auth user not created for {}.", data.getUserDetails().getEmail());
+        log.error("Auth user not created for {}.", data.getUserDetails().getEmail());
     }
 }
