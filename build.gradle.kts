@@ -21,6 +21,7 @@ dependencies {
 val eventuateCommonImageVersion: String by project
 val eventuateCdcImageVersion: String by project
 val eventuateMessagingKafkaImageVersion: String by project
+val infrastructureServices = listOf("zipkin", "zookeeper", "kafka", "auth-service-mysql", "contact-service-mysql", "organization-service-mysql", "cdc-service")
 
 configure<ComposeExtension> {
     includeDependencies.set(true)
@@ -32,26 +33,28 @@ configure<ComposeExtension> {
     createNested("infrastructure").apply {
         setProjectName(null)
         useComposeFiles.set(listOf("docker-compose.yaml"))
-        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "auth-service-mysql", "contact-service-mysql", "organization-service-mysql", "cdc-service"))
+        startedServices.set(infrastructureServices)
     }
 
-    createNested("studycrm").apply {
+    createNested("services").apply {
         setProjectName(null)
         environment.putAll(mapOf("TAGS" to "feature-test,local"))
         useComposeFiles.set(listOf("docker-compose.yaml"))
-        startedServices.set(listOf("zipkin", "zookeeper", "kafka", "auth-service", "auth-service-mysql", "contact-service", "contact-service-mysql", "organization-service", "organization-service-mysql", "api-gateway", "cdc-service"))
+        startedServices.set(listOf(*infrastructureServices.toTypedArray(), "auth-service", "contact-service", "organization-service", "api-gateway"))
     }
 }
 
-tasks.register("buildAndRunInfrastructure") {
+tasks.register("startInfrastructure") {
     dependsOn("infrastructureComposeUp")
 }
 
-tasks.register("buildAndRunServices") {
-    dependsOn(gradle.includedBuild("auth-service-main").task(":auth-main-app:build"));
-    dependsOn(gradle.includedBuild("contact-service-main").task(":contact-main-app:build"));
-    dependsOn(gradle.includedBuild("organization-service-main").task(":organization-main-app:build"));
-    dependsOn("studycrmComposeUp")
+tasks.register("start") {
+    dependsOn("assemble");
+    dependsOn("servicesComposeUp")
+}
+
+tasks.register("teardown") {
+    dependsOn("servicesComposeDown")
 }
 
 // Exclude these projects from the repo build tasks.
@@ -61,7 +64,7 @@ var excludeProjects = listOf("build-logic", "platforms")
 tasks.register("fix") {}
 
 // Setup repo build tasks
-listOf("build", "test", "check", "fix", "clean").forEach { taskName ->
+listOf("build", "test", "check", "fix", "clean", "assemble").forEach { taskName ->
     tasks.named(taskName) {
 
         dependsOn(

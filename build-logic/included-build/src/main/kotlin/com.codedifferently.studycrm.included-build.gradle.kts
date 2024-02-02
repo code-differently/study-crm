@@ -27,3 +27,9 @@ tasks.register("cleanAll") {
         dependsOn(it.tasks.named("clean"))
     }
 }
+
+tasks.register("assembleAll") {
+    subprojects.forEach {
+        dependsOn(it.tasks.named("assemble"))
+    }
+}

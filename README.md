@@ -6,7 +6,8 @@
 
 ### Easy way
 
+1. Configure your HOSTS file to add entries for `local.studycrm.com` and `api-local.studycrm.com` pointing to `127.0.0.1`.
 1. Install VS Code and Docker. You can references the [instructions here](https://aka.ms/vscode-remote/containers/getting-started), if needed.
 1. Click the `Dev Containers` button above to automatically clone and open the project in a new dev container.
-1. From a new VS Code terminal, run `gradle buildAndRunServices`.
+1. From a new VS Code terminal, run `gradle start`.
 1. Profit!
