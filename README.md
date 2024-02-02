@@ -6,6 +6,7 @@
 
 ### Easy way
 
-1. Project uses VS Code dev container, so just clone to a local folder and open folder to load the project (or just click the button above).
+1. Install VS Code and Docker. You can references the [instructions here](https://aka.ms/vscode-remote/containers/getting-started), if needed.
+1. Click the `Dev Containers` button above to automatically clone and open the project in a new dev container.
 1. From a new VS Code terminal, run `gradle buildAndRunServices`.
 1. Profit!
