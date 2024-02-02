@@ -9,7 +9,6 @@ javaPlatform.allowDependencies()
 
 val ehcacheVersion: String by project
 val eventuatePlatformVersion: String by project
-val hibernateValidatorVersion: String by project
 val springBootVersion: String by project
 val springCloudContractDependenciesVersion: String by project
 val springCloudVersion: String by project
@@ -18,7 +17,6 @@ val springDocOpenApiUiVersion: String by project
 dependencies {
     api(platform("io.eventuate.platform:eventuate-platform-dependencies:$eventuatePlatformVersion"))
 
-    api(platform("org.hibernate.validator:hibernate-validator:$hibernateValidatorVersion"))
     api(platform("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocOpenApiUiVersion"))
     
     api(platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"))

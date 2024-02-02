@@ -9,5 +9,4 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-validation")
 	runtimeOnly("org.springframework:spring-context-support")
-    implementation("org.hibernate.validator:hibernate-validator")
 }

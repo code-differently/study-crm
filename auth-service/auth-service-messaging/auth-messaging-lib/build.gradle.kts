@@ -9,7 +9,6 @@ dependencies {
     implementation("com.codedifferently.studycrm.auth-service.domain:auth-domain-lib")
     implementation("com.codedifferently.studycrm.auth-service.api.messaging:auth-api-messaging-lib")
 
-
     implementation("org.springframework.security:spring-security-crypto");
 
     implementation("io.eventuate.tram.core:eventuate-tram-spring-jdbc-kafka")

@@ -12,6 +12,6 @@ rootProject.name = "build-logic"
 include("included-build")
 include("java-shared")
 include("java-web-application")
+include("node-application")
 include("spring-library")
 include("spring-web-library")
-include("node-application")
