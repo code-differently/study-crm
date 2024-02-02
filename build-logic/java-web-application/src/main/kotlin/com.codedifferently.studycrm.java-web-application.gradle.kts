@@ -19,5 +19,5 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
     implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")    
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui") 
 }

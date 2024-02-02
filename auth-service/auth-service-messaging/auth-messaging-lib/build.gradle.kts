@@ -1,5 +1,5 @@
 plugins {
-    id("com.codedifferently.studycrm.java-library")
+    id("com.codedifferently.studycrm.spring-library")
 }
 
 group = "com.codedifferently.studycrm.auth-service.messaging"
@@ -12,9 +12,7 @@ dependencies {
 
     implementation("org.springframework.security:spring-security-crypto");
 
-    implementation("io.eventuate.tram.core:eventuate-tram-spring-flyway")
-    runtimeOnly("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-flyway")
     implementation("io.eventuate.tram.core:eventuate-tram-spring-jdbc-kafka")
-    implementation("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-participant-starter")
     implementation("io.eventuate.tram.core:eventuate-tram-spring-optimistic-locking")
+    implementation("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-participant-starter")
 }

@@ -1,9 +1,5 @@
 plugins {
-    id("com.codedifferently.studycrm.java-library")
+    id("com.codedifferently.studycrm.spring-library")
 }
 
 group = "com.codedifferently.studycrm.contact-service.api.web"
-
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-}

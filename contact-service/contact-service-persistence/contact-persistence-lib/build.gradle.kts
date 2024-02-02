@@ -6,20 +6,13 @@
  */
 
 plugins {
-    id("com.codedifferently.studycrm.java-library")
+    id("com.codedifferently.studycrm.spring-library")
 }
 
 group = "com.codedifferently.studycrm.contact-service.persistence"
 
 dependencies {
     implementation("com.codedifferently.studycrm.contact-service.domain:contact-domain-lib")
-    
-    implementation("io.eventuate.tram.core:eventuate-tram-spring-flyway")
-    runtimeOnly("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-flyway")
 
     implementation("io.eventuate.common:eventuate-common-jdbc")
-
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.flywaydb:flyway-core")
-    implementation("org.flywaydb:flyway-mysql")
 }

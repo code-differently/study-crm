@@ -11,6 +11,7 @@ includeBuild("../platforms")
 rootProject.name = "build-logic"
 include("included-build")
 include("java-shared")
-include("java-library")
 include("java-web-application")
+include("spring-library")
+include("spring-web-library")
 include("node-application")
