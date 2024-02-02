@@ -5,25 +5,14 @@ import org.springframework.security.acls.domain.CumulativePermission;
 import org.springframework.security.acls.model.Permission;
 
 public enum RolePermission {
-  READER(new CumulativePermission().set(BasePermission.READ)),
+  READER(BasePermission.READ),
 
-  EDITOR(
-      new CumulativePermission()
-          .set(RolePermission.READER.getPermission())
-          .set(BasePermission.CREATE)
-          .set(BasePermission.WRITE)),
+  EDITOR(RolePermission.READER.getPermission(), BasePermission.CREATE, BasePermission.WRITE),
 
   ADMIN(
-      new CumulativePermission()
-          .set(RolePermission.EDITOR.getPermission())
-          .set(BasePermission.DELETE)
-          .set(BasePermission.ADMINISTRATION));
+      RolePermission.EDITOR.getPermission(), BasePermission.DELETE, BasePermission.ADMINISTRATION);
 
   private final Permission cumulativePermission;
-
-  RolePermission(Permission permission) {
-    this.cumulativePermission = new CumulativePermission().set(permission);
-  }
 
   RolePermission(Permission... permissions) {
     var cumulativePermission = new CumulativePermission();

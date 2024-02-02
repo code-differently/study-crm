@@ -7,7 +7,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "User")
+@Table(name = "crm_user")
 @Access(AccessType.FIELD)
 @Data
 @EqualsAndHashCode(callSuper = true)
