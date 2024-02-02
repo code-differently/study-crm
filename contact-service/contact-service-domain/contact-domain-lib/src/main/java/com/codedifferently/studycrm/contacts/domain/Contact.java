@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "Contact")
 @Access(AccessType.FIELD)
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor

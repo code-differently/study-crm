@@ -6,6 +6,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Generated
 public class CreateContactRequest {
 
   private String firstName;

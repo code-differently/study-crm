@@ -1,4 +1,4 @@
-package com.codedifferently.studycrm.auth.domain;
+package com.codedifferently.studycrm.organizations.api.web;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,16 +7,9 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ContextConfiguration;
 
-@DataJpaTest
-@ContextConfiguration(classes = TestConfiguration.class)
-class UserTest {
+class UserDetailsTest {
 
-  @Autowired private TestEntityManager entityManager;
   private static Validator validator;
 
   @BeforeAll
@@ -26,10 +19,10 @@ class UserTest {
   }
 
   @Test
-  void buildsUser() {
+  void buildsUserDetails() {
     // Act
     var user =
-        User.builder()
+        UserDetails.builder()
             .username("john.doe@example.com")
             .email("dummy@example.com")
             .password("somePassword")
@@ -46,9 +39,9 @@ class UserTest {
   }
 
   @Test
-  void validatesUser() {
+  void validatesUserDetails() {
     // Arrange
-    var user = new User();
+    var user = new UserDetails();
 
     // Act
     var violations = validator.validate(user);
@@ -57,23 +50,23 @@ class UserTest {
     assertEquals(2, violations.size());
     var iterator = violations.iterator();
     var violation1 = iterator.next();
-    assertEquals("email", violation1.getPropertyPath().toString());
-    assertEquals("Email is required", violation1.getMessage());
+    assertEquals("username", violation1.getPropertyPath().toString());
+    assertEquals("Username is required", violation1.getMessage());
     var violation2 = iterator.next();
-    assertEquals("username", violation2.getPropertyPath().toString());
-    assertEquals("Username is required", violation2.getMessage());
+    assertEquals("email", violation2.getPropertyPath().toString());
+    assertEquals("Email is required", violation2.getMessage());
   }
 
   @Test
-  void comparesLikeUser() {
+  void comparesLikeUserDetails() {
     // Arrange
-    var userDetails1 = new User();
+    var userDetails1 = new UserDetails();
     userDetails1.setUsername("john.doe@example.com");
     userDetails1.setEmail("dummy@example.com");
     userDetails1.setPassword("somePassword");
     userDetails1.setFirstName("John");
     userDetails1.setLastName("Doe");
-    var userDetails2 = new User();
+    var userDetails2 = new UserDetails();
     userDetails2.setUsername("john.doe@example.com");
     userDetails2.setEmail("dummy@example.com");
     userDetails2.setPassword("somePassword");
@@ -89,12 +82,18 @@ class UserTest {
   }
 
   @Test
-  void comparesUnlikeUser() {
+  void comparesUnlikeUserDetails() {
     // Arrange
     var userDetails1 =
-        User.builder().username("john.doe1@example.com").email("john.doe1@example.com").build();
+        UserDetails.builder()
+            .username("john.doe1@example.com")
+            .email("john.doe1@example.com")
+            .build();
     var userDetails2 =
-        User.builder().username("john.doe2@example.com").email("john.doe2@example.com").build();
+        UserDetails.builder()
+            .username("john.doe2@example.com")
+            .email("john.doe2@example.com")
+            .build();
 
     // Assert
     assertFalse(userDetails1.equals(userDetails2), "The two objects should not be equal");
@@ -102,37 +101,5 @@ class UserTest {
         userDetails1.hashCode(),
         userDetails2.hashCode(),
         "The two object hash codes should not be equal");
-  }
-
-  @Test
-  void userPersists() {
-    // Arrange
-    var user = User.builder().username("user").email("email").password("password").build();
-
-    // Act
-    var persistedUser = entityManager.persistFlushFind(user);
-
-    // Assert
-    assertNotNull(persistedUser.getId());
-    assertNotNull(persistedUser.getCreatedAt());
-    assertNotNull(persistedUser.getUpdatedAt());
-    assertEquals(user.getUsername(), persistedUser.getUsername());
-    assertEquals(user.getEmail(), persistedUser.getEmail());
-    assertEquals(user.getPassword(), persistedUser.getPassword());
-  }
-
-  @Test
-  void throwsSavingDuplicateNewUser() {
-    // Arrange
-    var user1 = User.builder().username("user").email("email").password("password").build();
-    var user2 = User.builder().username("user").email("email").password("password").build();
-
-    // Act
-    entityManager.persistFlushFind(user1);
-    assertThrows(
-        Exception.class,
-        () -> {
-          entityManager.persistFlushFind(user2);
-        });
   }
 }

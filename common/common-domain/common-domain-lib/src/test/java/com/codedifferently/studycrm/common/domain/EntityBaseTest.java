@@ -139,7 +139,7 @@ class EntityBaseTest {
 
   @Entity
   @Data
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @AllArgsConstructor
   @SuperBuilder
   static class EntityBaseImpl extends EntityBase {}

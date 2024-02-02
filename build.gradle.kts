@@ -75,7 +75,18 @@ listOf("build", "test", "check", "fix", "clean", "assemble").forEach { taskName 
     }
 }
 
+tasks.test {
+    configure<JacocoTaskExtension> {
+        isEnabled = true
+        includes = listOf("**/lombok/**/*.class", "**/lombok/*.class")
+    }
+}
+
 // Ensure that we generate the jacoco report for the repo.
 tasks.check {
     dependsOn(tasks.named<JacocoReport>("testCodeCoverageReport")) 
+}
+
+tasks.register("coverage") {
+    dependsOn("testCodeCoverageReport")
 }

@@ -2,6 +2,7 @@ package com.codedifferently.studycrm.auth.domain;
 
 import com.codedifferently.studycrm.common.domain.EntityBase;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -10,13 +11,14 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "[User]")
 @Access(AccessType.FIELD)
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends EntityBase {
 
   @Column(nullable = false, unique = true)
+  @NotBlank(message = "Username is required")
   private String username;
 
   @Column(nullable = false)
@@ -31,6 +33,7 @@ public class User extends EntityBase {
   private String lastName = "";
 
   @Column(nullable = false, unique = true)
+  @NotBlank(message = "Email is required")
   private String email;
 
   @Column(nullable = false)

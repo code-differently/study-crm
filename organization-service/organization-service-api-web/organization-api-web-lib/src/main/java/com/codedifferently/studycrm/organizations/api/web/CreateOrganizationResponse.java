@@ -7,6 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class CreateOrganizationResponse {
 
   private UUID organizationId;

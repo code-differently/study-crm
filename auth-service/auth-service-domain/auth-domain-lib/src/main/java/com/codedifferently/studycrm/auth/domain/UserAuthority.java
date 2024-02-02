@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "UserAuthority")
 @Access(AccessType.FIELD)
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor

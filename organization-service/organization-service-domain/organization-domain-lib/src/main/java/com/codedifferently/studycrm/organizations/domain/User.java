@@ -12,7 +12,7 @@ import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
 @Table(name = "[User]")
 @Access(AccessType.FIELD)
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor

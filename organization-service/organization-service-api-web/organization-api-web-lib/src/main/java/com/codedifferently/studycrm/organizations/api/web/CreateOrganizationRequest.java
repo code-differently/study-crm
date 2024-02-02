@@ -2,6 +2,7 @@ package com.codedifferently.studycrm.organizations.api.web;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -14,5 +15,7 @@ public class CreateOrganizationRequest {
   @NotBlank(message = "Organization name is required")
   private String organizationName;
 
-  @Getter @Valid private UserDetails userDetails;
+  @Getter
+  @Valid
+  @NotNull(message = "User details are required") private UserDetails userDetails;
 }

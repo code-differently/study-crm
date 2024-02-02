@@ -7,4 +7,4 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-public class AuthDomainConfiguration {}
+public class TestConfiguration {}

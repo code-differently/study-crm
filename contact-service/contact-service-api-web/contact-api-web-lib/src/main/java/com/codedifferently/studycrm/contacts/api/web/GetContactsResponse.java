@@ -7,6 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Generated
 public class GetContactsResponse {
 
   private List<GetContactResponse> contacts;
