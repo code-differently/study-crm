@@ -9,7 +9,7 @@ import org.hibernate.annotations.JdbcType;
 import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
 
 @Entity
-@Table(name = "User")
+@Table(name = "[User]")
 @Access(AccessType.FIELD)
 @Data
 @EqualsAndHashCode(callSuper = false)
