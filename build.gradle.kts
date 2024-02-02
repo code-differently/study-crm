@@ -72,6 +72,7 @@ listOf("build", "test", "check", "fix", "clean").forEach { taskName ->
     }
 }
 
+// Ensure that we generate the jacoco report for the repo.
 tasks.check {
     dependsOn(tasks.named<JacocoReport>("testCodeCoverageReport")) 
 }
