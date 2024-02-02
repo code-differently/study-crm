@@ -12,6 +12,7 @@ repositories {
 }
 
 dependencies {
+    // Load bearing deps needed to aggregate jacoco reports.
     implementation("com.codedifferently.studycrm.auth-service.main:auth-main-app")
     implementation("com.codedifferently.studycrm.contact-service.main:contact-main-app")
     implementation("com.codedifferently.studycrm.organization-service.main:organization-main-app")
