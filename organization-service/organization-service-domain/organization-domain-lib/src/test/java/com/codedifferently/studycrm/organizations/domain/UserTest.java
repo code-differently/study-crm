@@ -1,10 +1,11 @@
-package com.codedifferently.studycrm.auth.domain;
+package com.codedifferently.studycrm.organizations.domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ContextConfiguration;
 
 @DataJpaTest
-@ContextConfiguration(classes = AuthDomainConfiguration.class)
+@ContextConfiguration(classes = OrganizationDomainConfiguration.class)
 class UserTest {
 
   @Autowired private TestEntityManager entityManager;
@@ -27,27 +28,28 @@ class UserTest {
   }
 
   @Test
-  void testUserIsBuildable() {
+  void testUser_isBuildable() {
     // Act
+    var organizationId = UUID.randomUUID();
     var user =
         User.builder()
             .username("john.doe@example.com")
             .email("dummy@example.com")
-            .password("somePassword")
             .firstName("John")
             .lastName("Doe")
+            .defaultOrganizationId(organizationId)
             .build();
 
     // Assert
     assertEquals("john.doe@example.com", user.getUsername());
     assertEquals("dummy@example.com", user.getEmail());
-    assertEquals("somePassword", user.getPassword());
     assertEquals("John", user.getFirstName());
     assertEquals("Doe", user.getLastName());
+    assertEquals(organizationId, user.getDefaultOrganizationId());
   }
 
   @Test
-  void testUserValdation() {
+  void testUser_valdation() {
     // Arrange
     var user = new User();
 
@@ -66,20 +68,21 @@ class UserTest {
   }
 
   @Test
-  void testUserEqualsAndHashCode() {
+  void testUser_equalsAndHashCode() {
     // Arrange
+    var organizationId = UUID.randomUUID();
     var userDetails1 = new User();
     userDetails1.setUsername("john.doe@example.com");
     userDetails1.setEmail("dummy@example.com");
-    userDetails1.setPassword("somePassword");
     userDetails1.setFirstName("John");
     userDetails1.setLastName("Doe");
+    userDetails1.setDefaultOrganizationId(organizationId);
     var userDetails2 = new User();
     userDetails2.setUsername("john.doe@example.com");
     userDetails2.setEmail("dummy@example.com");
-    userDetails2.setPassword("somePassword");
     userDetails2.setFirstName("John");
     userDetails2.setLastName("Doe");
+    userDetails2.setDefaultOrganizationId(organizationId);
 
     // Assert
     assertTrue(userDetails1.equals(userDetails2), "The two objects should be equal");
@@ -90,7 +93,7 @@ class UserTest {
   }
 
   @Test
-  void testUserNotEqualsAndHashCode() {
+  void testUser_notEqualsAndHashCode() {
     // Arrange
     var userDetails1 =
         User.builder().username("john.doe1@example.com").email("john.doe1@example.com").build();
@@ -106,9 +109,9 @@ class UserTest {
   }
 
   @Test
-  void testUserPersists() {
+  void testUser_persists() {
     // Arrange
-    var user = User.builder().username("user").email("email").password("password").build();
+    var user = User.builder().username("user").email("email").firstName("").lastName("").build();
 
     // Act
     var persistedUser = entityManager.persistFlushFind(user);
@@ -119,14 +122,13 @@ class UserTest {
     assertNotNull(persistedUser.getUpdatedAt());
     assertEquals(user.getUsername(), persistedUser.getUsername());
     assertEquals(user.getEmail(), persistedUser.getEmail());
-    assertEquals(user.getPassword(), persistedUser.getPassword());
   }
 
   @Test
-  void testUserNotDuplicatedOnSave() {
+  void testUser_notDuplicatedOnSave() {
     // Arrange
-    var user1 = User.builder().username("user").email("email").password("password").build();
-    var user2 = User.builder().username("user").email("email").password("password").build();
+    var user1 = User.builder().username("user").email("email").firstName("").lastName("").build();
+    var user2 = User.builder().username("user").email("email").firstName("").lastName("").build();
 
     // Act
     entityManager.persistFlushFind(user1);

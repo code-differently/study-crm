@@ -16,6 +16,10 @@ public class EntityAclManager {
 
   @Autowired private MutableAclService mutableAclService;
 
+  public EntityAclManager(MutableAclService mutableAclService) {
+    this.mutableAclService = mutableAclService;
+  }
+
   @Transactional
   public void addPermission(EntityBase target, Sid recipient, Permission permission) {
     MutableAcl acl;

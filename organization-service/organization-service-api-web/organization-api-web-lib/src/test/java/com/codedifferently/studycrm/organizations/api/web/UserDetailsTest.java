@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -47,14 +48,14 @@ class UserDetailsTest {
     var violations = validator.validate(user);
 
     // Assert
+    var violationMap =
+        violations.stream()
+            .collect(
+                Collectors.toMap(
+                    v -> v.getPropertyPath().toString(), v -> v.getMessage().toString()));
     assertEquals(2, violations.size());
-    var iterator = violations.iterator();
-    var violation1 = iterator.next();
-    assertEquals("username", violation1.getPropertyPath().toString());
-    assertEquals("Username is required", violation1.getMessage());
-    var violation2 = iterator.next();
-    assertEquals("email", violation2.getPropertyPath().toString());
-    assertEquals("Email is required", violation2.getMessage());
+    assertEquals("Email is required", violationMap.get("email"));
+    assertEquals("Username is required", violationMap.get("username"));
   }
 
   @Test

@@ -5,26 +5,23 @@ import com.codedifferently.studycrm.common.domain.RolePermission;
 import jakarta.transaction.Transactional;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.lang.NonNull;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.acls.domain.GrantedAuthoritySid;
+import org.springframework.security.acls.model.NotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrganizationService {
 
-  private UserRepository userRepository;
-  private OrganizationRepository organizationRepository;
-  private EntityAclManager entityAclManager;
+  @Autowired private UserRepository userRepository;
 
-  public OrganizationService(
-      EntityAclManager entityAclManager,
-      UserRepository userRepository,
-      OrganizationRepository OrganizationRepository) {
-    this.entityAclManager = entityAclManager;
-    this.userRepository = userRepository;
-    this.organizationRepository = OrganizationRepository;
-  }
+  @Autowired private OrganizationRepository organizationRepository;
+
+  @Autowired private EntityAclManager entityAclManager;
 
   public User findUserByUsername(String username) {
     return userRepository.findByUsername(username);
@@ -46,6 +43,9 @@ public class OrganizationService {
 
   public void activateOrganization(@NonNull UUID id) {
     Organization organization = organizationRepository.findById(id).orElse(null);
+    if (organization == null) {
+      throw new NotFoundException("Organization not found");
+    }
     organization.setActive(true);
     organizationRepository.save(organization);
   }

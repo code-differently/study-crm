@@ -2,11 +2,8 @@ package com.codedifferently.studycrm.common.domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import jakarta.persistence.Entity;
 import java.util.Date;
 import java.util.UUID;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.junit.jupiter.api.Test;
 
 class EntityBaseTest {
@@ -92,6 +89,24 @@ class EntityBaseTest {
   }
 
   @Test
+  void createsEntityWithConstructor() {
+    // Arrange
+    var id = UUID.randomUUID();
+    var date = new Date();
+
+    // Act
+    var entity = new EntityBaseImpl(id, 1, date, "me", date, "someone");
+
+    // Assert
+    assertEquals(id, entity.getId());
+    assertEquals(1, entity.getVersion());
+    assertEquals(date, entity.getCreatedAt());
+    assertEquals("me", entity.getCreatedBy());
+    assertEquals(date, entity.getUpdatedAt());
+    assertEquals("someone", entity.getUpdatedBy());
+  }
+
+  @Test
   void assertEqualsInstances() {
     // Arrange
     var id = UUID.randomUUID();
@@ -136,11 +151,4 @@ class EntityBaseTest {
     assertNotEquals(entity1, entity2);
     assertNotEquals(entity1.hashCode(), entity2.hashCode());
   }
-
-  @Entity
-  @Data
-  @EqualsAndHashCode
-  @AllArgsConstructor
-  @SuperBuilder
-  static class EntityBaseImpl extends EntityBase {}
 }

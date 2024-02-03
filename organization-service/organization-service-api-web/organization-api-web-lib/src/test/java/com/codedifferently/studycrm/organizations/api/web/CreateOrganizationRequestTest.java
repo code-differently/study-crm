@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -53,14 +54,14 @@ class CreateOrganizationRequestTest {
     var violations = validator.validate(organization);
 
     // Assert
+    var violationMap =
+        violations.stream()
+            .collect(
+                Collectors.toMap(
+                    v -> v.getPropertyPath().toString(), v -> v.getMessage().toString()));
     assertEquals(2, violations.size());
-    var iterator = violations.iterator();
-    var violation1 = iterator.next();
-    assertEquals("organizationName", violation1.getPropertyPath().toString());
-    assertEquals("Organization name is required", violation1.getMessage());
-    var violation2 = iterator.next();
-    assertEquals("userDetails", violation2.getPropertyPath().toString());
-    assertEquals("User details are required", violation2.getMessage());
+    assertEquals("Organization name is required", violationMap.get("organizationName"));
+    assertEquals("User details are required", violationMap.get("userDetails"));
   }
 
   @Test
@@ -113,5 +114,33 @@ class CreateOrganizationRequestTest {
         organization1.hashCode(),
         organization2.hashCode(),
         "The two requests hash codes should not be equal");
+  }
+
+  @Test
+  void testCreateOrganizationRequest_toString() {
+    // Arrange
+    var userDetails =
+        UserDetails.builder()
+            .username("john.doe@example.com")
+            .email("dummy@example.com")
+            .password("somePassword")
+            .firstName("John")
+            .lastName("Doe")
+            .build();
+    var organization =
+        CreateOrganizationRequest.builder()
+            .organizationName("My Organization Inc.")
+            .userDetails(userDetails)
+            .build();
+
+    // Act
+    var toString = organization.toString();
+
+    // Assert
+    assertNotNull(toString);
+    assertTrue(toString.contains("organizationName=My Organization Inc."));
+    assertTrue(
+        toString.contains(
+            "userDetails=UserDetails(username=john.doe@example.com, email=dummy@example.com, password=somePassword, firstName=John, lastName=Doe)"));
   }
 }

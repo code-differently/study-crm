@@ -2,9 +2,11 @@ package com.codedifferently.studycrm.common.domain;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
@@ -19,6 +21,7 @@ import org.springframework.security.acls.jdbc.JdbcMutableAclService;
 import org.springframework.security.acls.jdbc.LookupStrategy;
 import org.springframework.security.acls.model.AclCache;
 import org.springframework.security.acls.model.AclService;
+import org.springframework.security.acls.model.MutableAclService;
 import org.springframework.security.acls.model.PermissionGrantingStrategy;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,6 +29,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 @Configuration
 @EnableMethodSecurity
 @EnableCaching
+@EnableAutoConfiguration
+@ComponentScan
 public class AclSecurityConfiguration {
   @Autowired DataSource dataSource;
 
@@ -82,7 +87,7 @@ public class AclSecurityConfiguration {
   }
 
   @Bean
-  public EntityAclManager entityAclManager() {
-    return new EntityAclManager();
+  public EntityAclManager entityAclManager(MutableAclService mutableAclService) {
+    return new EntityAclManager(mutableAclService);
   }
 }

@@ -8,13 +8,14 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "[User]")
+@Table(name = "[user]")
 @Access(AccessType.FIELD)
 @Data
 @EqualsAndHashCode
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class User extends EntityBase {
 
   @Column(nullable = false, unique = true)
