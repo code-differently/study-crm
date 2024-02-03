@@ -3,14 +3,17 @@ package com.codedifferently.studycrm.auth.web.security;
 import com.codedifferently.studycrm.auth.domain.User;
 import com.codedifferently.studycrm.auth.domain.UserRepository;
 import java.util.function.Consumer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 
 @Service
 public final class UserRepositoryOidcUserHandler implements Consumer<OidcUser> {
 
-  @Autowired private UserRepository userRepository;
+  private UserRepository userRepository;
+
+  public UserRepositoryOidcUserHandler(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
 
   @Override
   public void accept(OidcUser user) {

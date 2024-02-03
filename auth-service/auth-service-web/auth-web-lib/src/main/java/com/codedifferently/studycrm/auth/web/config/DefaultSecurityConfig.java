@@ -7,7 +7,6 @@ import com.codedifferently.studycrm.auth.web.security.RepositoryUserDetailsServi
 import com.codedifferently.studycrm.auth.web.security.UserRepositoryOAuth2UserHandler;
 import com.codedifferently.studycrm.auth.web.security.UserRepositoryOidcUserHandler;
 import java.util.HashMap;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,12 +31,12 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @Configuration(proxyBeanMethods = false)
 public class DefaultSecurityConfig {
 
-  @Autowired private UserRepositoryOAuth2UserHandler userRepositoryOAuth2UserHandler;
-
-  @Autowired private UserRepositoryOidcUserHandler userRepositoryOidcUserHandler;
-
   @Bean
-  public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+  public SecurityFilterChain defaultSecurityFilterChain(
+      HttpSecurity http,
+      UserRepositoryOAuth2UserHandler userRepositoryOAuth2UserHandler,
+      UserRepositoryOidcUserHandler userRepositoryOidcUserHandler)
+      throws Exception {
     FederatedIdentityConfigurer federatedIdentityConfigurer = new FederatedIdentityConfigurer();
     federatedIdentityConfigurer.oauth2UserHandler(userRepositoryOAuth2UserHandler);
     federatedIdentityConfigurer.oidcUserHandler(userRepositoryOidcUserHandler);
@@ -53,8 +52,6 @@ public class DefaultSecurityConfig {
                     .requestMatchers("/webjars/**")
                     .permitAll()
                     .requestMatchers("/login")
-                    .permitAll()
-                    .requestMatchers("/users")
                     .permitAll()
                     .anyRequest()
                     .authenticated())

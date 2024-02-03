@@ -3,14 +3,17 @@ package com.codedifferently.studycrm.auth.web.security;
 import com.codedifferently.studycrm.auth.domain.User;
 import com.codedifferently.studycrm.auth.domain.UserRepository;
 import java.util.function.Consumer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 @Service
 public final class UserRepositoryOAuth2UserHandler implements Consumer<OAuth2User> {
 
-  @Autowired private UserRepository userRepository;
+  private UserRepository userRepository;
+
+  public UserRepositoryOAuth2UserHandler(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
 
   @Override
   public void accept(OAuth2User user) {
