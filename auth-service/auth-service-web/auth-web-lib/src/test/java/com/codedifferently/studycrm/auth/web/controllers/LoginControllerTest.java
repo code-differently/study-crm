@@ -4,6 +4,9 @@
 package com.codedifferently.studycrm.auth.web.controllers;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.codedifferently.studycrm.auth.web.config.AuthServerSecurityConfig;
 import com.codedifferently.studycrm.auth.web.config.DefaultSecurityConfig;
@@ -12,10 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @WebMvcTest(LoginController.class)
 @ContextConfiguration(
@@ -31,8 +30,8 @@ class LoginControllerTest {
   @Test
   void testLoginController_redirectsToLogin() throws Exception {
     this.mockMvc
-      .perform(get("/test"))
-      .andExpect(status().is(302))
-      .andExpect(redirectedUrl("http://localhost/login"));
+        .perform(get("/test"))
+        .andExpect(status().is(302))
+        .andExpect(redirectedUrl("http://localhost/login"));
   }
 }

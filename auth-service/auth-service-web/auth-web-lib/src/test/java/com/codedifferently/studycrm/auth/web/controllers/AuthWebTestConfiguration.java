@@ -9,7 +9,6 @@ import com.codedifferently.studycrm.auth.web.security.OidcUserInfoService;
 import com.codedifferently.studycrm.auth.web.security.RepositoryUserDetailsService;
 import com.codedifferently.studycrm.auth.web.security.UserRepositoryOAuth2UserHandler;
 import com.codedifferently.studycrm.auth.web.security.UserRepositoryOidcUserHandler;
-
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -63,14 +62,12 @@ public class AuthWebTestConfiguration {
   }
 
   @Bean
-  public UserRepositoryOidcUserHandler userRepositoryOidcHandler(
-      UserRepository userRepository) {
+  public UserRepositoryOidcUserHandler userRepositoryOidcHandler(UserRepository userRepository) {
     return new UserRepositoryOidcUserHandler(userRepository);
   }
 
   @Bean
-  public RepositoryUserDetailsService repositoryUserDetailsService(
-      UserRepository userRepository) {
+  public RepositoryUserDetailsService repositoryUserDetailsService(UserRepository userRepository) {
     return new RepositoryUserDetailsService(userRepository);
   }
 }
