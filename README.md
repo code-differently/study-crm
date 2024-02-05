@@ -10,7 +10,7 @@
 1. Click the `Dev Containers` button above to automatically clone and open the project in a new dev container.
 1. Once the dev image is done loading projects, open a new VS Code terminal, run `gradle start` and use the Docker view in VS Code to see all the running containers. When done, you can shut everything down using `gradle teardown`.
 1. To run all tests, use `gradle test`.
-1. (Configure your HOSTS file)[hosts-configuration] to add entries for `local.studycrm.com` and `api-local.studycrm.com` pointing to `127.0.0.1`.
+1. [Configure your HOSTS file][hosts-configuration] to add entries for `local.studycrm.com` and `api-local.studycrm.com` pointing to `127.0.0.1`.
 1. Profit!
 
 ### Less easy way (using VS Code)
@@ -27,7 +27,7 @@ you@yourcomputer:~$ git clone https://github.com/anthonydmays/study-crm
 1. Follow the prompts to automatically repoen the folder as a dev container.
 1. Once the dev image is done loading projects, open a new VS Code terminal, run `gradle start` and use the Docker view in VS Code to see all the running containers. When done, you can shut everything down using `gradle teardown`.
 1. To run all tests, use `gradle test`.
-1. (Configure your HOSTS file)[hosts-configuration] to add entries for `local.studycrm.com` and `api-local.studycrm.com` pointing to `127.0.0.1`.
+1. [Configure your HOSTS file][hosts-configuration] to add entries for `local.studycrm.com` and `api-local.studycrm.com` pointing to `127.0.0.1`.
 1. Profit!
 
 ### Least easiest way (suitable if using another coding editor)
@@ -45,7 +45,7 @@ you@yourcomputer:~$ cd study-crm
 1. You can now open the project in your favorite coding editor. 
 1. To start all the services, run `gradle start` in the `study-crm` directory. You should see all the containers running in Docker. When done, you can shut everything down using `gradle teardown`.
 1. To run all tests, use `gradle test`.
-1. (Configure your HOSTS file)[hosts-configuration] to add entries for `local.studycrm.com` and `api-local.studycrm.com` pointing to `127.0.0.1`.
+1. [Configure your HOSTS file][hosts-configuration] to add entries for `local.studycrm.com` and `api-local.studycrm.com` pointing to `127.0.0.1`.
 1. Profit!
 
 
