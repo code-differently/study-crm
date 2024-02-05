@@ -19,8 +19,8 @@
 1. Clone this repo to your local machine
 
 ```console
-you@yourcomputer:~$ mkdir source
-you@yourcomputer:~$ git clone https://github.com/anthonydmays/study-crm 
+mkdir source
+git clone https://github.com/anthonydmays/study-crm 
 ```
 
 1. Open the new folder you just downloaded in VS Code
@@ -37,9 +37,9 @@ you@yourcomputer:~$ git clone https://github.com/anthonydmays/study-crm
 1. Clone this repo to your local machine
 
 ```console
-you@yourcomputer:~$ mkdir source
-you@yourcomputer:~$ git clone https://github.com/anthonydmays/study-crm 
-you@yourcomputer:~$ cd study-crm 
+mkdir source
+git clone https://github.com/anthonydmays/study-crm 
+cd study-crm 
 ```
 
 1. You can now open the project in your favorite coding editor. 
