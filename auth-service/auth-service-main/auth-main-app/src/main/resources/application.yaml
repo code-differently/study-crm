@@ -34,8 +34,8 @@ spring:
         registration:
           google-idp:
             provider: google
-            client-id: 558968372674-jkalu209g122k7iua1eolr1aplkipl6l.apps.googleusercontent.com
-            client-secret: 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
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
             scope: openid, https://www.googleapis.com/auth/userinfo.profile, https://www.googleapis.com/auth/userinfo.email
             client-name: Sign in with Google
         provider:
