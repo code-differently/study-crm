@@ -1,6 +1,5 @@
 package com.codedifferently.studycrm.auth.web.security;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.codedifferently.studycrm.auth.domain.User;
