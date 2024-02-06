@@ -24,5 +24,5 @@ public class CreateAuthUserCommand implements Command {
 
   private String lastName;
 
-  private List<String> grantedAuthorities;
+  @Singular private List<String> grantedAuthorities;
 }

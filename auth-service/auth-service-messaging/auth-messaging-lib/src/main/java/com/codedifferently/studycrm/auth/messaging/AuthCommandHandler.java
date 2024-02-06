@@ -37,9 +37,9 @@ public class AuthCommandHandler {
 
   public Message createUser(CommandMessage<CreateAuthUserCommand> cm) {
     try {
-      String username = cm.getCommand().getUsername();
-      User user = authService.findUserByUsername(username);
       CreateAuthUserCommand cmd = cm.getCommand();
+      String username = cmd.getUsername();
+      User user = authService.findUserByUsername(username);
 
       if (user != null) {
         log.error("User {} already exists. No user created.", username);
