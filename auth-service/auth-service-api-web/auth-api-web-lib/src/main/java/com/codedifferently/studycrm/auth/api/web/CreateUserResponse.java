@@ -7,6 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Data
 @Builder
+@Generated
 public class CreateUserResponse {
 
   @Getter private UUID userId;

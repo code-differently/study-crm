@@ -6,6 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @Data
 @Builder
+@Generated
 public class CreateUserRequest {
 
   private String username;

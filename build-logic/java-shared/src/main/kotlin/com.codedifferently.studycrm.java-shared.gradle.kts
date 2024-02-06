@@ -48,6 +48,7 @@ testing {
             useJUnitJupiter()
             dependencies { 
                 implementation(platform("com.codedifferently.studycrm.platform:java-test-platform"))
+                implementation("org.assertj:assertj-core")
                 implementation("org.mockito:mockito-junit-jupiter")
                 runtimeOnly("com.h2database:h2")
             }

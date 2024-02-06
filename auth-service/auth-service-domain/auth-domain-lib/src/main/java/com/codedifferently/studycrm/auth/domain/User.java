@@ -50,5 +50,6 @@ public class User extends EntityBase {
       fetch = FetchType.EAGER,
       cascade = CascadeType.ALL,
       orphanRemoval = true)
+  @Singular("authority")
   private List<UserAuthority> authorities;
 }

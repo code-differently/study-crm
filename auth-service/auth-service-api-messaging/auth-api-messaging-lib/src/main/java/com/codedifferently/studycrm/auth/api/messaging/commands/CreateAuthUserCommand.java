@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Generated
 public class CreateAuthUserCommand implements Command {
 
   private UUID userId;
