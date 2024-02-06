@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 public final class FederatedIdentityAuthenticationSuccessHandler
     implements AuthenticationSuccessHandler {
 
-  private final AuthenticationSuccessHandler delegate =
+  private AuthenticationSuccessHandler delegate =
       new SavedRequestAwareAuthenticationSuccessHandler();
   private Consumer<OAuth2User> oauth2UserHandler = (user) -> {};
   private Consumer<OidcUser> oidcUserHandler = (user) -> this.oauth2UserHandler.accept(user);
@@ -41,5 +41,9 @@ public final class FederatedIdentityAuthenticationSuccessHandler
 
   public void setOidcUserHandler(Consumer<OidcUser> oidcUserHandler) {
     this.oidcUserHandler = oidcUserHandler;
+  }
+
+  void setDelegate(AuthenticationSuccessHandler delegate) {
+    this.delegate = delegate;
   }
 }

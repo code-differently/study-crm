@@ -1,7 +1,6 @@
 package com.codedifferently.studycrm.contacts.domain;
 
 import com.codedifferently.studycrm.common.domain.EntityBase;
-
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
