@@ -51,7 +51,7 @@ public class ContactsController {
         .map(
             c ->
                 new ResponseEntity<>(
-                    new GetContactResponse(c.getId(), c.getFirstName(), c.getFirstName()),
+                    new GetContactResponse(c.getId(), c.getFirstName(), c.getLastName()),
                     HttpStatus.OK))
         .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }

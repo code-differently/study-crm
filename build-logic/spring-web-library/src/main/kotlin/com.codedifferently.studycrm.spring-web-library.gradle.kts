@@ -15,6 +15,7 @@ testing {
     suites { 
         withType<JvmTestSuite> {
             dependencies { 
+                implementation("org.springframework.boot:spring-boot-starter-data-jpa")
                 implementation("org.springframework.boot:spring-boot-starter-test")
                 implementation("org.springframework.security:spring-security-test")
             }
