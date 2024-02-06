@@ -8,11 +8,13 @@ group = "com.codedifferently.studycrm.platform"
 javaPlatform.allowDependencies()
 
 val assertjVersion: String by project
+val eventuatePlatformVersion: String by project
 val junitBomVersion: String by project
 val mockitoVersion: String by project
 val springBootVersion: String by project
 
 dependencies {
+    api(platform("io.eventuate.platform:eventuate-platform-dependencies:$eventuatePlatformVersion"))
     api(platform("org.assertj:assertj-core:$assertjVersion"))
     api(platform("org.junit:junit-bom:$junitBomVersion"))
     api(platform("org.mockito:mockito-core:$mockitoVersion"))

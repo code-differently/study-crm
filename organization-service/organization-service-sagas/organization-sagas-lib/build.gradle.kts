@@ -15,3 +15,13 @@ dependencies {
     implementation("io.eventuate.tram.core:eventuate-tram-spring-optimistic-locking")
     implementation("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl-starter")
 }
+
+testing {
+    suites {
+        val test by getting(JvmTestSuite::class)  {
+            dependencies {
+                implementation("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-testing-support")
+            }
+        }
+    }
+}

@@ -16,3 +16,13 @@ dependencies {
     implementation("org.springframework.security:spring-security-oauth2-jose")
     implementation("org.springframework.security:spring-security-oauth2-resource-server")
 }
+
+testing {
+    suites {
+        val integrationTest by getting(JvmTestSuite::class)  {
+            dependencies {
+                implementation("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-in-memory")
+            }
+        }
+    }
+}

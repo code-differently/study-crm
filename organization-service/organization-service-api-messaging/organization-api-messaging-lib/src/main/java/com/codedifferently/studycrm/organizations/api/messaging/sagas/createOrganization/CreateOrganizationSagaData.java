@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Generated
 public class CreateOrganizationSagaData {
 
   private Organization organization;
