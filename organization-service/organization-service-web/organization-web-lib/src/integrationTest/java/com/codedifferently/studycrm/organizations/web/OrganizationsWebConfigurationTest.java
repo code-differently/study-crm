@@ -1,6 +1,5 @@
-package com.codedifferently.studycrm.organizations.web.config;
+package com.codedifferently.studycrm.organizations.web;
 
-import com.codedifferently.studycrm.organizations.web.TestConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
