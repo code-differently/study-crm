@@ -20,32 +20,9 @@ public final class FederatedIdentityConfigurer
 
   private String loginPageUrl = "/login";
 
-  private String authorizationRequestUri;
-
   private Consumer<OAuth2User> oauth2UserHandler;
 
   private Consumer<OidcUser> oidcUserHandler;
-
-  /**
-   * @param loginPageUrl The URL of the login page, defaults to {@code "/login"}
-   * @return This configurer for additional configuration
-   */
-  public FederatedIdentityConfigurer loginPageUrl(String loginPageUrl) {
-    Assert.hasText(loginPageUrl, "loginPageUrl cannot be empty");
-    this.loginPageUrl = loginPageUrl;
-    return this;
-  }
-
-  /**
-   * @param authorizationRequestUri The authorization request URI for initiating the login flow with
-   *     an external IDP, defaults to {@code "/oauth2/authorization/{registrationId}"}
-   * @return This configurer for additional configuration
-   */
-  public FederatedIdentityConfigurer authorizationRequestUri(String authorizationRequestUri) {
-    Assert.hasText(authorizationRequestUri, "authorizationRequestUri cannot be empty");
-    this.authorizationRequestUri = authorizationRequestUri;
-    return this;
-  }
 
   /**
    * @param oauth2UserHandler The {@link Consumer} for performing JIT account provisioning with an
@@ -77,9 +54,6 @@ public final class FederatedIdentityConfigurer
     var authenticationEntryPoint =
         new FederatedIdentityAuthenticationEntryPoint(
             this.loginPageUrl, clientRegistrationRepository);
-    if (this.authorizationRequestUri != null) {
-      authenticationEntryPoint.setAuthorizationRequestUri(this.authorizationRequestUri);
-    }
 
     var authenticationSuccessHandler = new FederatedIdentityAuthenticationSuccessHandler();
     if (this.oauth2UserHandler != null) {
@@ -95,11 +69,6 @@ public final class FederatedIdentityConfigurer
         .oauth2Login(
             oauth2Login -> {
               oauth2Login.successHandler(authenticationSuccessHandler);
-              if (this.authorizationRequestUri != null) {
-                String baseUri = this.authorizationRequestUri.replace("/{registrationId}", "");
-                oauth2Login.authorizationEndpoint(
-                    authorizationEndpoint -> authorizationEndpoint.baseUri(baseUri));
-              }
             });
   }
 }
