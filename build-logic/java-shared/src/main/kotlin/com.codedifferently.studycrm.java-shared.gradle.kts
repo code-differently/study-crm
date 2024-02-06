@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("jvm-test-suite")
     id("jacoco")
     id("eclipse")
     id("io.freefair.lombok")
@@ -39,16 +40,38 @@ configure<com.diffplug.gradle.spotless.SpotlessExtension> {
 
 dependencies {
     implementation(platform("com.codedifferently.studycrm.platform:java-platform"))
-
-    testImplementation(platform("com.codedifferently.studycrm.platform:java-test-platform"))
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.mockito:mockito-core")
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    testRuntimeOnly("com.h2database:h2")
 }
 
-tasks.test {
-    useJUnitPlatform()
-    finalizedBy(tasks.jacocoTestReport)
+testing {
+    suites { 
+        withType<JvmTestSuite> { 
+            useJUnitJupiter()
+            dependencies { 
+                implementation(platform("com.codedifferently.studycrm.platform:java-test-platform"))
+                implementation("org.mockito:mockito-junit-jupiter")
+                runtimeOnly("com.h2database:h2")
+            }
+        }
+
+        register<JvmTestSuite>("integrationTest") {
+            testType = TestSuiteType.INTEGRATION_TEST
+            
+            dependencies {
+                implementation(project())
+                runtimeOnly(project())
+            }
+
+            targets { 
+                all {
+                    testTask.configure {
+                        shouldRunAfter(testing.suites.named("test"))
+                    }
+                }
+            }
+        }
+    }
+}
+
+tasks.named("check") { 
+    dependsOn(testing.suites.named("integrationTest"))
 }

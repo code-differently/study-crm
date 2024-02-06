@@ -3,8 +3,9 @@ import com.avast.gradle.dockercompose.ComposeExtension
 plugins {
     `kotlin-dsl`
     id("com.codedifferently.studycrm.java-shared")
-    id("jacoco-report-aggregation")
     id("com.avast.gradle.docker-compose") version "0.17.6"
+    id("jacoco-report-aggregation")
+    id("test-report-aggregation")
 }
 
 repositories {
@@ -12,10 +13,10 @@ repositories {
 }
 
 dependencies {
-    // Load bearing deps needed to aggregate jacoco reports.
-    implementation("com.codedifferently.studycrm.auth-service.main:auth-main-app")
-    implementation("com.codedifferently.studycrm.contact-service.main:contact-main-app")
-    implementation("com.codedifferently.studycrm.organization-service.main:organization-main-app")
+    // Load bearing deps needed to aggregate coverage reports.
+    jacocoAggregation("com.codedifferently.studycrm.auth-service.main:auth-main-app")
+    jacocoAggregation("com.codedifferently.studycrm.contact-service.main:contact-main-app")
+    jacocoAggregation("com.codedifferently.studycrm.organization-service.main:organization-main-app")
 }
 
 val eventuateCommonImageVersion: String by project
@@ -82,11 +83,30 @@ tasks.test {
     }
 }
 
-// Ensure that we generate the jacoco report for the repo.
-tasks.check {
-    dependsOn(tasks.named<JacocoReport>("testCodeCoverageReport")) 
+reporting {
+    reports {        
+        val testFullCodeCoverageReport by creating(JacocoCoverageReport::class) {
+            testType = TestSuiteType.PERFORMANCE_TEST
+        }
+    }
+}
+
+tasks.named<JacocoReport>("testFullCodeCoverageReport") {
+    description = "Build a full test coverage report including test and integrationTest results"
+    dependsOn( "testCodeCoverageReport", "integrationTestCodeCoverageReport" )
+    executionData.setFrom(fileTree( project.rootDir.absolutePath ).include( "**/build/jacoco/*.exec" ))
+
+    reports {
+        xml.required = true
+        html.required = true
+    }
 }
 
 tasks.register("coverage") {
-    dependsOn("testCodeCoverageReport")
+    dependsOn(tasks.named("testFullCodeCoverageReport"))
+}
+
+// Ensure that we generate the coverage report for the repo.
+tasks.check {
+    dependsOn(tasks.named("coverage")) 
 }

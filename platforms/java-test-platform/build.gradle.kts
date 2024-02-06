@@ -8,9 +8,12 @@ group = "com.codedifferently.studycrm.platform"
 javaPlatform.allowDependencies()
 
 val mockitoVersion: String by project
+val springBootVersion: String by project
+val junitBomVersion: String by project
 
 dependencies {
-    api(platform("org.junit:junit-bom:5.7.1"))
-
+    api(platform("org.junit:junit-bom:$junitBomVersion"))
+    api(platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"))
     api(platform("org.mockito:mockito-core:$mockitoVersion"))
+    api(platform("org.mockito:mockito-junit-jupiter:$mockitoVersion"))
 }
