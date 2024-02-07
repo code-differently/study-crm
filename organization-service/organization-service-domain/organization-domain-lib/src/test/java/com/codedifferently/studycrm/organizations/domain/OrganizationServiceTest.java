@@ -11,8 +11,6 @@ import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.access.AccessDeniedException;
@@ -23,8 +21,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest
-@ContextConfiguration(classes = OrganizationDomainConfiguration.class)
-@ExtendWith(MockitoExtension.class)
+@ContextConfiguration(classes = OrganizationDomainTestConfiguration.class)
 class OrganizationServiceTest {
 
   @Autowired private UserRepository userRepository;

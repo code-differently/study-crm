@@ -3,7 +3,7 @@ package com.codedifferently.studycrm.organizations.domain;
 import static org.mockito.Mockito.mock;
 
 import com.codedifferently.studycrm.common.domain.EntityAclManager;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -14,7 +14,7 @@ import org.springframework.security.acls.AclPermissionEvaluator;
 import org.springframework.security.acls.model.MutableAclService;
 
 @TestConfiguration
-@EnableAutoConfiguration
+@SpringBootApplication
 class OrganizationDomainTestConfiguration {
   private static PermissionEvaluator permissionEvaluator;
 
