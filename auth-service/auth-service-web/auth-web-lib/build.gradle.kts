@@ -16,3 +16,13 @@ dependencies {
     implementation("org.springframework.security:spring-security-cas")
     implementation("org.springframework:spring-jdbc")
 }
+
+testing {
+    suites {
+        val integrationTest by getting(JvmTestSuite::class)  {
+            dependencies {
+                implementation("org.springframework.security:spring-security-oauth2-authorization-server")
+            }
+        }
+    }
+}
