@@ -1,3 +1,5 @@
+server:
+    port: 8082
 spring:
     application:
         name: organization-service
@@ -27,8 +29,7 @@ spring:
         oauth2:
             resourceserver:
                 jwt:
-                    #issuer-uri: http://api-local.studycrm.com
-                    issuer-uri: http://localhost:8081
+                    issuer-uri: http://api-local.studycrm.com
    
 logging:
     level:

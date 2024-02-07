@@ -22,7 +22,7 @@ dependencies {
 val eventuateCommonImageVersion: String by project
 val eventuateCdcImageVersion: String by project
 val eventuateMessagingKafkaImageVersion: String by project
-val infrastructureServices = listOf("zipkin", "zookeeper", "kafka", "auth-service-mysql", "contact-service-mysql", "organization-service-mysql", "cdc-service")
+val infrastructureServices = listOf("api-gateway", "zipkin", "zookeeper", "kafka", "auth-service-mysql", "contact-service-mysql", "organization-service-mysql", "cdc-service")
 
 configure<ComposeExtension> {
     includeDependencies.set(true)

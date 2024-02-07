@@ -51,6 +51,12 @@ static_resources:
                 route:
                   cluster: organization_service
                   timeout: 0s
+              - match:
+                  prefix: "/docs/organizations"
+                route:
+                  prefix_rewrite: "/v3/api-docs"
+                  cluster: organization_service
+                  timeout: 0s
               cors:
                 allow_origin_string_match:
                   - prefix: "*"
@@ -78,6 +84,11 @@ static_resources:
                     socket_address:
                       address: auth-service
                       port_value: 8081
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: host.docker.internal
+                      port_value: 8081
     - name: organization_service
       connect_timeout: 1.25s
       type: strict_dns
@@ -92,26 +103,9 @@ static_resources:
                   address:
                     socket_address:
                       address: organization-service
-                      port_value: 8080
-    - name: funnel_auth_cluster
-      type: strict_dns
-      dns_lookup_family: v4_only
-      connect_timeout: 500s
-      load_assignment:
-        cluster_name: funnel_auth_cluster
-        endpoints:
-          - lb_endpoints:
+                      port_value: 8082
               - endpoint:
                   address:
                     socket_address:
-                      address: dev-l61afruwodnefots.us.auth0.com
-                      port_value: 443
-      transport_socket:
-        name: envoy.transport_sockets.tls
-        typed_config:
-          "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
-          sni: dev-l61afruwodnefots.us.auth0.com
-          common_tls_context:
-            validation_context:
-              trusted_ca:
-                filename: /etc/ssl/certs/ca-certificates.crt
+                      address: host.docker.internal
+                      port_value: 8082

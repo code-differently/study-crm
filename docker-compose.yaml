@@ -49,7 +49,7 @@ services:
     build:
       context: ./contact-service/contact-service-main/
     ports:
-      - "10081:8080"
+      - "10083:8083"
     depends_on:
       - contact-service-mysql
       - kafka
@@ -82,7 +82,7 @@ services:
     build:
       context: ./organization-service/organization-service-main/
     ports:
-      - "10082:8080"
+      - "10082:8082"
     depends_on:
       - organization-service-mysql
       - kafka
