@@ -1,7 +1,7 @@
-import NextAuth from "next-auth"
+import NextAuth from "next-auth";
 import { JWT } from "next-auth/jwt";
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
     providers: [{
       id: "studycrm",
       name: "StudyCRM",
