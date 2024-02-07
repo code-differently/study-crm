@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,10 @@ class UserTest {
             .password("somePassword")
             .firstName("John")
             .lastName("Doe")
+            .authorities(new ArrayList<UserAuthority>())
+            .isAccountEnabled(true)
+            .isAccountLocked(false)
+            .clearAuthorities()
             .build();
 
     // Assert

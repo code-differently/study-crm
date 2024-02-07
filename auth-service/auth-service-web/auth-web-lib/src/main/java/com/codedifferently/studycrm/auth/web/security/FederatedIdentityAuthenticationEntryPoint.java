@@ -65,8 +65,4 @@ public final class FederatedIdentityAuthenticationEntryPoint implements Authenti
 
     this.delegate.commence(request, response, authenticationException);
   }
-
-  public void setAuthorizationRequestUri(String authorizationRequestUri) {
-    this.authorizationRequestUri = authorizationRequestUri;
-  }
 }
