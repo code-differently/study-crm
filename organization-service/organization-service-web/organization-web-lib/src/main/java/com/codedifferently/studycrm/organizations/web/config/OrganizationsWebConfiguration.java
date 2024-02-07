@@ -1,4 +1,4 @@
-package com.codedifferently.studycrm.organizations.web;
+package com.codedifferently.studycrm.organizations.web.config;
 
 import com.codedifferently.studycrm.common.domain.AclSecurityConfiguration;
 import com.codedifferently.studycrm.common.web.exceptions.GlobalExceptionHandler;

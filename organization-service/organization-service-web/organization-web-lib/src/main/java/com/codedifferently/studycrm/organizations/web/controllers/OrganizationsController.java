@@ -1,4 +1,4 @@
-package com.codedifferently.studycrm.organizations.web;
+package com.codedifferently.studycrm.organizations.web.controllers;
 
 import com.codedifferently.studycrm.organizations.api.web.CreateOrganizationRequest;
 import com.codedifferently.studycrm.organizations.api.web.CreateOrganizationResponse;

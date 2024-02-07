@@ -1,4 +1,4 @@
-package com.codedifferently.studycrm.organizations.web;
+package com.codedifferently.studycrm.organizations.web.config;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 

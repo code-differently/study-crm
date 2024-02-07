@@ -1,5 +1,6 @@
 package com.codedifferently.studycrm.contacts.web;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -93,5 +94,16 @@ class ContactsControllerTest {
             content()
                 .json(
                     "{\"contactId\": \"123e4567-e89b-12d3-a456-426614174000\", \"firstName\": \"John\", \"lastName\": \"Doe\"}"));
+  }
+
+  @Test
+  void testGetContact_notFound() throws Exception {
+    // Arrange
+    when(contactRepository.findById(any())).thenReturn(Optional.empty());
+
+    // Act
+    mockMvc
+        .perform(get("/contacts/123e4567-e89b-12d3-a456-426614174000"))
+        .andExpect(status().isNotFound());
   }
 }

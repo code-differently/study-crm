@@ -38,21 +38,27 @@ public class ContactsController {
   @RequestMapping(value = "/contacts", method = RequestMethod.GET)
   public ResponseEntity<GetContactsResponse> getAll() {
     return ResponseEntity.ok(
-        new GetContactsResponse(
-            StreamSupport.stream(contactRepository.findAll().spliterator(), false)
-                .map(c -> new GetContactResponse(c.getId(), c.getFirstName(), c.getLastName()))
-                .collect(Collectors.toList())));
+        GetContactsResponse.builder()
+            .contacts(
+                StreamSupport.stream(contactRepository.findAll().spliterator(), false)
+                    .map(c -> getContactResponse(c))
+                    .collect(Collectors.toList()))
+            .build());
   }
 
   @RequestMapping(value = "/contacts/{contactId}", method = RequestMethod.GET)
   public ResponseEntity<GetContactResponse> getContact(@PathVariable("contactId") UUID contactId) {
     return contactRepository
         .findById(contactId)
-        .map(
-            c ->
-                new ResponseEntity<>(
-                    new GetContactResponse(c.getId(), c.getFirstName(), c.getLastName()),
-                    HttpStatus.OK))
+        .map(c -> new ResponseEntity<>(getContactResponse(c), HttpStatus.OK))
         .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+  }
+
+  private GetContactResponse getContactResponse(Contact contact) {
+    return GetContactResponse.builder()
+        .contactId(contact.getId())
+        .firstName(contact.getFirstName())
+        .lastName(contact.getLastName())
+        .build();
   }
 }
