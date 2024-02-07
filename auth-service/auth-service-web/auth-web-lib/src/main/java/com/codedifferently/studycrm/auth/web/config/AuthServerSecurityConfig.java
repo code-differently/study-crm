@@ -72,7 +72,7 @@ public class AuthServerSecurityConfig {
             .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
             .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
             .redirectUri("http://localhost:3000/api/auth/callback/studycrm")
-            .redirectUri("https://oidcdebugger.com/debug")
+            .redirectUri("https://oauth.pstmn.io/v1/callback")
             .postLogoutRedirectUri("http://127.0.0.1:8080/")
             .scope(OidcScopes.OPENID)
             .scope(OidcScopes.PROFILE)
