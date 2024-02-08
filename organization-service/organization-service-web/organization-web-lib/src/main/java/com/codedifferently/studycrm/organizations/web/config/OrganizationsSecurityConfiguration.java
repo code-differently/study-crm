@@ -2,17 +2,18 @@ package com.codedifferently.studycrm.organizations.web.config;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import com.codedifferently.studycrm.common.web.config.JwtConverterConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /** Configures our application with Spring Security to restrict access to our API endpoints. */
 @Configuration
+@Import(JwtConverterConfig.class)
 public class OrganizationsSecurityConfiguration {
 
   @Bean
@@ -39,17 +40,5 @@ public class OrganizationsSecurityConfiguration {
         .cors(withDefaults())
         .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))
         .build();
-  }
-
-  @Bean
-  public JwtAuthenticationConverter jwtAuthenticationConverter() {
-    JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter =
-        new JwtGrantedAuthoritiesConverter();
-    grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
-    grantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
-
-    JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-    jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
-    return jwtAuthenticationConverter;
   }
 }
