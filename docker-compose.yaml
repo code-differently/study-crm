@@ -45,17 +45,17 @@ services:
       - EVENTUATE_OUTBOX_TABLES=${EVENTUATE_OUTBOX_TABLES}
       - MYSQL_DATABASE=auth_service
 
-  contact-service:
+  entity-service:
     build:
-      context: ./contact-service/contact-service-main/
+      context: ./entity-service/entity-service-main/
     ports:
       - "10083:8083"
     depends_on:
-      - contact-service-mysql
+      - entity-service-mysql
       - kafka
       - zookeeper
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://contact-service-mysql/contact_service
+      SPRING_DATASOURCE_URL: jdbc:mysql://entity-service-mysql/entity_service
       SPRING_DATASOURCE_USERNAME: mysqluser
       SPRING_DATASOURCE_PASSWORD: mysqlpw
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
@@ -67,7 +67,7 @@ services:
       EVENTUATE_TRAM_OUTBOX_PARTITIONING_OUTBOX_TABLES: ${EVENTUATE_OUTBOX_TABLES}
       EVENTUATE_DATABASE_SCHEMA: none
 
-  contact-service-mysql:
+  entity-service-mysql:
     image: eventuateio/eventuate-mysql8:${EVENTUATE_COMMON_VERSION?}
     ports:
       - 3307:3306
@@ -76,7 +76,7 @@ services:
       - MYSQL_USER=mysqluser
       - MYSQL_PASSWORD=mysqlpw
       - EVENTUATE_OUTBOX_TABLES=${EVENTUATE_OUTBOX_TABLES}
-      - MYSQL_DATABASE=contact_service
+      - MYSQL_DATABASE=entity_service
 
   organization-service:
     build:

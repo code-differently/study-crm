@@ -28,7 +28,7 @@
             "type": "java",
             "name": "App",
             "request": "launch",
-            "mainClass": "com.simplecrm.contacts.App",
+            "mainClass": "com.simplecrm.entities.App",
             "projectName": "app"
         }
     ]

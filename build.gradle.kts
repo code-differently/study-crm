@@ -15,14 +15,14 @@ repositories {
 dependencies {
     // Load bearing deps needed to aggregate coverage reports.
     jacocoAggregation("com.codedifferently.studycrm.auth-service.main:auth-main-app")
-    jacocoAggregation("com.codedifferently.studycrm.contact-service.main:contact-main-app")
+    jacocoAggregation("com.codedifferently.studycrm.entity-service.main:entity-main-app")
     jacocoAggregation("com.codedifferently.studycrm.organization-service.main:organization-main-app")
 }
 
 val eventuateCommonImageVersion: String by project
 val eventuateCdcImageVersion: String by project
 val eventuateMessagingKafkaImageVersion: String by project
-val infrastructureServices = listOf("api-gateway", "zipkin", "zookeeper", "kafka", "auth-service-mysql", "contact-service-mysql", "organization-service-mysql", "cdc-service")
+val infrastructureServices = listOf("api-gateway", "zipkin", "zookeeper", "kafka", "auth-service-mysql", "entity-service-mysql", "organization-service-mysql", "cdc-service")
 
 configure<ComposeExtension> {
     includeDependencies.set(true)
@@ -41,7 +41,7 @@ configure<ComposeExtension> {
         setProjectName(null)
         environment.putAll(mapOf("TAGS" to "feature-test,local"))
         useComposeFiles.set(listOf("docker-compose.yaml"))
-        startedServices.set(listOf(*infrastructureServices.toTypedArray(), "auth-service", "contact-service", "organization-service", "api-gateway"))
+        startedServices.set(listOf(*infrastructureServices.toTypedArray(), "auth-service", "entity-service", "organization-service", "api-gateway"))
     }
 }
 
