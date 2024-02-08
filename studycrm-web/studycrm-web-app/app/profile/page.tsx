@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import React from "react";
-import { getOrganizations } from "../services/organization.service";
+import { getOrganizations } from "@/app/services/organization.service";
 
 const Profile: NextPage = async (ctx) => { 
   const { organizations } = await getOrganizations();

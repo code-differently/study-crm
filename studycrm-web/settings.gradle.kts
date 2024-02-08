@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 includeBuild("../platforms")
 
 rootProject.name = "studycrm-web"
-include("app")
+include("studycrm-web-app")

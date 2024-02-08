@@ -17,6 +17,7 @@ export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
       },
       checks: ["pkce", "state", "nonce"],
     }],
+    secret: process.env.NEXTAUTH_SECRET,
     session: {
       strategy: "jwt",
     },
@@ -46,7 +47,6 @@ export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
               refresh_token: tokens.refresh_token ?? token.refresh_token,
             }
           } catch (error) {
-            console.error("Error refreshing access token", error)
             return { ...token, error: "RefreshAccessTokenError" as const }
           }
         }
@@ -59,6 +59,9 @@ export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
       }
     },
     debug: true,
+    pages: {
+      signIn: "/auth/signin",
+    },
   });
 
   function getRefreshTokenRequest(token: JWT) {

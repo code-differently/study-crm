@@ -1,6 +1,6 @@
 import "server-only";
 
-import { Organization } from "../models/organization";
+import { Organization } from "@/app/models/organization";
 import { auth, signIn } from "@/auth"
 
 

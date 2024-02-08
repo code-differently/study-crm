@@ -23,6 +23,14 @@ static_resources:
           route_config:
             name: local_route
             virtual_hosts:
+            - name: fe_host
+              domains: ["local.studycrm.com"]
+              routes:
+              - match:
+                  prefix: "/"
+                route:
+                  cluster: studycrm_fe
+                  timeout: 0s
             - name: api_service_host
               domains: ["*"]
               routes:
@@ -69,6 +77,21 @@ static_resources:
                 "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
 
   clusters:
+    - name: studycrm_fe
+      connect_timeout: 1.25s
+      type: strict_dns
+      dns_lookup_family: v4_only
+      lb_policy: round_robin
+      # Use address: 0.0.0.0 when running with Envoy directly.
+      load_assignment:
+        cluster_name: cluster_0
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: host.docker.internal
+                      port_value: 3000
     - name: auth_service
       connect_timeout: 1.25s
       type: strict_dns
