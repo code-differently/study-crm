@@ -1,5 +1,6 @@
 package com.codedifferently.studycrm.entities.api.web;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import lombok.*;
@@ -16,4 +17,8 @@ public class GetEntityResponse {
   private String type;
 
   private List<EntityPropertyResponse> properties;
+
+  private Date createdAt;
+
+  private Date updatedAt;
 }

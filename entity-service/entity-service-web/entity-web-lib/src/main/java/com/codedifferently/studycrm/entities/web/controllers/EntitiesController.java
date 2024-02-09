@@ -70,13 +70,18 @@ public class EntitiesController {
         .id(entity.getId())
         .type(entity.getEntityType().getName())
         .properties(properties)
+        .createdAt(entity.getCreatedAt())
+        .updatedAt(entity.getUpdatedAt())
         .build();
   }
 
   private EntityPropertyResponse getEntityPropertyResponse(EntityProperty entityProperty) {
+    Property property = entityProperty.getProperty();
     return EntityPropertyResponse.builder()
-        .name(entityProperty.getProperty().getName())
+        .name(property.getName())
+        .type(property.getPropertyType().getName())
         .value(entityProperty.getValue())
+        .updatedAt(entityProperty.getUpdatedAt())
         .build();
   }
 }

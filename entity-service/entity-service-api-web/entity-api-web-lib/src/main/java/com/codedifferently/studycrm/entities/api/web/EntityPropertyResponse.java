@@ -1,5 +1,6 @@
 package com.codedifferently.studycrm.entities.api.web;
 
+import java.util.Date;
 import lombok.*;
 
 @Data
@@ -11,5 +12,9 @@ public class EntityPropertyResponse {
 
   private String name;
 
+  private String type;
+
   private Object value;
+
+  private Date updatedAt;
 }
