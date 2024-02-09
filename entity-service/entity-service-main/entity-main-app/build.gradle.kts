@@ -6,6 +6,7 @@ plugins {
 group = "com.codedifferently.studycrm.entity-service.main"
 
 dependencies {
+    implementation("com.codedifferently.studycrm.common.web:common-web-lib")
     implementation("com.codedifferently.studycrm.entity-service.web:entity-web-lib")
 }
 

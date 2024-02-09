@@ -1,10 +1,11 @@
 package com.codedifferently.studycrm.entities;
 
+import com.codedifferently.studycrm.StudyCrmPackageMarker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackageClasses = StudyCrmPackageMarker.class)
 @Configuration
 public class App {
   public static void main(String[] args) {

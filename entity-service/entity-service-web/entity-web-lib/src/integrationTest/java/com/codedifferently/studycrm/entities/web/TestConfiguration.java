@@ -2,7 +2,7 @@ package com.codedifferently.studycrm.entities.web;
 
 import static org.mockito.Mockito.mock;
 
-import com.codedifferently.studycrm.StudyCrmPackageToken;
+import com.codedifferently.studycrm.StudyCrmPackageMarker;
 import com.codedifferently.studycrm.entities.domain.EntityService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import org.springframework.security.access.expression.method.DefaultMethodSecuri
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.acls.AclPermissionEvaluator;
 
-@SpringBootApplication(scanBasePackageClasses = {StudyCrmPackageToken.class})
+@SpringBootApplication(scanBasePackageClasses = {StudyCrmPackageMarker.class})
 @Configuration
 public class TestConfiguration {
   private static PermissionEvaluator permissionEvaluator;

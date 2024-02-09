@@ -6,6 +6,7 @@ plugins {
 group = "com.codedifferently.studycrm.organization-service.main"
 
 dependencies {
+    implementation("com.codedifferently.studycrm.common.web:common-web-lib")
     implementation("com.codedifferently.studycrm.organization-service.web:organization-web-lib")
 }
 

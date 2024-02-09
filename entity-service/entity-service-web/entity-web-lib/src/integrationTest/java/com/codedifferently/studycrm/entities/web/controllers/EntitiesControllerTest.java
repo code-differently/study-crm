@@ -8,42 +8,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.codedifferently.studycrm.common.domain.EntityNotFoundException;
-import com.codedifferently.studycrm.common.web.exceptions.GlobalExceptionHandler;
-import com.codedifferently.studycrm.entities.domain.Entity;
-import com.codedifferently.studycrm.entities.domain.EntityProperty;
-import com.codedifferently.studycrm.entities.domain.EntityRepository;
-import com.codedifferently.studycrm.entities.domain.EntityService;
-import com.codedifferently.studycrm.entities.domain.EntityType;
+import com.codedifferently.studycrm.entities.domain.*;
+import com.codedifferently.studycrm.entities.web.TestConfiguration;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
+@SpringBootTest
+@ContextConfiguration(classes = TestConfiguration.class)
 class EntitiesControllerTest {
 
-  @Mock private EntityService entityService;
-
-  @Mock private EntityRepository entityRepository;
-
-  @InjectMocks private EntitiesController entitiesController;
+  @Autowired private EntityService entityService;
 
   private MockMvc mockMvc;
 
   @BeforeEach
-  void setUp() {
-    MockitoAnnotations.openMocks(this);
-    mockMvc =
-        MockMvcBuilders.standaloneSetup(entitiesController)
-            .setControllerAdvice(new GlobalExceptionHandler())
-            .build();
+  void setUp(WebApplicationContext wac) {
+    mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
   }
 
   @Test
@@ -127,7 +118,7 @@ class EntitiesControllerTest {
   @Test
   void testGetEntity_notFound() throws Exception {
     // Arrange
-    when(entityRepository.findById(any())).thenReturn(Optional.empty());
+    when(entityService.findById(any(), any())).thenReturn(Optional.empty());
 
     // Act
     mockMvc

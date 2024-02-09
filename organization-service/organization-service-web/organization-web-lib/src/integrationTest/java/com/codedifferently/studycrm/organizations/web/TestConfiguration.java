@@ -2,7 +2,7 @@ package com.codedifferently.studycrm.organizations.web;
 
 import static org.mockito.Mockito.mock;
 
-import com.codedifferently.studycrm.StudyCrmPackageToken;
+import com.codedifferently.studycrm.StudyCrmPackageMarker;
 import com.codedifferently.studycrm.organizations.domain.OrganizationService;
 import com.codedifferently.studycrm.organizations.sagas.OrganizationSagaService;
 import io.eventuate.tram.sagas.spring.inmemory.TramSagaInMemoryConfiguration;
@@ -16,7 +16,7 @@ import org.springframework.security.access.expression.method.DefaultMethodSecuri
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.acls.AclPermissionEvaluator;
 
-@SpringBootApplication(scanBasePackageClasses = {StudyCrmPackageToken.class})
+@SpringBootApplication(scanBasePackageClasses = {StudyCrmPackageMarker.class})
 @Configuration
 @Import({TramSagaInMemoryConfiguration.class})
 public class TestConfiguration {
