@@ -2,6 +2,10 @@ package com.codedifferently.studycrm.entities.web.config;
 
 import com.codedifferently.studycrm.entities.domain.*;
 import jakarta.transaction.Transactional;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -26,6 +30,7 @@ public class TestEntitiesConfiguration implements CommandLineRunner {
 
   @Override
   @Transactional
+  @ExcludeFromJacocoGeneratedReport
   public void run(String... args) throws Exception {
     if (isJUnitTest()) {
       return;
@@ -172,12 +177,16 @@ public class TestEntitiesConfiguration implements CommandLineRunner {
     entityPropertyRepository.saveAll(contactProperties);
   }
 
-  private static boolean isJUnitTest() {  
+  private static boolean isJUnitTest() {
     for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
       if (element.getClassName().startsWith("org.junit.")) {
         return true;
-      }           
+      }
     }
     return false;
   }
+
+  @Retention(RetentionPolicy.RUNTIME)
+  @Target(ElementType.METHOD)
+  public @interface ExcludeFromJacocoGeneratedReport {}
 }

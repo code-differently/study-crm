@@ -102,7 +102,12 @@ class EntitiesControllerTest {
     var orgId = UUID.randomUUID();
     var entityId = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
     var entityType = EntityType.builder().name("contact").build();
-    Entity entity = Entity.builder().id(entityId).entityType(entityType).properties(Collections.<EntityProperty>emptyList()).build();
+    Entity entity =
+        Entity.builder()
+            .id(entityId)
+            .entityType(entityType)
+            .properties(Collections.<EntityProperty>emptyList())
+            .build();
     when(entityService.findById(orgId, entityId)).thenReturn(Optional.of(entity));
 
     // Act
@@ -111,8 +116,7 @@ class EntitiesControllerTest {
         .andExpect(status().isOk())
         .andExpect(
             content()
-                .json(
-                    "{\"id\": \"123e4567-e89b-12d3-a456-426614174000\", \"type\": \"contact\"}"));
+                .json("{\"id\": \"123e4567-e89b-12d3-a456-426614174000\", \"type\": \"contact\"}"));
   }
 
   @Test
