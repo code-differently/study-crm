@@ -2,7 +2,10 @@ package com.codedifferently.studycrm.entities.web.controllers;
 
 import com.codedifferently.studycrm.entities.api.web.*;
 import com.codedifferently.studycrm.entities.domain.*;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -28,13 +31,15 @@ public class EntitiesController {
   @RequestMapping(method = RequestMethod.GET)
   public ResponseEntity<GetEntitiesResponse> getAll(
       @PathVariable("organizationId") UUID organizationId,
-      @RequestParam("type") String entityType) {
+      @RequestParam("type") String entityType,
+      @RequestParam("properties") List<String> properties) {
+    var propertyNames = new HashSet<String>(properties);
     List<Entity> entities = entityService.findAllByEntityType(organizationId, entityType);
     return ResponseEntity.ok(
         GetEntitiesResponse.builder()
             .entities(
                 StreamSupport.stream(entities.spliterator(), false)
-                    .map(c -> getEntityResponse(c))
+                    .map(c -> getEntityResponse(c, propertyNames))
                     .collect(Collectors.toList()))
             .build());
   }
@@ -42,16 +47,23 @@ public class EntitiesController {
   @RequestMapping(value = "/{entityId}", method = RequestMethod.GET)
   public ResponseEntity<GetEntityResponse> getEntity(
       @PathVariable("organizationId") UUID organizationId,
-      @PathVariable("entityId") UUID entityId) {
+      @PathVariable("entityId") UUID entityId,
+      @RequestParam(name = "properties", required = false) List<String> properties) {
+    var propertyNames =
+        new HashSet<String>(properties == null ? Collections.<String>emptyList() : properties);
     return entityService
         .findById(organizationId, entityId)
-        .map(c -> new ResponseEntity<>(getEntityResponse(c), HttpStatus.OK))
+        .map(c -> new ResponseEntity<>(getEntityResponse(c, propertyNames), HttpStatus.OK))
         .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
 
-  private GetEntityResponse getEntityResponse(Entity entity) {
+  private GetEntityResponse getEntityResponse(Entity entity, Set<String> propertyNames) {
     var properties =
         entity.getProperties().stream()
+            .filter(
+                property ->
+                    propertyNames.isEmpty()
+                        || propertyNames.contains(property.getProperty().getName()))
             .map(this::getEntityPropertyResponse)
             .collect(Collectors.toList());
     return GetEntityResponse.builder()
