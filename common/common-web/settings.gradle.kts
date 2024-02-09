@@ -17,6 +17,7 @@ dependencyResolutionManagement {
     }
 }
 includeBuild("../../platforms")
+includeBuild("../common-domain")
 
 rootProject.name = "common-web"
 include("common-web-lib")

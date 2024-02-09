@@ -24,6 +24,7 @@ testing {
                 implementation("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-in-memory")
                 implementation("org.springframework.security:spring-security-acl")
                 implementation("com.codedifferently.studycrm.common.domain:common-domain-lib")
+                implementation("com.codedifferently.studycrm.common.web:common-web-lib")
                 implementation("com.codedifferently.studycrm.organization-service.domain:organization-domain-lib")
                 implementation("com.codedifferently.studycrm.organization-service.api.web:organization-api-web-lib")
                 implementation("com.codedifferently.studycrm.organization-service.sagas:organization-sagas-lib")

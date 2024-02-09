@@ -12,7 +12,5 @@ public class GetEntityResponse {
 
   private UUID entityId;
 
-  private String firstName;
-
-  private String lastName;
+  private String entityType;
 }

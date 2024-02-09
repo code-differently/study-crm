@@ -1,4 +1,4 @@
-package com.codedifferently.studycrm.entities.web;
+package com.codedifferently.studycrm.entities.web.config;
 
 import java.util.List;
 import org.springframework.context.annotation.ComponentScan;

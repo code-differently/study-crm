@@ -1,13 +1,10 @@
 package com.codedifferently.studycrm.entities.domain;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class EntityDomainConfiguration {
-
-  @Bean
-  public EntityService entityService(EntityRepository entityRepository) {
-    return new EntityService(entityRepository);
-  }
-}
+@EnableAutoConfiguration
+@ComponentScan
+public class EntityDomainConfiguration {}

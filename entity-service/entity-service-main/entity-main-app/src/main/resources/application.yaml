@@ -22,6 +22,11 @@ spring:
         locations: classpath:flyway/{vendor}
         baseline-on-migrate: true
         baseline-version: 0
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: http://api-local.studycrm.com
 
 logging:
     level:

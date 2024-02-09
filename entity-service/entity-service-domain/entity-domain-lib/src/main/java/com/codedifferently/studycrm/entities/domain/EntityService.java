@@ -1,20 +1,44 @@
 package com.codedifferently.studycrm.entities.domain;
 
+import com.codedifferently.studycrm.common.domain.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class EntityService {
 
-  private EntityRepository EntityRepository;
+  @Autowired private EntityRepository entityRepository;
 
-  public EntityService(EntityRepository EntityRepository) {
-    this.EntityRepository = EntityRepository;
-  }
+  @Autowired private EntityTypeRepository entityTypeRepository;
 
   @Transactional
-  public Entity createEntity(String firstName, String lastName) {
-    Entity entity = Entity.builder().firstName(firstName).lastName(lastName).build();
+  public Entity createEntity(UUID organizationId, String entityTypeName) {
+    EntityType entityType = entityTypeRepository.findByName(entityTypeName);
+    if (entityType == null) {
+      throw new IllegalArgumentException("Entity type not found");
+    }
+
+    Entity entity = Entity.builder().organizationId(organizationId).entityType(entityType).build();
     Objects.requireNonNull(entity);
-    return EntityRepository.save(entity);
+    return entityRepository.save(entity);
+  }
+
+  public List<Entity> findAllByEntityType(UUID organizationId, String entityTypeName)
+      throws EntityNotFoundException {
+    EntityType entityType = entityTypeRepository.findByName(entityTypeName);
+    if (entityType == null) {
+      throw new EntityNotFoundException("Entity type not found");
+    }
+
+    return entityRepository.findAllByOrganizationIdAndEntityType(organizationId, entityType);
+  }
+
+  public Optional<Entity> findById(UUID organizationId, UUID entityId) {
+    return entityRepository.findByIdAndOrganizationId(entityId, organizationId);
   }
 }

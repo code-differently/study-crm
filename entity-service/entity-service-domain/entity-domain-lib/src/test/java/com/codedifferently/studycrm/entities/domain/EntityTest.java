@@ -7,9 +7,7 @@ import org.junit.jupiter.api.Test;
 class EntityTest {
   @Test
   void testGetId() {
-    Entity entity = Entity.builder().firstName("John").lastName("Doe").build();
+    Entity entity = Entity.builder().build();
     assertNull(entity.getId());
-    assertEquals("John", entity.getFirstName());
-    assertEquals("Doe", entity.getLastName());
   }
 }

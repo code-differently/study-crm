@@ -8,7 +8,5 @@ import lombok.*;
 @Generated
 public class CreateEntityRequest {
 
-  private String firstName;
-
-  private String lastName;
+  private String entityType;
 }

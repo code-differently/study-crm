@@ -1,15 +1,12 @@
-package com.codedifferently.studycrm.organizations.web;
+package com.codedifferently.studycrm.entities.web;
 
 import static org.mockito.Mockito.mock;
 
 import com.codedifferently.studycrm.StudyCrmPackageToken;
-import com.codedifferently.studycrm.organizations.domain.OrganizationService;
-import com.codedifferently.studycrm.organizations.sagas.OrganizationSagaService;
-import io.eventuate.tram.sagas.spring.inmemory.TramSagaInMemoryConfiguration;
+import com.codedifferently.studycrm.entities.domain.EntityService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
@@ -18,20 +15,13 @@ import org.springframework.security.acls.AclPermissionEvaluator;
 
 @SpringBootApplication(scanBasePackageClasses = {StudyCrmPackageToken.class})
 @Configuration
-@Import({TramSagaInMemoryConfiguration.class})
 public class TestConfiguration {
   private static PermissionEvaluator permissionEvaluator;
 
   @Primary
   @Bean
-  public OrganizationService mockOrganizationService() {
-    return mock(OrganizationService.class);
-  }
-
-  @Primary
-  @Bean
-  public OrganizationSagaService mockOrganizationSagaService() {
-    return mock(OrganizationSagaService.class);
+  public EntityService mockEntityService() {
+    return mock(EntityService.class);
   }
 
   @Primary

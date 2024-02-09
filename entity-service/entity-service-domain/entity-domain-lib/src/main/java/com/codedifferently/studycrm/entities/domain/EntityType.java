@@ -2,27 +2,25 @@ package com.codedifferently.studycrm.entities.domain;
 
 import com.codedifferently.studycrm.common.domain.EntityBase;
 import jakarta.persistence.*;
-import java.util.List;
-import java.util.UUID;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @jakarta.persistence.Entity
-@Table(name = "Entity")
+@Table(name = "EntityType")
 @Access(AccessType.FIELD)
 @Data
 @EqualsAndHashCode
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Entity extends EntityBase {
+public class EntityType extends EntityBase {
 
-  @ManyToOne(fetch = FetchType.EAGER)
-  private EntityType entityType;
+  @Column(unique = true, nullable = false)
+  private String name;
 
-  @Column(nullable = false)
-  private UUID organizationId;
+  private String label;
 
-  @OneToMany(fetch = FetchType.EAGER)
-  private List<EntityProperty> properties;
+  private String pluralLabel;
+
+  private String entityClass;
 }

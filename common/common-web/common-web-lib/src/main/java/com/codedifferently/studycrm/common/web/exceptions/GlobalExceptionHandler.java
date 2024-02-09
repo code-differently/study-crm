@@ -1,5 +1,6 @@
 package com.codedifferently.studycrm.common.web.exceptions;
 
+import com.codedifferently.studycrm.common.domain.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,14 @@ import org.springframework.web.context.request.WebRequest;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+  @ExceptionHandler(EntityNotFoundException.class)
+  protected ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex) {
+    Map<String, String> body = new HashMap<>();
+    body.put("message", ex.getMessage());
+
+    return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+  }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   protected ResponseEntity<Object> handleMethodArgumentNotValid(
