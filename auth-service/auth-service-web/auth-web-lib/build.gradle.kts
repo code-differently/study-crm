@@ -21,6 +21,7 @@ testing {
     suites {
         val integrationTest by getting(JvmTestSuite::class)  {
             dependencies {
+                implementation("com.codedifferently.studycrm.common.web:common-web-lib")
                 implementation("org.springframework.security:spring-security-oauth2-authorization-server")
             }
         }

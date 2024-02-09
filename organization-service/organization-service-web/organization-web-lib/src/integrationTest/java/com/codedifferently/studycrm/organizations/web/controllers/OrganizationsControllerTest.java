@@ -18,6 +18,7 @@ import com.codedifferently.studycrm.organizations.web.TestConfiguration;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.stubbing.Answer;
@@ -41,11 +42,15 @@ public class OrganizationsControllerTest {
 
   @Autowired private OrganizationSagaService organizationSagaService;
 
-  private MockMvc mockMvc;
+  private static MockMvc mockMvc;
+
+  @BeforeAll
+  static void setUp(WebApplicationContext wac) {
+    mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+  }
 
   @BeforeEach
-  void setUp(WebApplicationContext wac) {
-    mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+  void setUp() {
     reset(aclPermissionEvaluator, organizationService, organizationSagaService);
   }
 

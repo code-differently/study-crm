@@ -1,8 +1,9 @@
 package com.codedifferently.studycrm.auth.web;
 
+import com.codedifferently.studycrm.StudyCrmPackageMarker;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 
-@SpringBootApplication(scanBasePackages = "com.codedifferently.studycrm.auth")
+@SpringBootApplication(scanBasePackageClasses = StudyCrmPackageMarker.class)
 @Configuration
 public class TestConfiguration {}

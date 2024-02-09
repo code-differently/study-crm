@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,10 +30,10 @@ class EntitiesControllerTest {
 
   @Autowired private EntityService entityService;
 
-  private MockMvc mockMvc;
+  private static MockMvc mockMvc;
 
-  @BeforeEach
-  void setUp(WebApplicationContext wac) {
+  @BeforeAll
+  static void setUp(WebApplicationContext wac) {
     mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
   }
 
