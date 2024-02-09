@@ -3,28 +3,24 @@ package com.codedifferently.studycrm.entities.domain;
 import com.codedifferently.studycrm.common.domain.EntityBase;
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.UUID;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @jakarta.persistence.Entity
-@Table(name = "EntityType")
+@Table(name = "PropertyGroup")
 @Access(AccessType.FIELD)
 @Data
 @EqualsAndHashCode
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EntityType extends EntityBase {
+public class PropertyGroup extends EntityBase {
 
-  @Column(unique = true, nullable = false)
-  private String name;
+  private UUID entityTypeId;
 
   private String label;
 
-  private String pluralLabel;
-
-  private String entityClass;
-
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "entityTypeId")
-  private List<PropertyGroup> propertyGroups;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "propertyGroupId")
+  private List<Property> properties;
 }

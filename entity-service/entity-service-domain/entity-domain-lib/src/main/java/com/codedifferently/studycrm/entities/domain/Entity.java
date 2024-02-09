@@ -23,6 +23,6 @@ public class Entity extends EntityBase {
   @Column(nullable = false)
   private UUID organizationId;
 
-  @OneToMany(fetch = FetchType.EAGER)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "entity")
   private List<EntityProperty> properties;
 }

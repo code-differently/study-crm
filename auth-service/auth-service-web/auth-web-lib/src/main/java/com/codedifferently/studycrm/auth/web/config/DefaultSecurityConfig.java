@@ -1,13 +1,10 @@
 package com.codedifferently.studycrm.auth.web.config;
 
-import com.codedifferently.studycrm.auth.domain.User;
-import com.codedifferently.studycrm.auth.domain.UserRepository;
 import com.codedifferently.studycrm.auth.web.security.FederatedIdentityConfigurer;
 import com.codedifferently.studycrm.auth.web.security.RepositoryUserDetailsService;
 import com.codedifferently.studycrm.auth.web.security.UserRepositoryOAuth2UserHandler;
 import com.codedifferently.studycrm.auth.web.security.UserRepositoryOidcUserHandler;
 import java.util.HashMap;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -67,28 +64,6 @@ public class DefaultSecurityConfig {
     provider.setUserDetailsService(repositoryUserDetailsService);
     provider.setPasswordEncoder(passwordEncoder());
     return provider;
-  }
-
-  @Bean
-  public CommandLineRunner loadData(UserRepository repository) {
-    return args -> {
-      User user = repository.findByUsername("user");
-
-      if (user != null) {
-        return;
-      }
-
-      var newUser =
-          User.builder()
-              .username("user")
-              .password(passwordEncoder().encode("password"))
-              .email("root@localhost")
-              .firstName("Root")
-              .lastName("User")
-              .build();
-
-      repository.save(newUser);
-    };
   }
 
   @Bean

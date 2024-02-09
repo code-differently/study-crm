@@ -15,7 +15,10 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class EntityProperty extends EntityBase {
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  private Entity entity;
+
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   private Property property;
 
   private String value;

@@ -17,6 +17,7 @@ dependencyResolutionManagement {
     }
 }
 includeBuild("../../platforms")
+includeBuild("../../common/common-web")
 includeBuild("../auth-service-web")
 includeBuild("../auth-service-messaging")
 includeBuild("../auth-service-persistence")

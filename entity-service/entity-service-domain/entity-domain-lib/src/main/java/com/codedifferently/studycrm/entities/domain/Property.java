@@ -19,6 +19,8 @@ public class Property extends EntityBase {
   @ManyToOne(fetch = FetchType.LAZY)
   private PropertyType propertyType;
 
+  private UUID propertyGroupId;
+
   @Column(nullable = false)
   private String name;
 
@@ -30,7 +32,7 @@ public class Property extends EntityBase {
 
   private String format;
 
-  private UUID ownerId;
+  private UUID organizationId;
 
   private boolean isRequired;
 

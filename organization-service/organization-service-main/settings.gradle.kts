@@ -17,6 +17,7 @@ dependencyResolutionManagement {
     }
 }
 includeBuild("../../platforms")
+includeBuild("../../common/common-web")
 includeBuild("../organization-service-web")
 
 rootProject.name = "organization-service-main"

@@ -17,6 +17,7 @@ dependencyResolutionManagement {
     }
 }
 includeBuild("../../platforms")
+includeBuild("../../common/common-web")
 includeBuild("../entity-service-web")
 
 rootProject.name = "entity-service-main"

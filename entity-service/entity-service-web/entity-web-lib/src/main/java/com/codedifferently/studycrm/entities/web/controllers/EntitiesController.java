@@ -28,7 +28,7 @@ public class EntitiesController {
   @RequestMapping(method = RequestMethod.GET)
   public ResponseEntity<GetEntitiesResponse> getAll(
       @PathVariable("organizationId") UUID organizationId,
-      @RequestParam("entityType") String entityType) {
+      @RequestParam("type") String entityType) {
     List<Entity> entities = entityService.findAllByEntityType(organizationId, entityType);
     return ResponseEntity.ok(
         GetEntitiesResponse.builder()
@@ -50,9 +50,21 @@ public class EntitiesController {
   }
 
   private GetEntityResponse getEntityResponse(Entity entity) {
+    var properties =
+        entity.getProperties().stream()
+            .map(this::getEntityPropertyResponse)
+            .collect(Collectors.toList());
     return GetEntityResponse.builder()
-        .entityId(entity.getId())
-        .entityType(entity.getEntityType().getName())
+        .id(entity.getId())
+        .type(entity.getEntityType().getName())
+        .properties(properties)
+        .build();
+  }
+
+  private EntityPropertyResponse getEntityPropertyResponse(EntityProperty entityProperty) {
+    return EntityPropertyResponse.builder()
+        .name(entityProperty.getProperty().getName())
+        .value(entityProperty.getValue())
         .build();
   }
 }

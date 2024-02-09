@@ -1,5 +1,6 @@
 package com.codedifferently.studycrm.entities.api.web;
 
+import java.util.List;
 import java.util.UUID;
 import lombok.*;
 
@@ -10,7 +11,9 @@ import lombok.*;
 @Generated
 public class GetEntityResponse {
 
-  private UUID entityId;
+  private UUID id;
 
-  private String entityType;
+  private String type;
+
+  private List<EntityPropertyResponse> properties;
 }

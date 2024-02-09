@@ -69,15 +69,15 @@ class EntitiesControllerTest {
 
     // Act
     mockMvc
-        .perform(get("/organizations/{orgId}/entities?entityType=contact", orgId))
+        .perform(get("/organizations/{orgId}/entities?type=contact", orgId))
         .andExpect(status().isOk())
         .andExpect(
             content()
                 .json(
                     "{"
                         + "\"entities\": ["
-                        + "{\"entityId\": \"123e4567-e89b-12d3-a456-426614174000\", \"entityType\": \"contact\"},"
-                        + "{\"entityId\": \"123e4567-e89b-12d3-a456-426614174532\", \"entityType\": \"contact\"}"
+                        + "{\"id\": \"123e4567-e89b-12d3-a456-426614174000\", \"type\": \"contact\"},"
+                        + "{\"id\": \"123e4567-e89b-12d3-a456-426614174532\", \"type\": \"contact\"}"
                         + "]"
                         + "}"));
   }
@@ -91,7 +91,7 @@ class EntitiesControllerTest {
 
     // Act
     mockMvc
-        .perform(get("/organizations/{orgId}/entities?entityType=blah", orgId))
+        .perform(get("/organizations/{orgId}/entities?type=blah", orgId))
         .andExpect(status().isNotFound())
         .andExpect(content().json("{\"message\": \"Entity type not found\"}"));
   }
@@ -102,7 +102,7 @@ class EntitiesControllerTest {
     var orgId = UUID.randomUUID();
     var entityId = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
     var entityType = EntityType.builder().name("contact").build();
-    Entity entity = Entity.builder().id(entityId).entityType(entityType).build();
+    Entity entity = Entity.builder().id(entityId).entityType(entityType).properties(Collections.<EntityProperty>emptyList()).build();
     when(entityService.findById(orgId, entityId)).thenReturn(Optional.of(entity));
 
     // Act
@@ -112,7 +112,7 @@ class EntitiesControllerTest {
         .andExpect(
             content()
                 .json(
-                    "{\"entityId\": \"123e4567-e89b-12d3-a456-426614174000\", \"entityType\": \"contact\"}"));
+                    "{\"id\": \"123e4567-e89b-12d3-a456-426614174000\", \"type\": \"contact\"}"));
   }
 
   @Test

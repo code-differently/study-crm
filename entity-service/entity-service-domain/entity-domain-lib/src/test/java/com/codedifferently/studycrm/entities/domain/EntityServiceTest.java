@@ -28,7 +28,7 @@ class EntityServiceTest {
     UUID organizationId = UUID.randomUUID();
     String entityTypeName = "contact";
     EntityType entityType = EntityType.builder().name(entityTypeName).build();
-    when(entityTypeRepository.findByName(entityTypeName)).thenReturn(entityType);
+    when(entityTypeRepository.findByName(entityTypeName)).thenReturn(Optional.of(entityType));
     when(entityRepository.save(any(Entity.class)))
         .then(
             (Answer<Entity>)
@@ -53,11 +53,11 @@ class EntityServiceTest {
     // Arrange
     UUID organizationId = UUID.randomUUID();
     String entityTypeName = "invalid";
-    when(entityTypeRepository.findByName(entityTypeName)).thenReturn(null);
+    when(entityTypeRepository.findByName(entityTypeName)).thenReturn(Optional.empty());
 
     // Act & Assert
     assertThrows(
-        IllegalArgumentException.class,
+        EntityNotFoundException.class,
         () -> {
           entityService.createEntity(organizationId, entityTypeName);
         });
@@ -69,7 +69,7 @@ class EntityServiceTest {
     UUID organizationId = UUID.randomUUID();
     String entityTypeName = "contact";
     EntityType entityType = EntityType.builder().name(entityTypeName).build();
-    when(entityTypeRepository.findByName(entityTypeName)).thenReturn(entityType);
+    when(entityTypeRepository.findByName(entityTypeName)).thenReturn(Optional.of(entityType));
     when(entityRepository.findAllByOrganizationIdAndEntityType(organizationId, entityType))
         .thenReturn(Collections.singletonList(new Entity()));
 
@@ -88,7 +88,7 @@ class EntityServiceTest {
     // Arrange
     UUID organizationId = UUID.randomUUID();
     String entityTypeName = "invalid";
-    when(entityTypeRepository.findByName(entityTypeName)).thenReturn(null);
+    when(entityTypeRepository.findByName(entityTypeName)).thenReturn(Optional.empty());
 
     // Act & Assert
     assertThrows(

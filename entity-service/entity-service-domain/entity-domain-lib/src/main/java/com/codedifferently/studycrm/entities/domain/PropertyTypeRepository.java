@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.repository.CrudRepository;
 
-public interface EntityTypeRepository extends CrudRepository<EntityType, UUID> {
+public interface PropertyTypeRepository extends CrudRepository<PropertyType, UUID> {
 
-  public Optional<EntityType> findByName(String name);
+  Optional<PropertyType> findByName(String name);
 }
