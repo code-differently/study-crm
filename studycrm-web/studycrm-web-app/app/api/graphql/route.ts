@@ -1,10 +1,10 @@
-import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { ApolloServer } from '@apollo/server';
+import { auth } from '@/auth';
 import { EntitiesAPI } from './datasources/entities-api';
+import { NextApiRequest } from 'next';
+import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import resolvers from './resolvers';
 import typeDefs from './studycrm.graphql';
-import { getToken } from "next-auth/jwt"
-import { NextApiRequest } from 'next';
 
 
 const server = new ApolloServer({
@@ -20,11 +20,11 @@ interface ApiContext extends NextApiRequest {
 
 const handler = startServerAndCreateNextHandler<ApiContext>(server, {
     context: async (req) => {
-      const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-      if (!token?.user?.organizationIds.length) {
+      const session = await auth();
+      if (!session?.user?.organizationIds.length || !session?.accessToken) {
         throw new Error('Unauthorized');
       }
-      const {user, accessToken} = token;
+      const {user, accessToken} = session;
       return { 
         req,
         dataSources: {

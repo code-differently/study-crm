@@ -5,6 +5,7 @@ import { gql } from '@/gen/gql';
 import { registerUrql } from '@urql/next/rsc';
 import Search from './search';
 import UsersTable from './table';
+import { getClient } from './api/graphql/get-client';
 
 interface User {
   id: string;
@@ -12,22 +13,6 @@ interface User {
   username: string;
   email: string;
 }
-
-const makeClient = () => {
-  return createClient({
-    url: `http://${headers().get('host')}/api/graphql`,
-    exchanges: [cacheExchange, fetchExchange],
-    fetchOptions: () => {
-      return {
-        headers: {
-          cookie: cookies(),
-        },
-      }
-    }
-  });
-};
-
-const { getClient } = registerUrql(makeClient);
 
 const entitiesQuery = gql(/* GraphQL */ `
   query Query($type: String!) {
@@ -48,7 +33,8 @@ export default async function IndexPage({
 }: {
   searchParams: { q: string };
 }) {
-  const result = await getClient().query(entitiesQuery, { type: 'contact' });
+  const client = await getClient();
+  const result = await client.query(entitiesQuery, { type: 'contact' });
 
   const users = new Array<User>();
   for (const entity of (result.data?.entities || [])) {

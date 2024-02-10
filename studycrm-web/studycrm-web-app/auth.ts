@@ -67,6 +67,7 @@ export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
       async session({ session, token, user }) {
         if (token) {
           session.user = token.user;
+          session.accessToken = token.accessToken;
         }
         return session
       }
