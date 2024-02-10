@@ -49,7 +49,7 @@ export default async function IndexPage({
 }: {
   searchParams: { q: string };
 }) {
-  const result = await makeClient().query(entitiesQuery, { type: 'contact' });
+  const result = await getClient().query(entitiesQuery, { type: 'contact' });
 
   const users = new Array<User>();
   for (const entity of (result.data?.entities || [])) {
