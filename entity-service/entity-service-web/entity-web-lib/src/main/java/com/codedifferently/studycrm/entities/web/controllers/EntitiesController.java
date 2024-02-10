@@ -32,8 +32,9 @@ public class EntitiesController {
   public ResponseEntity<GetEntitiesResponse> getAll(
       @PathVariable("organizationId") UUID organizationId,
       @RequestParam("type") String entityType,
-      @RequestParam("properties") List<String> properties) {
-    var propertyNames = new HashSet<String>(properties);
+      @RequestParam(name = "properties", required = false) List<String> properties) {
+    var propertyNames =
+        new HashSet<String>(properties == null ? Collections.<String>emptyList() : properties);
     List<Entity> entities = entityService.findAllByEntityType(organizationId, entityType);
     return ResponseEntity.ok(
         GetEntitiesResponse.builder()

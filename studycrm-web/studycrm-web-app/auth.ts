@@ -16,21 +16,34 @@ export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
         },
       },
       checks: ["pkce", "state", "nonce"],
+      profile(profile) {
+        const {roles} = profile;
+        const organizationIds = roles.match(/org:[\w-]+:\w+?/g)?.map(role => role.split(':')[1]) ?? [];
+        return {
+          id: profile.sub,
+          name: profile.name,
+          firstName: profile.given_name,
+          lastName: profile.family_name,
+          email: profile.email,
+          organizationIds
+        }
+      },
     }],
     secret: process.env.NEXTAUTH_SECRET,
     session: {
       strategy: "jwt",
     },
     callbacks: {
-      async jwt({ token, account }) {
+      async jwt({ token, account, user }) {
         if (account) {
           // Save the access token and refresh token in the JWT on the initial login
           return {
-            access_token: account.access_token,
-            expires_at: Math.floor(Date.now() / 1000 + account.expires_in!),
-            refresh_token: account.refresh_token,
+            user,
+            accessToken: account.access_token,
+            expiresAt: Math.floor(Date.now() / 1000 + account.expires_in!),
+            refreshToken: account.refresh_token,
           }
-        } else if (Date.now() < (token.expires_at * 1000)) {
+        } else if (Date.now() < (token.expiresAt * 1000)) {
           // If the access token has not expired yet, return it
           return token
         } else {
@@ -42,18 +55,18 @@ export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
             if (!response.ok) throw tokens
             return {
               ...token,
-              access_token: tokens.access_token,
-              expires_at: Math.floor(Date.now() / 1000 + tokens.expires_in),
-              refresh_token: tokens.refresh_token ?? token.refresh_token,
+              accessToken: tokens.access_token,
+              expiresAt: Math.floor(Date.now() / 1000 + tokens.expires_in),
+              refreshToken: tokens.refresh_token ?? token.refreshToken,
             }
           } catch (error) {
             return { ...token, error: "RefreshAccessTokenError" as const }
           }
         }
       },
-      async session({ session, token }) {
+      async session({ session, token, user }) {
         if (token) {
-          session.accessToken = token.access_token;
+          session.user = token.user;
         }
         return session
       }
@@ -71,7 +84,7 @@ export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
       },
       body: new URLSearchParams({
         grant_type: 'refresh_token',
-        refresh_token: `${token.refresh_token}`,
+        refresh_token: `${token.refreshToken}`,
       }),
       method: "POST",
     };

@@ -56,7 +56,6 @@ public class AuthServerSecurityConfigTest {
     // Assert
     var claimsSet = context.getClaims().build();
     assertThat(claimsSet.hasClaim("roles")).isTrue();
-    assertThat(claimsSet.hasClaim("https://studycrm.com/roles")).isFalse();
     assertThat((String) claimsSet.getClaim("roles")).isEqualTo("ROLE_USER ROLE_ADMIN");
   }
 
@@ -70,15 +69,14 @@ public class AuthServerSecurityConfigTest {
 
     // Assert
     var claimsSet = context.getClaims().build();
-    assertThat(claimsSet.hasClaim("roles")).isFalse();
-    assertThat(claimsSet.hasClaim("https://studycrm.com/roles")).isFalse();
+    assertThat(claimsSet.hasClaim("roles")).isTrue();
   }
 
   private JwtEncodingContext getJwtEncodingContext(OAuth2TokenType tokenType) {
     var userInfo =
         OidcUserInfo.builder()
             .subject("testUser")
-            .claim("https://studycrm.com/roles", "ROLE_USER ROLE_ADMIN")
+            .claim("roles", "ROLE_USER ROLE_ADMIN")
             .build();
     when(userInfoService.loadUser("testUser")).thenReturn(userInfo);
     var claims = JwtClaimsSet.builder().subject("testUser").issuedAt(Instant.now());

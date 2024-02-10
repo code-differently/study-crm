@@ -61,6 +61,6 @@ public class OidcUserInfoServiceTest {
     assertThat(result.getGivenName()).isEqualTo("Test");
     assertThat(result.getFamilyName()).isEqualTo("User");
     assertThat(result.getEmail()).isEqualTo("test@user.com");
-    assertThat(result.getClaim("https://studycrm.com/roles").toString()).isEqualTo("ROLE_USER");
+    assertThat(result.getClaim("roles").toString()).isEqualTo("ROLE_USER");
   }
 }

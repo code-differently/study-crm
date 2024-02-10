@@ -120,7 +120,6 @@ public class AuthServerSecurityConfig {
             .claims(
                 claims -> {
                   claims.putAll(userInfo.getClaims());
-                  claims.remove("https://studycrm.com/roles");
                 });
       }
       if (OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType())) {
@@ -128,7 +127,7 @@ public class AuthServerSecurityConfig {
             .getClaims()
             .claims(
                 claims -> {
-                  claims.put("roles", userInfo.getClaim("https://studycrm.com/roles"));
+                  claims.put("roles", userInfo.getClaim("roles"));
                 });
       }
     };

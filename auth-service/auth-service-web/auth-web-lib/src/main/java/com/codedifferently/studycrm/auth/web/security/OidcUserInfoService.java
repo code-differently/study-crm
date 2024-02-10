@@ -24,7 +24,7 @@ public class OidcUserInfoService {
         .givenName(user.getFirstName())
         .familyName(user.getLastName())
         .email(user.getEmail())
-        .claim("https://studycrm.com/roles", roles)
+        .claim("roles", roles)
         .build();
   }
 }

@@ -1,0 +1,26 @@
+type Query {
+  entities(type: String!): [Entity!]!
+}
+
+type Entity {
+    id: ID!
+    type: String!
+    properties: [EntityProperty!]!
+}
+
+type EntityProperty {
+    name: String!
+    type: String!
+    value: String!
+}
+
+type Property {
+    id: ID!
+    groupId: String!
+    typeId: String!
+    type: String!
+    name: String!
+    label: String!
+    pluralLabel: String!
+    description: String!
+}
