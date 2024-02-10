@@ -1,7 +1,7 @@
 import { cacheExchange, createClient, fetchExchange } from '@urql/core';
 import { Card, Title, Text } from '@tremor/react';
 import { cookies, headers } from 'next/headers'
-import { gql } from '@/src/gql';
+import { gql } from '@/gen/gql';
 import { registerUrql } from '@urql/next/rsc';
 import Search from './search';
 import UsersTable from './table';
@@ -12,7 +12,6 @@ interface User {
   username: string;
   email: string;
 }
-
 
 const makeClient = () => {
   return createClient({
