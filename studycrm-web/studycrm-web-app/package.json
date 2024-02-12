@@ -12,6 +12,7 @@
     "predev": "npm run generate"
   },
   "dependencies": {
+    "@apollo/client": "^3.9.4",
     "@apollo/datasource-rest": "^6.2.2",
     "@apollo/server": "^4.10.0",
     "@as-integrations/next": "^3.0.0",
@@ -20,8 +21,6 @@
     "@heroicons/react": "^2.1.1",
     "@tremor/react": "^3.13.4",
     "@types/js-cookie": "^3.0.6",
-    "@urql/exchange-execute": "^2.2.2",
-    "@urql/next": "^1.1.1",
     "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",
     "heroicons": "^2.1.1",
@@ -30,8 +29,7 @@
     "next-auth": "^5.0.0-beta.5",
     "react": "^18",
     "react-dom": "^18",
-    "server-only": "^0.0.1",
-    "urql": "^4.0.6"
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",

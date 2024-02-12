@@ -1,11 +1,8 @@
-import { cacheExchange, createClient, fetchExchange } from '@urql/core';
 import { Card, Title, Text } from '@tremor/react';
-import { cookies, headers } from 'next/headers'
 import { gql } from '@/gql';
-import { registerUrql } from '@urql/next/rsc';
 import Search from './search';
 import UsersTable from './table';
-import { getClient } from './api/graphql/get-client';
+import { gqlClient } from './api/graphql/get-client';
 
 interface User {
   id: string;
@@ -33,8 +30,10 @@ export default async function IndexPage({
 }: {
   searchParams: { q: string };
 }) {
-  const client = await getClient();
-  const result = await client.query(entitiesQuery, { type: 'contact' });
+  const result = await gqlClient.query({
+    query: entitiesQuery, 
+    variables: {type: 'contact'}
+  });
 
   const users = new Array<User>();
   for (const entity of (result.data?.entities || [])) {

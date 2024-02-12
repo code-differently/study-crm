@@ -1,36 +1,30 @@
 import { auth } from "@/auth";
-import { cacheExchange, createClient, fetchExchange } from "@urql/next";
 import { EntitiesAPI } from './datasources/entities-api';
-import { executeExchange } from "@urql/exchange-execute";
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import { registerUrql } from '@urql/next/rsc';
+import { SchemaLink } from '@apollo/client/link/schema';
 import resolvers from './resolvers';
 import typeDefs from './studycrm.graphql';
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
-const makeClient = () => {
-    return createClient({
-        url: 'no-op',
-        exchanges: [
-            cacheExchange, 
-            executeExchange({
-                schema,
-                context: async (req) => {
-                    const session = await auth();
-                    if (!session?.user?.organizationIds.length || !session?.accessToken) {
-                      throw new Error('Unauthorized');
-                    }
-                    const {user, accessToken} = session;
-                    return {
-                        req,
-                        dataSources: {
-                          entitiesAPI: new EntitiesAPI({user, accessToken}),
-                        },
-                    };
-                }
-            })
-        ],
-    });
-};
+const apolloCache = new InMemoryCache();
 
-export const { getClient } = registerUrql(makeClient);
+export const gqlClient = new ApolloClient({
+  cache: apolloCache,
+  link: new SchemaLink({ 
+    schema, 
+    context: async (req) => {
+        const session = await auth();
+        if (!session?.user?.organizationIds.length || !session?.accessToken) {
+            throw new Error('Unauthorized');
+        }
+        const {user, accessToken} = session;
+        return {
+            req,
+            dataSources: {
+                entitiesAPI: new EntitiesAPI({user, accessToken}),
+            },
+        };
+    }
+  }),
+});
