@@ -1,9 +1,8 @@
 package com.codedifferently.studycrm.entities.domain;
 
 import com.codedifferently.studycrm.common.domain.EntityBase;
-
-import jakarta.persistence.Entity;
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import java.util.List;
 import java.util.UUID;
 import lombok.*;

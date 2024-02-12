@@ -74,10 +74,7 @@ public class AuthServerSecurityConfigTest {
 
   private JwtEncodingContext getJwtEncodingContext(OAuth2TokenType tokenType) {
     var userInfo =
-        OidcUserInfo.builder()
-            .subject("testUser")
-            .claim("roles", "ROLE_USER ROLE_ADMIN")
-            .build();
+        OidcUserInfo.builder().subject("testUser").claim("roles", "ROLE_USER ROLE_ADMIN").build();
     when(userInfoService.loadUser("testUser")).thenReturn(userInfo);
     var claims = JwtClaimsSet.builder().subject("testUser").issuedAt(Instant.now());
     var principal = mock(Authentication.class);
