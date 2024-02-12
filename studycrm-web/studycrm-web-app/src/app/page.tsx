@@ -1,7 +1,7 @@
 import { cacheExchange, createClient, fetchExchange } from '@urql/core';
 import { Card, Title, Text } from '@tremor/react';
 import { cookies, headers } from 'next/headers'
-import { gql } from '@/gen/gql';
+import { gql } from '@/gql';
 import { registerUrql } from '@urql/next/rsc';
 import Search from './search';
 import UsersTable from './table';
