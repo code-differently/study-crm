@@ -8,7 +8,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "[user]")
+@Table(name = "[User]")
 @Access(AccessType.FIELD)
 @Data
 @EqualsAndHashCode

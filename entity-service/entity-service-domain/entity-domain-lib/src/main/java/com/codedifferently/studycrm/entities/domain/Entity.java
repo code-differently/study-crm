@@ -8,7 +8,6 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @jakarta.persistence.Entity
-@Table(name = "Entity")
 @Access(AccessType.FIELD)
 @Data
 @EqualsAndHashCode

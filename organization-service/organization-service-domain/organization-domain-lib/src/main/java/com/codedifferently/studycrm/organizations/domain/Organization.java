@@ -7,7 +7,6 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "Organization")
 @Access(AccessType.FIELD)
 @Data
 @EqualsAndHashCode

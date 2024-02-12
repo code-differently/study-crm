@@ -1,13 +1,12 @@
 package com.codedifferently.studycrm.entities.domain;
 
 import com.codedifferently.studycrm.common.domain.EntityBase;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@jakarta.persistence.Entity
-@Table(name = "PropertyType")
-@Access(AccessType.FIELD)
+@Entity
 @Data
 @EqualsAndHashCode
 @SuperBuilder

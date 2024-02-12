@@ -1,14 +1,15 @@
 package com.codedifferently.studycrm.entities.domain;
 
 import com.codedifferently.studycrm.common.domain.EntityBase;
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import java.util.List;
 import java.util.UUID;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@jakarta.persistence.Entity
-@Table(name = "PropertyGroup")
+@Entity
 @Access(AccessType.FIELD)
 @Data
 @EqualsAndHashCode
