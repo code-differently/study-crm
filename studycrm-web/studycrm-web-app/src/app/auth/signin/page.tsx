@@ -11,7 +11,7 @@ export default function Signin() {
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      void signIn("studycrm");
+      void signIn("studycrm", { callbackUrl: "/" });
     } else if (status === "authenticated") {
       void router.push("/");
     }

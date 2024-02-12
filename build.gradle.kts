@@ -31,6 +31,12 @@ configure<ComposeExtension> {
     environment.put("EVENTUATE_MESSAGING_KAFKA_IMAGE_VERSION", eventuateMessagingKafkaImageVersion)
     environment.put("EVENTUATE_OUTBOX_TABLES", "8")
 
+    createNested("barebones").apply {
+        setProjectName(null)
+        useComposeFiles.set(listOf("docker-compose.yaml"))
+        startedServices.set(listOf("api-gateway", "entity-service-mysql"))
+    }
+
     createNested("infrastructure").apply {
         setProjectName(null)
         useComposeFiles.set(listOf("docker-compose.yaml"))
@@ -43,6 +49,10 @@ configure<ComposeExtension> {
         useComposeFiles.set(listOf("docker-compose.yaml"))
         startedServices.set(listOf(*infrastructureServices.toTypedArray(), "auth-service", "entity-service", "organization-service", "api-gateway"))
     }
+}
+
+tasks.register("startBarebones") {
+    dependsOn("barebonesComposeUp")
 }
 
 tasks.register("startInfrastructure") {

@@ -2,11 +2,10 @@ package com.codedifferently.studycrm.entities.domain;
 
 import com.codedifferently.studycrm.common.domain.EntityBase;
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@Entity
+@jakarta.persistence.Entity
 @Access(AccessType.FIELD)
 @Data
 @EqualsAndHashCode

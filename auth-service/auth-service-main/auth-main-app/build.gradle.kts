@@ -13,5 +13,6 @@ dependencies {
 }
 
 application {
+    applicationDefaultJvmArgs = listOf("-Dspring.profiles.active=development")
     mainClass.set("com.codedifferently.studycrm.auth.App")
 }
