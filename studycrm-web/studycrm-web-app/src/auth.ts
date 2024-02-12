@@ -11,7 +11,7 @@ export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
       issuer: process.env.STUDYCRM_ISSUER_BASE_URL,
       authorization: { 
         params: { 
-          scope: "openid profile",
+          scope: "openid",
           response_mode: 'form_post'
         },
       },
@@ -40,10 +40,10 @@ export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
           return {
             user,
             accessToken: account.access_token,
-            expiresAt: Math.floor(Date.now() / 1000 + account.expires_in!),
+            expiresAt: account.expires_in ? Math.floor(Date.now() / 1000 + account.expires_in!) :  0,
             refreshToken: account.refresh_token,
           }
-        } else if (Date.now() < (token.expiresAt * 1000)) {
+        } else if (!token.expiresAt || Date.now() < (token.expiresAt * 1000)) {
           // If the access token has not expired yet, return it
           return token
         } else {
