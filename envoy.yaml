@@ -62,6 +62,11 @@ static_resources:
                   cluster: entities_service
                   timeout: 0s
               - match:
+                  prefix: "/user"
+                route:
+                  cluster: organization_service
+                  timeout: 0s
+              - match:
                   prefix: "/organizations"
                 route:
                   cluster: organization_service

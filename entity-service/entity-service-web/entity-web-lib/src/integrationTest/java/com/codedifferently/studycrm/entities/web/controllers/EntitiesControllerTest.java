@@ -8,7 +8,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.codedifferently.studycrm.common.domain.EntityNotFoundException;
-import com.codedifferently.studycrm.entities.domain.*;
+import com.codedifferently.studycrm.entities.domain.Entity;
+import com.codedifferently.studycrm.entities.domain.EntityProperty;
+import com.codedifferently.studycrm.entities.domain.EntityService;
+import com.codedifferently.studycrm.entities.domain.EntityType;
+import com.codedifferently.studycrm.entities.domain.Property;
+import com.codedifferently.studycrm.entities.domain.PropertyType;
 import com.codedifferently.studycrm.entities.web.TestConfiguration;
 import java.util.Arrays;
 import java.util.Collections;
@@ -117,6 +122,47 @@ class EntitiesControllerTest {
         .andExpect(
             content()
                 .json("{\"id\": \"123e4567-e89b-12d3-a456-426614174000\", \"type\": \"contact\"}"));
+  }
+
+  @Test
+  void testGetEntity_withFilteredProperties() throws Exception {
+    // Arrange
+    var orgId = UUID.randomUUID();
+    var entityId = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
+    var entityType = EntityType.builder().name("contact").build();
+    Entity entity =
+        Entity.builder()
+            .id(entityId)
+            .entityType(entityType)
+            .properties(
+                Arrays.<EntityProperty>asList(
+                    EntityProperty.builder()
+                        .property(
+                            Property.builder()
+                                .name("firstName")
+                                .propertyType(PropertyType.builder().name("string").build())
+                                .build())
+                        .value("John")
+                        .build(),
+                    EntityProperty.builder()
+                        .property(
+                            Property.builder()
+                                .name("lastName")
+                                .propertyType(PropertyType.builder().name("string").build())
+                                .build())
+                        .value("Doe")
+                        .build()))
+            .build();
+    when(entityService.findById(orgId, entityId)).thenReturn(Optional.of(entity));
+
+    // Act
+    mockMvc
+        .perform(get("/organizations/{orgId}/entities/{id}?properties=firstName", orgId, entityId))
+        .andExpect(status().isOk())
+        .andExpect(
+            content()
+                .json(
+                    "{\"id\": \"123e4567-e89b-12d3-a456-426614174000\", \"type\": \"contact\", \"properties\": [{\"name\": \"firstName\", \"type\": \"string\", \"value\": \"John\"}]}"));
   }
 
   @Test

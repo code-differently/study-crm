@@ -43,10 +43,11 @@ class OrganizationServiceTest {
   }
 
   @Test
+  @WithMockUser
   void testFindUserByUsername() {
     // Arrange
     var user = User.builder().username("testUser").build();
-    when(userRepository.findByUsername("testUser")).thenReturn(user);
+    when(userRepository.findByUsername("testUser")).thenReturn(Optional.of(user));
 
     // Act
     var result = organizationService.findUserByUsername("testUser");

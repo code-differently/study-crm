@@ -1,23 +1,12 @@
 server:
     port: 8082
 spring:
+    profiles:
+        default: production
     application:
         name: organization-service
     jpa:
         generate-ddl: true
-    datasource:
-        url: jdbc:mysql://${DOCKER_HOST_IP:localhost}:3308/organization_service
-        username: mysqluser
-        password: mysqlpw
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        hikari:
-            initialization-fail-timeout: 30000
-    sleuth:
-        enabled: true
-        sampler:
-            probability: 1
-    zipkin:
-        base-url: http://${DOCKER_HOST_IP:localhost}:9411/
     flyway:
         locations: classpath:flyway/{vendor}
         baseline-on-migrate: true
@@ -30,19 +19,3 @@ spring:
             resourceserver:
                 jwt:
                     issuer-uri: http://api-local.studycrm.com
-   
-logging:
-    level:
-        com.codedifferently.studycrm: TRACE 
-        org.springframework.orm.jpa: INFO
-        org.hibernate.SQL: DEBUG
-        io.eventuate: DEBUG
-        org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
-
-eventuatelocal:
-    kafka:
-        bootstrap:
-            servers: ${DOCKER_HOST_IP:localhost}:9092
-    zookeeper:
-        connection:
-            string: ${DOCKER_HOST_IP:localhost}:2181

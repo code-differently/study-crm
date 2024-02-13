@@ -11,9 +11,11 @@ dependencies {
     implementation("com.codedifferently.studycrm.organization-service.api.web:organization-api-web-lib")
     implementation("com.codedifferently.studycrm.organization-service.domain:organization-domain-lib")
 
-    implementation("io.eventuate.tram.core:eventuate-tram-spring-jdbc-kafka")
+    implementation("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl")
+    implementation("io.eventuate.tram.core:eventuate-tram-spring-producer-jdbc")
+    implementation("io.eventuate.tram.core:eventuate-tram-spring-consumer-kafka")
     implementation("io.eventuate.tram.core:eventuate-tram-spring-optimistic-locking")
-    implementation("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl-starter")
+    implementation("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-in-memory")
 }
 
 testing {
