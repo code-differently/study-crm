@@ -2,7 +2,8 @@ import { Card, Title, Text } from '@tremor/react';
 import { gql } from '@/gql';
 import Search from './search';
 import UsersTable from './table';
-import { gqlClient } from './api/graphql/get-client';
+import { gqlClient } from './api/graphql/gql-client';
+import { auth, signIn } from '@/auth';
 
 interface User {
   id: string;
@@ -30,6 +31,11 @@ export default async function IndexPage({
 }: {
   searchParams: { q: string };
 }) {
+  const session = await auth();
+  if (!session) {
+    signIn();
+  }
+
   const result = await gqlClient.query({
     query: entitiesQuery, 
     variables: {type: 'contact'}
