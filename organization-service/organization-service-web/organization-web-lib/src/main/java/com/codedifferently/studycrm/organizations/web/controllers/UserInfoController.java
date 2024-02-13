@@ -1,5 +1,6 @@
 package com.codedifferently.studycrm.organizations.web.controllers;
 
+import com.codedifferently.studycrm.common.domain.EntityNotFoundException;
 import com.codedifferently.studycrm.organizations.api.web.UserInfoResponse;
 import com.codedifferently.studycrm.organizations.domain.OrganizationService;
 import com.codedifferently.studycrm.organizations.domain.User;
@@ -19,7 +20,11 @@ public class UserInfoController {
   @GetMapping("/user")
   @PreAuthorize("isAuthenticated()")
   public ResponseEntity<UserInfoResponse> getUserInfo(Authentication authentication) {
-    User user = organizationService.findUserByUsername(authentication.getName());
+    String username = authentication.getName();
+    User user =
+        organizationService
+            .findUserByUsername(authentication.getName())
+            .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
     return ResponseEntity.ok(
         UserInfoResponse.builder()
             .username(user.getUsername())

@@ -1,7 +1,6 @@
 package com.codedifferently.studycrm.organizations.domain;
 
 import com.codedifferently.studycrm.common.domain.EntityAclManager;
-import com.codedifferently.studycrm.common.domain.EntityNotFoundException;
 import com.codedifferently.studycrm.common.domain.RolePermission;
 import jakarta.transaction.Transactional;
 import java.util.Optional;
@@ -24,10 +23,8 @@ public class OrganizationService {
 
   @Autowired private EntityAclManager entityAclManager;
 
-  public User findUserByUsername(String username) {
-    return userRepository
-        .findByUsername(username)
-        .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
+  public Optional<User> findUserByUsername(String username) {
+    return userRepository.findByUsername(username);
   }
 
   @PreAuthorize("hasPermission(#id, @orgVars.ORGANIZATION_TYPE, read)")

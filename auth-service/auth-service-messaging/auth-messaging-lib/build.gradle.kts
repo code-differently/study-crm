@@ -15,5 +15,5 @@ dependencies {
     implementation("io.eventuate.tram.core:eventuate-tram-spring-consumer-kafka")
     implementation("io.eventuate.tram.core:eventuate-tram-spring-optimistic-locking")
     implementation("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-in-memory")
-    implementation("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-participant-starter")
+    implementation("io.eventuate.tram.sagas:eventuate-tram-sagas-spring-participant")
 }

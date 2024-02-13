@@ -1,16 +1,15 @@
 package com.codedifferently.studycrm.organizations.web.controllers;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.codedifferently.studycrm.common.domain.EntityNotFoundException;
 import com.codedifferently.studycrm.organizations.domain.OrganizationService;
 import com.codedifferently.studycrm.organizations.domain.User;
 import com.codedifferently.studycrm.organizations.web.TestConfiguration;
+import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,7 +52,7 @@ class UserInfoControllerTest {
     user.setLastName("Doe");
     user.setDefaultOrganizationId(UUID.randomUUID());
 
-    when(organizationService.findUserByUsername(anyString())).thenReturn(user);
+    when(organizationService.findUserByUsername(anyString())).thenReturn(Optional.of(user));
 
     mockMvc
         .perform(get("/user").contentType(MediaType.APPLICATION_JSON))
@@ -72,7 +71,7 @@ class UserInfoControllerTest {
   @Test
   @WithAnonymousUser
   void getUserInfo_WithInvalidAuthentication_IsUnauthorized() throws Exception {
-    when(organizationService.findUserByUsername(anyString())).thenReturn(null);
+    when(organizationService.findUserByUsername(anyString())).thenReturn(Optional.empty());
 
     mockMvc.perform(get("/user")).andExpect(status().isUnauthorized());
 
@@ -82,8 +81,7 @@ class UserInfoControllerTest {
   @Test
   @WithMockUser(username = "testuser@studycrm.com")
   void getUserInfo_WithMissingUser_IsNotFound() throws Exception {
-    when(organizationService.findUserByUsername(anyString()))
-        .thenThrow(new EntityNotFoundException("User not found"));
+    when(organizationService.findUserByUsername(anyString())).thenReturn(Optional.empty());
 
     mockMvc.perform(get("/user")).andExpect(status().isNotFound());
 

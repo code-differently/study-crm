@@ -49,7 +49,7 @@ public class CreateOrganizationSaga implements SimpleSaga<CreateOrganizationSaga
 
     // Create user if not exists
     UserDetails userDetails = data.getUserDetails();
-    User user = organizationService.findUserByUsername(userDetails.getUsername());
+    User user = organizationService.findUserByUsername(userDetails.getUsername()).orElse(null);
     if (user == null) {
       user =
           User.builder()

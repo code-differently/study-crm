@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /** Configures our application with Spring Security to restrict access to our API endpoints. */
 @Configuration
@@ -30,8 +29,6 @@ public class EntitiesSecurityConfiguration {
                     .requestMatchers("/actuator/**")
                     .permitAll()
                     .requestMatchers("/v3/api-docs")
-                    .permitAll()
-                    .requestMatchers(new AntPathRequestMatcher("/organizations", "POST"))
                     .permitAll()
                     .anyRequest()
                     .authenticated())

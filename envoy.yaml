@@ -109,46 +109,85 @@ static_resources:
       type: strict_dns
       dns_lookup_family: v4_only
       lb_policy: round_robin
+      health_checks:
+        - timeout: 1s
+          interval: 10s
+          unhealthy_threshold: 3
+          healthy_threshold: 1
+          always_log_health_check_failures: true
+          event_log_path: /tmp/health-check.log
+          http_health_check:
+            path: /actuator/health
       # Use address: 0.0.0.0 when running with Envoy directly.
       load_assignment:
         cluster_name: cluster_0
         endpoints:
           - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: host.docker.internal
+                      port_value: 8081
+                  health_check_config:
+                    hostname: host.docker.internal
+                    port_value: 8081
               - endpoint:
                   address:
                     socket_address:
                       address: auth-service
                       port_value: 8081
-              - endpoint:
-                  address:
-                    socket_address:
-                      address: host.docker.internal
-                      port_value: 8081
+                  health_check_config:
+                    hostname: auth-service
+                    port_value: 8081
     - name: organization_service
       connect_timeout: 1.25s
       type: strict_dns
       dns_lookup_family: v4_only
       lb_policy: round_robin
+      health_checks:
+        - timeout: 1s
+          interval: 10s
+          unhealthy_threshold: 3
+          healthy_threshold: 1
+          always_log_health_check_failures: true
+          event_log_path: /tmp/health-check.log
+          http_health_check:
+            path: /actuator/health
       # Use address: 0.0.0.0 when running with Envoy directly.
       load_assignment:
         cluster_name: cluster_0
         endpoints:
           - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: host.docker.internal
+                      port_value: 8082
+                  health_check_config:
+                    hostname: host.docker.internal
+                    port_value: 8082
               - endpoint:
                   address:
                     socket_address:
                       address: organization-service
                       port_value: 8082
-              - endpoint:
-                  address:
-                    socket_address:
-                      address: host.docker.internal
-                      port_value: 8082
+                  health_check_config:
+                    hostname: organization-service
+                    port_value: 8082
     - name: entities_service
       connect_timeout: 1.25s
       type: strict_dns
       dns_lookup_family: v4_only
       lb_policy: round_robin
+      health_checks:
+        - timeout: 1s
+          interval: 10s
+          unhealthy_threshold: 3
+          healthy_threshold: 1
+          always_log_health_check_failures: true
+          event_log_path: /tmp/health-check.log
+          http_health_check:
+            path: /actuator/health
       # Use address: 0.0.0.0 when running with Envoy directly.
       load_assignment:
         cluster_name: cluster_0
@@ -157,10 +196,16 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: entities-service
+                      address: host.docker.internal
                       port_value: 8083
+                  health_check_config:
+                    hostname: host.docker.internal
+                    port_value: 8083
               - endpoint:
                   address:
                     socket_address:
-                      address: host.docker.internal
+                      address: entity-service
                       port_value: 8083
+                  health_check_config:
+                    hostname: entity-service
+                    port_value: 8083

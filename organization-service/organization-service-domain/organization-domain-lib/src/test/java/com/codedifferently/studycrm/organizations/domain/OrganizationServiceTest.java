@@ -53,7 +53,7 @@ class OrganizationServiceTest {
     var result = organizationService.findUserByUsername("testUser");
 
     // Assert
-    assertEquals(user, result, "The user should be returned");
+    assertEquals(Optional.of(user), result, "The user should be returned");
   }
 
   @Test

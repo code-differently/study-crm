@@ -12,6 +12,7 @@ import com.codedifferently.studycrm.organizations.domain.Organization;
 import com.codedifferently.studycrm.organizations.domain.OrganizationService;
 import com.codedifferently.studycrm.organizations.domain.User;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,7 +71,7 @@ public class CreateOrganizationSagaTest {
                   org.setId(orgId);
                   return org;
                 });
-    when(organizationService.findUserByUsername(user.getUsername())).thenReturn(null);
+    when(organizationService.findUserByUsername(user.getUsername())).thenReturn(Optional.empty());
     when(organizationService.saveUser(any()))
         .then(
             (Answer<User>)
