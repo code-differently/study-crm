@@ -1,8 +1,5 @@
-package com.codedifferently.studycrm.auth.web.config;
+package com.codedifferently.studycrm.auth.domain;
 
-import com.codedifferently.studycrm.auth.domain.User;
-import com.codedifferently.studycrm.auth.domain.UserAuthority;
-import com.codedifferently.studycrm.auth.domain.UserRepository;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
