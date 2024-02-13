@@ -11,5 +11,10 @@ dependencies {
 }
 
 application {
+    if (project.hasProperty("prod")) {
+        applicationDefaultJvmArgs = listOf("-Dspring.profiles.active=production")
+    } else {
+        applicationDefaultJvmArgs = listOf("-Dspring.profiles.active=development")
+    }
     mainClass.set("com.codedifferently.studycrm.entities.App")
 }
