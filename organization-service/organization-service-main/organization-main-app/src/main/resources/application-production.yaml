@@ -17,11 +17,9 @@ spring:
    
 logging:
     level:
-        com.codedifferently.studycrm: TRACE 
-        org.springframework.orm.jpa: INFO
-        org.hibernate.SQL: DEBUG
+        com.codedifferently.studycrm: DEBUG 
+        org.springframework.security: DEBUG
         io.eventuate: DEBUG
-        org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
 
 eventuatelocal:
     kafka:
