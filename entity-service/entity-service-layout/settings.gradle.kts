@@ -17,8 +17,7 @@ dependencyResolutionManagement {
     }
 }
 includeBuild("../../platforms")
-includeBuild("../entity-service-domain")
-includeBuild("../entity-service-layout")
+includeBuild("../../common/common-domain")
 
-rootProject.name = "entity-service-persistence"
-include("entity-persistence-lib")
+rootProject.name = "entity-service-layout"
+include("entity-layout-lib")

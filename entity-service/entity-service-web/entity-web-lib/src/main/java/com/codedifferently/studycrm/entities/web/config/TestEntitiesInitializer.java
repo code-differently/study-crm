@@ -1,11 +1,13 @@
 package com.codedifferently.studycrm.entities.web.config;
 
 import com.codedifferently.studycrm.entities.domain.*;
+import com.codedifferently.studycrm.entities.layout.domain.*;
 import jakarta.transaction.Transactional;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -14,7 +16,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestEntitiesConfiguration implements CommandLineRunner {
+public class TestEntitiesInitializer implements CommandLineRunner {
 
   @Autowired private PropertyTypeRepository propertyTypeRepository;
 
@@ -27,6 +29,8 @@ public class TestEntitiesConfiguration implements CommandLineRunner {
   @Autowired private EntityRepository entityRepository;
 
   @Autowired private EntityPropertyRepository entityPropertyRepository;
+
+  @Autowired private LayoutRepository layoutRepository;
 
   @Override
   @Transactional
@@ -175,6 +179,48 @@ public class TestEntitiesConfiguration implements CommandLineRunner {
                 .build());
     Objects.requireNonNull(contactProperties);
     entityPropertyRepository.saveAll(contactProperties);
+
+    // Create layouts
+    createLayout(contactPropertyGroup);
+  }
+
+  private void createLayout(PropertyGroup contactPropertyGroup) {
+    var layout = Layout.builder().entityType("contact").build();
+    Objects.requireNonNull(layout);
+    layoutRepository.save(layout);
+
+    var group =
+        Group.builder()
+            .label("General Information")
+            .propertyGroupId(contactPropertyGroup.getId())
+            .build();
+
+    List<Widget> widgets =
+        contactPropertyGroup.getProperties().stream()
+            .map(
+                property ->
+                    (Widget)
+                        Field.builder()
+                            .parentWidget(group)
+                            .propertyId(property.getId())
+                            .label(property.getLabel())
+                            .build())
+            .toList();
+
+    group.setWidgets(widgets);
+
+    var container =
+        Container.builder()
+            .label("General Information")
+            .region("contact")
+            .containerType(ContainerType.ACCORDION)
+            .layout(layout)
+            .widgets(Arrays.asList(group))
+            .build();
+
+    layout.setContainers(Arrays.asList(container));
+
+    layoutRepository.save(layout);
   }
 
   private static boolean isJUnitTest() {

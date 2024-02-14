@@ -18,7 +18,9 @@ dependencyResolutionManagement {
 }
 includeBuild("../../platforms")
 includeBuild("../../common/common-domain")
+includeBuild("../../common/common-web")
 includeBuild("../entity-service-domain")
+includeBuild("../entity-service-layout")
 includeBuild("../entity-service-persistence")
 includeBuild("../entity-service-api-web")
 
