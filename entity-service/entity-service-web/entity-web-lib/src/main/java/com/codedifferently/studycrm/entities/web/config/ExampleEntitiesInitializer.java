@@ -184,6 +184,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
     createLayout(contactPropertyGroup);
   }
 
+  @ExcludeFromJacocoGeneratedReport
   private void createLayout(PropertyGroup contactPropertyGroup) {
     var layout = Layout.builder().entityType("contact").build();
     Objects.requireNonNull(layout);
