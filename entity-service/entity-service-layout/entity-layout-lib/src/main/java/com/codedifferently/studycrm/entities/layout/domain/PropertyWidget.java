@@ -10,8 +10,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@DiscriminatorValue("field")
-public class FieldWidget extends Widget {
+@DiscriminatorValue("property")
+public class PropertyWidget extends Widget {
 
   private UUID propertyId;
 }

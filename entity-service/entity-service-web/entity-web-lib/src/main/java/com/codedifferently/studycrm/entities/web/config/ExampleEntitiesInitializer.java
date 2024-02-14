@@ -201,7 +201,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
             .map(
                 property ->
                     (Widget)
-                        FieldWidget.builder()
+                        PropertyWidget.builder()
                             .parentWidget(group)
                             .propertyId(property.getId())
                             .label(property.getLabel())
@@ -214,7 +214,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
         Container.builder()
             .label("General Information")
             .region("contact")
-            .containerType(ContainerType.ACCORDION)
+            .containerType(ContainerType.ACCORDION.name())
             .layout(layout)
             .widgets(Arrays.asList(group))
             .build();

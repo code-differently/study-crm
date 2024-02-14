@@ -19,8 +19,7 @@ public class Container extends EntityBase {
 
   private String region;
 
-  @Enumerated(EnumType.STRING)
-  private ContainerType containerType;
+  private String containerType;
 
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
   private List<Widget> widgets;

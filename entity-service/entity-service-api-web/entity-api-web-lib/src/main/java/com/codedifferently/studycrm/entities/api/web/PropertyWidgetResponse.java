@@ -8,7 +8,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class FieldWidgetResponse extends WidgetResponse {
+public class PropertyWidgetResponse extends WidgetResponse {
 
   private UUID propertyId;
 }

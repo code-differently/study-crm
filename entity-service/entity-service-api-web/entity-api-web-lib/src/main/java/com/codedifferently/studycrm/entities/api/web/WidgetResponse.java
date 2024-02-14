@@ -9,6 +9,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class WidgetResponse {
 
+  protected String type;
+
   protected String label;
 
   protected boolean hideLabel;

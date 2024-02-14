@@ -51,12 +51,13 @@ public class LayoutController {
 
       if (widget instanceof GroupWidget) {
         builder = getGroupWidgetBuilder((GroupWidget) widget);
-      } else if (widget instanceof FieldWidget) {
-        builder = getFieldWidgetBuilder((FieldWidget) widget);
+      } else if (widget instanceof PropertyWidget) {
+        builder = getPropertyWidgetBuilder((PropertyWidget) widget);
       }
 
       responses.add(
           builder
+              .type(widget.getType())
               .label(widget.getLabel())
               .hideLabel(widget.isHideLabel())
               .displayOrder(widget.getDisplayOrder())
@@ -73,8 +74,8 @@ public class LayoutController {
         .widgets(getWidgetResponses(groupWidget.getWidgets()));
   }
 
-  private static WidgetResponse.WidgetResponseBuilder<?, ?> getFieldWidgetBuilder(
-      FieldWidget fieldWidget) {
-    return FieldWidgetResponse.builder().propertyId(fieldWidget.getPropertyId());
+  private static WidgetResponse.WidgetResponseBuilder<?, ?> getPropertyWidgetBuilder(
+      PropertyWidget propertyWidget) {
+    return PropertyWidgetResponse.builder().propertyId(propertyWidget.getPropertyId());
   }
 }
