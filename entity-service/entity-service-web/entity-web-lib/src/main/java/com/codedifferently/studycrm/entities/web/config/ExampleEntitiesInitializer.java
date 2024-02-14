@@ -16,7 +16,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestEntitiesInitializer implements CommandLineRunner {
+public class ExampleEntitiesInitializer implements CommandLineRunner {
 
   @Autowired private PropertyTypeRepository propertyTypeRepository;
 

@@ -2,7 +2,6 @@ package com.codedifferently.studycrm.entities.api.web;
 
 import java.util.List;
 import java.util.UUID;
-
 import lombok.*;
 
 @Data
@@ -11,12 +10,11 @@ import lombok.*;
 @Builder
 public class GetLayoutResponse {
 
-    private UUID id;
-    
-    private UUID organizationId;
+  private UUID id;
 
-    private String entityType;
+  private UUID organizationId;
 
-    @Singular
-    private List<ContainerResponse> containers;
+  private String entityType;
+
+  @Singular private List<ContainerResponse> containers;
 }

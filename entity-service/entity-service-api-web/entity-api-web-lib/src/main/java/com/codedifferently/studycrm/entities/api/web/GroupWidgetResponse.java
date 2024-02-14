@@ -2,7 +2,6 @@ package com.codedifferently.studycrm.entities.api.web;
 
 import java.util.List;
 import java.util.UUID;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

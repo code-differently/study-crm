@@ -9,5 +9,5 @@ import lombok.*;
 @Builder
 public class ContainerResponse {
 
-    private List<WidgetResponse> widgets;
+  private List<WidgetResponse> widgets;
 }

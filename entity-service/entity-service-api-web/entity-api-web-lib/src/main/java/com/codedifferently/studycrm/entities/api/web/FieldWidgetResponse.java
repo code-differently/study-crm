@@ -1,7 +1,6 @@
 package com.codedifferently.studycrm.entities.api.web;
 
 import java.util.UUID;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -10,6 +9,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 public class FieldWidgetResponse extends WidgetResponse {
-    
+
   private UUID propertyId;
 }

@@ -17,6 +17,10 @@ public class GroupWidget extends Widget {
 
   private UUID propertyGroupId;
 
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "parentWidget")
+  @OneToMany(
+      fetch = FetchType.EAGER,
+      cascade = CascadeType.ALL,
+      orphanRemoval = true,
+      mappedBy = "parentWidget")
   private List<Widget> widgets;
 }

@@ -9,7 +9,5 @@ import lombok.*;
 @Builder
 public class GetLayoutsResponse {
 
-    @Singular
-    private List<GetLayoutResponse> layouts;
-    
+  @Singular private List<GetLayoutResponse> layouts;
 }
