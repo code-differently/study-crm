@@ -2,9 +2,9 @@ package com.codedifferently.studycrm.entities.web.controllers;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.codedifferently.studycrm.entities.api.web.*;
 import com.codedifferently.studycrm.entities.layout.domain.*;
 import com.codedifferently.studycrm.entities.web.TestConfiguration;
 import java.util.ArrayList;
@@ -48,21 +48,30 @@ class LayoutControllerTest {
     when(layoutService.findAllByEntityType(entityType)).thenReturn(layouts);
 
     // Act
-    mockMvc
-        .perform(
+    var result =
+        mockMvc.perform(
             get("/organizations/{orgId}/layouts?entityType={entityType}", orgId, entityType)
-                .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
+                .contentType(MediaType.APPLICATION_JSON));
 
     // Assert
-    // GetLayoutsResponse responseBody = response.getBody();
-    // assertEquals(layouts.size(), responseBody.getLayouts().size());
-    // for (int i = 0; i < layouts.size(); i++) {
-    //   Layout layout = layouts.get(i);
-    //   GetLayoutResponse expectedLayoutResponse = createExpectedLayoutResponse(layout);
-    //   GetLayoutResponse actualLayoutResponse = responseBody.getLayouts().get(i);
-    //   assertEquals(expectedLayoutResponse, actualLayoutResponse);
-    // }
+    result
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.layouts").isArray())
+        .andExpect(jsonPath("$.layouts[0].entityType").value("exampleEntityType"))
+        .andExpect(jsonPath("$.layouts[0].containers").isArray())
+        .andExpect(jsonPath("$.layouts[0].containers[0].widgets").isArray())
+        .andExpect(jsonPath("$.layouts[0].containers[0].widgets[0].type").value("my_group_widget"))
+        .andExpect(jsonPath("$.layouts[0].containers[0].widgets[0].label").value("Example Label"))
+        .andExpect(jsonPath("$.layouts[0].containers[0].widgets[0].displayOrder").value(3))
+        .andExpect(jsonPath("$.layouts[0].containers[0].widgets[0].widgets").isArray())
+        .andExpect(
+            jsonPath("$.layouts[0].containers[0].widgets[0].widgets[0].type")
+                .value("my_property_widget"))
+        .andExpect(
+            jsonPath("$.layouts[0].containers[0].widgets[0].widgets[0].label")
+                .value("Another Example Label"))
+        .andExpect(
+            jsonPath("$.layouts[0].containers[0].widgets[0].widgets[0].displayOrder").value(1));
     verify(layoutService, times(1)).findAllByEntityType(entityType);
   }
 
@@ -88,56 +97,22 @@ class LayoutControllerTest {
 
   private List<Widget> createMockWidgets() {
     List<Widget> widgets = new ArrayList<>();
-    Widget widget1 = new Widget();
-    widget1.setLabel("Example Label");
-    widget1.setHideLabel(false);
-    widget1.setDisplayOrder(1);
-    widgets.add(widget1);
+
+    var childWidget = new PropertyWidget();
+    childWidget.setType("my_property_widget");
+    childWidget.setLabel("Another Example Label");
+    childWidget.setHideLabel(false);
+    childWidget.setDisplayOrder(1);
+
+    var groupWidget = new GroupWidget();
+    groupWidget.setType("my_group_widget");
+    groupWidget.setLabel("Example Label");
+    groupWidget.setHideLabel(true);
+    groupWidget.setDisplayOrder(3);
+    groupWidget.setWidgets(List.of(childWidget));
+    widgets.add(groupWidget);
+
     // Add more mock widgets if needed
     return widgets;
-  }
-
-  private GetLayoutResponse createExpectedLayoutResponse(Layout layout) {
-    GetLayoutResponse layoutResponse = new GetLayoutResponse();
-    layoutResponse.setId(layout.getId());
-    layoutResponse.setOrganizationId(layout.getOrganizationId());
-    layoutResponse.setEntityType(layout.getEntityType());
-    layoutResponse.setContainers(createExpectedContainerResponses(layout.getContainers()));
-    return layoutResponse;
-  }
-
-  private List<ContainerResponse> createExpectedContainerResponses(List<Container> containers) {
-    List<ContainerResponse> containerResponses = new ArrayList<>();
-    for (Container container : containers) {
-      ContainerResponse containerResponse = new ContainerResponse();
-      containerResponse.setWidgets(createExpectedWidgetResponses(container.getWidgets()));
-      containerResponses.add(containerResponse);
-    }
-    return containerResponses;
-  }
-
-  private List<WidgetResponse> createExpectedWidgetResponses(List<Widget> widgets) {
-    List<WidgetResponse> widgetResponses = new ArrayList<>();
-    for (Widget widget : widgets) {
-      WidgetResponse widgetResponse;
-      if (widget instanceof GroupWidget) {
-        GroupWidgetResponse groupWidgetResponse = new GroupWidgetResponse();
-        groupWidgetResponse.setPropertyGroupId(((GroupWidget) widget).getPropertyGroupId());
-        groupWidgetResponse.setWidgets(
-            createExpectedWidgetResponses(((GroupWidget) widget).getWidgets()));
-        widgetResponse = groupWidgetResponse;
-      } else if (widget instanceof PropertyWidget) {
-        PropertyWidgetResponse propertyWidgetResponse = new PropertyWidgetResponse();
-        propertyWidgetResponse.setPropertyId(((PropertyWidget) widget).getPropertyId());
-        widgetResponse = propertyWidgetResponse;
-      } else {
-        widgetResponse = new WidgetResponse();
-      }
-      widgetResponse.setLabel(widget.getLabel());
-      widgetResponse.setHideLabel(widget.isHideLabel());
-      widgetResponse.setDisplayOrder(widget.getDisplayOrder());
-      widgetResponses.add(widgetResponse);
-    }
-    return widgetResponses;
   }
 }

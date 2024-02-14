@@ -46,6 +46,10 @@ public class LayoutController {
   private static List<WidgetResponse> getWidgetResponses(List<Widget> widgets) {
     var responses = new ArrayList<WidgetResponse>();
 
+    if (widgets == null) {
+      return responses;
+    }
+
     for (Widget widget : widgets) {
       var builder = WidgetResponse.builder();
 
