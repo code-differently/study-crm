@@ -190,7 +190,7 @@ public class TestEntitiesInitializer implements CommandLineRunner {
     layoutRepository.save(layout);
 
     var group =
-        Group.builder()
+        GroupWidget.builder()
             .label("General Information")
             .propertyGroupId(contactPropertyGroup.getId())
             .build();
@@ -200,7 +200,7 @@ public class TestEntitiesInitializer implements CommandLineRunner {
             .map(
                 property ->
                     (Widget)
-                        Field.builder()
+                        FieldWidget.builder()
                             .parentWidget(group)
                             .propertyId(property.getId())
                             .label(property.getLabel())

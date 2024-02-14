@@ -1,17 +1,15 @@
-package com.codedifferently.studycrm.entities.layout.domain;
+package com.codedifferently.studycrm.entities.api.web;
 
-import jakarta.persistence.*;
 import java.util.UUID;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@DiscriminatorValue("field")
-public class Field extends Widget {
-
+public class FieldWidgetResponse extends WidgetResponse {
+    
   private UUID propertyId;
 }

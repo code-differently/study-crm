@@ -13,10 +13,10 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @DiscriminatorValue("group")
-public class Group extends Widget {
+public class GroupWidget extends Widget {
 
   private UUID propertyGroupId;
 
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "parentWidget")
   private List<Widget> widgets;
 }

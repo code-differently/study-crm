@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+@Data
 @Entity
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -12,11 +13,13 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class Widget extends EntityBase {
 
-  @ManyToOne private Group parentWidget;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "parent_widget_id")
+  private GroupWidget parentWidget;
 
-  private String label;
+  protected String label;
 
-  private boolean hideLabel;
+  protected boolean hideLabel;
 
-  private int displayOrder;
+  protected int displayOrder;
 }

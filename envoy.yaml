@@ -62,6 +62,13 @@ static_resources:
                   cluster: entities_service
                   timeout: 0s
               - match:
+                  safe_regex:
+                    google_re2: {}
+                    regex: "\/organizations\/.*\/layouts(\/.*)?"
+                route:
+                  cluster: entities_service
+                  timeout: 0s
+              - match:
                   prefix: "/user"
                 route:
                   cluster: organization_service
