@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -189,7 +191,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
 
   @ExcludeFromJacocoGeneratedReport
   private void createDetailsLayout(PropertyGroup contactPropertyGroup) {
-    var layout = Layout.builder().entityType("contact").templateName("details").build();
+    var layout = Layout.builder().entityType("contact").templateName("contact_details").build();
     Objects.requireNonNull(layout);
     layoutRepository.save(layout);
 
@@ -199,6 +201,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
             .propertyGroupId(contactPropertyGroup.getId())
             .build();
 
+    var displayOrder = new AtomicInteger();
     List<Widget> widgets =
         contactPropertyGroup.getProperties().stream()
             .map(
@@ -208,6 +211,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
                             .parentWidget(group)
                             .propertyId(property.getId())
                             .label(property.getLabel())
+                            .displayOrder(displayOrder.getAndIncrement())
                             .build())
             .toList();
 
@@ -229,10 +233,11 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
 
   @ExcludeFromJacocoGeneratedReport
   private void createListLayout(PropertyGroup contactPropertyGroup) {
-    var layout = Layout.builder().entityType("contact").templateName("list").build();
+    var layout = Layout.builder().entityType("contact").templateName("contacts_list").build();
     Objects.requireNonNull(layout);
     layoutRepository.save(layout);
 
+    var displayOrder = new AtomicInteger();
     List<Widget> widgets =
         contactPropertyGroup.getProperties().stream()
             .map(
@@ -241,13 +246,14 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
                         PropertyWidget.builder()
                             .propertyId(property.getId())
                             .label(property.getLabel())
+                            .displayOrder(displayOrder.getAndIncrement())
                             .build())
             .toList();
 
     var container =
         Container.builder()
             .label("General Information")
-            .templateRegion("table")
+            .templateRegion("contacts_table")
             .containerType(ContainerType.TABLE.name().toLowerCase())
             .layout(layout)
             .widgets(widgets)
