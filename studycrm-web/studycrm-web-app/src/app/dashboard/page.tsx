@@ -27,7 +27,7 @@ export default async function IndexPage({
     query: ENTITIES_QUERY, 
     variables: {type: 'contact'}
   });
-  console.log('results', JSON.stringify(result.data?.layouts.properties));
+  
   const users = new Array<User>();
   for (const entity of (result.data?.entities || [])) {
     const propertyMap = entity.properties.reduce((acc, property) => {

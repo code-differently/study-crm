@@ -52,7 +52,7 @@ class LayoutControllerTest {
     UUID propId = UUID.fromString("00000000-0000-0000-0000-000000000000");
     String entityType = "exampleEntityType";
     List<Layout> layouts = createMockLayouts();
-    when(layoutService.findAllByEntityType(entityType)).thenReturn(layouts);
+    when(layoutService.findAllByTypes(orgId, entityType, null)).thenReturn(layouts);
     when(propertyService.getProperties(List.of(propId)))
         .thenReturn(List.of(createMockProperty(propId)));
 
@@ -86,8 +86,31 @@ class LayoutControllerTest {
         .andExpect(jsonPath("$.properties[0].label").value("somePropLabel"))
         .andExpect(jsonPath("$.properties[0].pluralLabel").value("somePluralLabel"))
         .andExpect(jsonPath("$.properties[0].type.name").value("examplePropertyType"));
-    verify(layoutService, times(1)).findAllByEntityType(entityType);
+    verify(layoutService, times(1)).findAllByTypes(orgId, entityType, null);
     verify(propertyService, times(1)).getProperties(List.of(propId));
+  }
+
+
+
+  @Test
+  void getAll_FiltersByTypes() throws Exception {
+    // Arrange
+    UUID orgId = UUID.randomUUID();
+    UUID propId = UUID.fromString("00000000-0000-0000-0000-000000000000");
+    String entityType = "exampleEntityType";
+    List<Layout> layouts = createMockLayouts();
+    when(layoutService.findAllByTypes(orgId, entityType, List.of("list", "detail"))).thenReturn(layouts);
+    when(propertyService.getProperties(List.of(propId)))
+        .thenReturn(List.of(createMockProperty(propId)));
+
+    // Act
+    var result =
+        mockMvc.perform(
+            get("/organizations/{orgId}/layouts?entityType={entityType}&types=list,detail", orgId, entityType)
+                .contentType(MediaType.APPLICATION_JSON));
+
+    // Assert
+    result.andExpect(status().isOk());
   }
 
   private List<Layout> createMockLayouts() {

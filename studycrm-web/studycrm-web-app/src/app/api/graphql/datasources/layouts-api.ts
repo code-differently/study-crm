@@ -12,8 +12,12 @@ export class LayoutsAPI extends RESTDataSource {
     this.baseURL = `${process.env.API_SERVER_URL}/`;
   }
 
-  async getLayouts(entityType: string) {
-    const result = await this.get(`organizations/${this.orgId}/layouts?entityType=${entityType}`, {
+  async getLayouts(entityType: string, types: string[] = []) {
+    let url = `organizations/${this.orgId}/layouts?entityType=${entityType}`;
+    if (types?.length) {
+      url += `&types=${types.join(',')}`;
+    }
+    const result = await this.get(url, {
         headers: {
             authorization: `Bearer ${this.accessToken}`,
         },

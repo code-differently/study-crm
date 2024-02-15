@@ -18,6 +18,8 @@ public class Layout extends EntityBase {
 
   private String entityType;
 
+  private String type;
+
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
   private List<Container> containers;
 }

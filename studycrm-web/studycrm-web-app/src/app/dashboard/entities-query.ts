@@ -11,7 +11,7 @@ export const ENTITIES_QUERY = gql(/* GraphQL */ `
         value
       }
     }
-    layouts(entityType: $type) {
+    layouts(entityType: $type, types: null) {
       layouts {
         id
         entityType

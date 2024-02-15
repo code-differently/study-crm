@@ -1,6 +1,6 @@
 type Query {
     entities(type: String!): [Entity!]!
-    layouts(entityType: String!): LayoutResponse!
+    layouts(entityType: String!, types: [String!]): LayoutResponse!
 }
 
 type Entity {

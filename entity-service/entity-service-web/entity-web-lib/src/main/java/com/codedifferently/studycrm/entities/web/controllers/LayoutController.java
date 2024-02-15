@@ -23,8 +23,11 @@ public class LayoutController {
   @Autowired private PropertyService propertyService;
 
   @GetMapping
-  public ResponseEntity<GetLayoutsResponse> getAll(@RequestParam("entityType") String entityType) {
-    List<Layout> layouts = layoutService.findAllByEntityType(entityType);
+  public ResponseEntity<GetLayoutsResponse> getAll(
+      @PathVariable("organizationId") UUID organizationId,
+      @RequestParam(value = "entityType", required = false) String entityType,
+      @RequestParam(value = "type", required = false) List<String> types) {
+    List<Layout> layouts = layoutService.findAllByTypes(organizationId, entityType, types);
 
     List<GetLayoutResponse> layoutResponses =
         layouts.stream().map(LayoutController::getLayoutResponse).collect(Collectors.toList());

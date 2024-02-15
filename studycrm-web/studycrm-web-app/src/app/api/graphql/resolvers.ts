@@ -5,8 +5,8 @@ const resolvers: Resolvers = {
         entities: (_, {type}, { dataSources }) => {
             return dataSources.entitiesAPI.getEntities(type);
         },
-        layouts: (_, {entityType}, { dataSources }) => {
-            return dataSources.layoutsAPI.getLayouts(entityType);
+        layouts: (_, {entityType, types}, { dataSources }) => {
+            return dataSources.layoutsAPI.getLayouts(entityType, types);
         },
     },
     AnyWidget: {
