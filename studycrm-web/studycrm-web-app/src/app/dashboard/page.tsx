@@ -13,7 +13,7 @@ interface User {
   email: string;
 }
 
-const entitiesQuery = gql(/* GraphQL */ `
+const ENTITIES_QUERY = gql(/* GraphQL */ `
   query Query($type: String!) {
     entities(type: $type) {
       id
@@ -104,7 +104,7 @@ export default async function IndexPage({
   }
 
   const result = await gqlClient.query({
-    query: entitiesQuery, 
+    query: ENTITIES_QUERY, 
     variables: {type: 'contact'}
   });
 
