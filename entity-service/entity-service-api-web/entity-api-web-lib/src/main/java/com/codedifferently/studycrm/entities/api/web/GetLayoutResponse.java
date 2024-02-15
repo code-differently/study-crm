@@ -16,5 +16,7 @@ public class GetLayoutResponse {
 
   private String entityType;
 
+  private String type;
+
   @Singular private List<ContainerResponse> containers;
 }

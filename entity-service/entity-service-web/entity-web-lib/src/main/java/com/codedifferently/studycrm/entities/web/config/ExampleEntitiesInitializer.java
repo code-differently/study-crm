@@ -183,12 +183,13 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
     entityPropertyRepository.saveAll(contactProperties);
 
     // Create layouts
-    createLayout(contactPropertyGroup);
+    createDetailsLayout(contactPropertyGroup);
+    createListLayout(contactPropertyGroup);
   }
 
   @ExcludeFromJacocoGeneratedReport
-  private void createLayout(PropertyGroup contactPropertyGroup) {
-    var layout = Layout.builder().entityType("contact").build();
+  private void createDetailsLayout(PropertyGroup contactPropertyGroup) {
+    var layout = Layout.builder().entityType("contact").type("details").build();
     Objects.requireNonNull(layout);
     layoutRepository.save(layout);
 
@@ -216,9 +217,40 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
         Container.builder()
             .label("General Information")
             .region("contact")
-            .containerType(ContainerType.ACCORDION.name())
+            .containerType(ContainerType.ACCORDION.name().toLowerCase())
             .layout(layout)
             .widgets(Arrays.asList(group))
+            .build();
+
+    layout.setContainers(Arrays.asList(container));
+
+    layoutRepository.save(layout);
+  }
+
+  @ExcludeFromJacocoGeneratedReport
+  private void createListLayout(PropertyGroup contactPropertyGroup) {
+    var layout = Layout.builder().entityType("contact").type("list").build();
+    Objects.requireNonNull(layout);
+    layoutRepository.save(layout);
+
+    List<Widget> widgets =
+        contactPropertyGroup.getProperties().stream()
+            .map(
+                property ->
+                    (Widget)
+                        PropertyWidget.builder()
+                            .propertyId(property.getId())
+                            .label(property.getLabel())
+                            .build())
+            .toList();
+
+    var container =
+        Container.builder()
+            .label("General Information")
+            .region("table")
+            .containerType(ContainerType.TABLE.name().toLowerCase())
+            .layout(layout)
+            .widgets(widgets)
             .build();
 
     layout.setContainers(Arrays.asList(container));

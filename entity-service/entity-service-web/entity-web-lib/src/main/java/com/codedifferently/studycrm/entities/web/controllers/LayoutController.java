@@ -45,6 +45,7 @@ public class LayoutController {
         .id(layout.getId())
         .organizationId(layout.getOrganizationId())
         .entityType(layout.getEntityType())
+        .type(layout.getType())
         .containers(getContainerResponses(layout.getContainers()))
         .build();
   }
@@ -56,7 +57,11 @@ public class LayoutController {
   }
 
   private static ContainerResponse getContainerResponse(Container container) {
-    return ContainerResponse.builder().widgets(getWidgetResponses(container.getWidgets())).build();
+    return ContainerResponse.builder()
+        .region(container.getRegion())
+        .type(container.getContainerType())
+        .widgets(getWidgetResponses(container.getWidgets()))
+        .build();
   }
 
   private static List<WidgetResponse> getWidgetResponses(List<Widget> widgets) {
