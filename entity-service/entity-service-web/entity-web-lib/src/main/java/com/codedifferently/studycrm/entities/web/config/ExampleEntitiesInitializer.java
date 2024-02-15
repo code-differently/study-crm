@@ -220,7 +220,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
     var container =
         Container.builder()
             .label("General Information")
-            .templateRegion("contact")
+            .templateRegion("general_details")
             .containerType(ContainerType.ACCORDION.name().toLowerCase())
             .layout(layout)
             .widgets(Arrays.asList(group))
