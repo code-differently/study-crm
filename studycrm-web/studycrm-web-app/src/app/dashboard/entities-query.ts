@@ -14,10 +14,10 @@ export const ENTITIES_QUERY = gql(/* GraphQL */ `
     layouts(entityType: $type, types: null) {
       layouts {
         id
+        templateName
         entityType
         containers {
-          region
-          type
+          templateRegion
           widgets {
             ... WidgetFields
             ... PropertyWidgetFields

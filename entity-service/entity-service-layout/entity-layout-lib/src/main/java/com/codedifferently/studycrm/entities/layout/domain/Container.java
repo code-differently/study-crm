@@ -17,7 +17,7 @@ public class Container extends EntityBase {
 
   private String label;
 
-  private String region;
+  private String templateRegion;
 
   private String containerType;
 

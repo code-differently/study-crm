@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 public class ContainerResponse {
 
-  private String region;
+  private String templateRegion;
 
   private String type;
 

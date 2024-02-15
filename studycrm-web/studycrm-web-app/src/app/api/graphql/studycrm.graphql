@@ -74,11 +74,12 @@ type LayoutResponse {
 type Layout {
     id: ID!
     entityType: String!
+    templateName: String!
     containers: [Container!]!
 }
 
 type Container {
-    region: String
+    templateRegion: String!
     type: String
     widgets: [AnyWidget!]!
 }

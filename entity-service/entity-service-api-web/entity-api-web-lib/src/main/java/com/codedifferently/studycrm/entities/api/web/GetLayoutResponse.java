@@ -16,7 +16,7 @@ public class GetLayoutResponse {
 
   private String entityType;
 
-  private String type;
+  private String templateName;
 
   @Singular private List<ContainerResponse> containers;
 }

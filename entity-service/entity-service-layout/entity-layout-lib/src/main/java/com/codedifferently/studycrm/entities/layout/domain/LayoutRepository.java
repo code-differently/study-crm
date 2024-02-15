@@ -11,7 +11,7 @@ public interface LayoutRepository extends CrudRepository<Layout, UUID> {
   Optional<Layout> findByEntityType(String name);
 
   @Query(
-      "SELECT l FROM Layout l WHERE (l.organizationId IS NULL OR l.organizationId = ?1) AND (?2 IS NULL OR l.entityType = ?2) AND (?3 IS NULL OR l.type IN ?3)")
+      "SELECT l FROM Layout l WHERE (l.organizationId IS NULL OR l.organizationId = ?1) AND (?2 IS NULL OR l.entityType = ?2) AND (?3 IS NULL OR l.templateName IN ?3)")
   List<Layout> findAllByTypesForOrganization(
-      UUID organizationId, String entityType, List<String> types);
+      UUID organizationId, String entityType, List<String> templateNames);
 }

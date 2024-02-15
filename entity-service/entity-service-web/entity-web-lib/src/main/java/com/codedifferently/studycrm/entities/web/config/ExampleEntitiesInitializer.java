@@ -189,7 +189,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
 
   @ExcludeFromJacocoGeneratedReport
   private void createDetailsLayout(PropertyGroup contactPropertyGroup) {
-    var layout = Layout.builder().entityType("contact").type("details").build();
+    var layout = Layout.builder().entityType("contact").templateName("details").build();
     Objects.requireNonNull(layout);
     layoutRepository.save(layout);
 
@@ -216,7 +216,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
     var container =
         Container.builder()
             .label("General Information")
-            .region("contact")
+            .templateRegion("contact")
             .containerType(ContainerType.ACCORDION.name().toLowerCase())
             .layout(layout)
             .widgets(Arrays.asList(group))
@@ -229,7 +229,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
 
   @ExcludeFromJacocoGeneratedReport
   private void createListLayout(PropertyGroup contactPropertyGroup) {
-    var layout = Layout.builder().entityType("contact").type("list").build();
+    var layout = Layout.builder().entityType("contact").templateName("list").build();
     Objects.requireNonNull(layout);
     layoutRepository.save(layout);
 
@@ -247,7 +247,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
     var container =
         Container.builder()
             .label("General Information")
-            .region("table")
+            .templateRegion("table")
             .containerType(ContainerType.TABLE.name().toLowerCase())
             .layout(layout)
             .widgets(widgets)

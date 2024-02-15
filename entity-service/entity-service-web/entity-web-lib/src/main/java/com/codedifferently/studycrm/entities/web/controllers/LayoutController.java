@@ -26,8 +26,8 @@ public class LayoutController {
   public ResponseEntity<GetLayoutsResponse> getAll(
       @PathVariable("organizationId") UUID organizationId,
       @RequestParam(value = "entityType", required = false) String entityType,
-      @RequestParam(value = "type", required = false) List<String> types) {
-    List<Layout> layouts = layoutService.findAllByTypes(organizationId, entityType, types);
+      @RequestParam(value = "templateNames", required = false) List<String> templateNames) {
+    List<Layout> layouts = layoutService.findAllByTypes(organizationId, entityType, templateNames);
 
     List<GetLayoutResponse> layoutResponses =
         layouts.stream().map(LayoutController::getLayoutResponse).collect(Collectors.toList());
@@ -45,7 +45,7 @@ public class LayoutController {
         .id(layout.getId())
         .organizationId(layout.getOrganizationId())
         .entityType(layout.getEntityType())
-        .type(layout.getType())
+        .templateName(layout.getTemplateName())
         .containers(getContainerResponses(layout.getContainers()))
         .build();
   }
@@ -58,7 +58,7 @@ public class LayoutController {
 
   private static ContainerResponse getContainerResponse(Container container) {
     return ContainerResponse.builder()
-        .region(container.getRegion())
+        .templateRegion(container.getTemplateRegion())
         .type(container.getContainerType())
         .widgets(getWidgetResponses(container.getWidgets()))
         .build();

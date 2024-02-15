@@ -11,7 +11,8 @@ public class LayoutService {
   @Autowired private LayoutRepository layoutRepository;
 
   public List<Layout> findAllByTypes(
-      UUID organizationId, String entityType, List<String> layoutTypes) {
-    return layoutRepository.findAllByTypesForOrganization(organizationId, entityType, layoutTypes);
+      UUID organizationId, String entityType, List<String> templateNames) {
+    return layoutRepository.findAllByTypesForOrganization(
+        organizationId, entityType, templateNames);
   }
 }

@@ -67,7 +67,9 @@ class LayoutControllerTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.layouts").isArray())
         .andExpect(jsonPath("$.layouts[0].entityType").value("exampleEntityType"))
+        .andExpect(jsonPath("$.layouts[0].templateName").value("details"))
         .andExpect(jsonPath("$.layouts[0].containers").isArray())
+        .andExpect(jsonPath("$.layouts[0].containers[0].templateRegion").value("left_sidebar"))
         .andExpect(jsonPath("$.layouts[0].containers[0].widgets").isArray())
         .andExpect(jsonPath("$.layouts[0].containers[0].widgets[0].type").value("my_group_widget"))
         .andExpect(jsonPath("$.layouts[0].containers[0].widgets[0].label").value("Example Label"))
@@ -119,6 +121,7 @@ class LayoutControllerTest {
     List<Layout> layouts = new ArrayList<>();
     Layout layout1 = new Layout();
     layout1.setId(UUID.randomUUID());
+    layout1.setTemplateName("details");
     layout1.setEntityType("exampleEntityType");
     layout1.setContainers(createMockContainers());
     layouts.add(layout1);
@@ -129,6 +132,7 @@ class LayoutControllerTest {
   private List<Container> createMockContainers() {
     List<Container> containers = new ArrayList<>();
     Container container1 = new Container();
+    container1.setTemplateRegion("left_sidebar");
     container1.setWidgets(createMockWidgets());
     containers.add(container1);
     // Add more mock containers if needed
