@@ -1,10 +1,10 @@
 import { auth, signIn } from '@/auth';
 import { Card, Title, Text } from '@tremor/react';
-import { gql } from '@/gql';
 import { gqlClient } from '@/app/api/graphql/gql-client';
 import Search from './search';
 import UsersTable from './table';
 import { redirect } from 'next/navigation';
+import { ENTITIES_QUERY } from './entities-query';
 
 interface User {
   id: string;
@@ -12,86 +12,6 @@ interface User {
   username: string;
   email: string;
 }
-
-const ENTITIES_QUERY = gql(/* GraphQL */ `
-  query Query($type: String!) {
-    entities(type: $type) {
-      id
-      type
-      properties {
-        name
-        type
-        value
-      }
-    }
-    layouts(entityType: $type) {
-      id
-      entityType
-      containers {
-        region
-        type
-        widgets {
-          ... on Widget {
-            type
-            label
-            hideLabel
-            displayOrder
-          }
-          ... on PropertyWidget {
-            propertyId
-          }
-          ... on GroupWidget {
-            propertyGroupId
-            widgets {
-              ... on Widget {
-                type
-                label
-                hideLabel
-                displayOrder
-              }
-              ... on PropertyWidget {
-                type
-                label
-                hideLabel
-                displayOrder
-                propertyId
-              }
-              ... on GroupWidget {
-                type
-                label
-                hideLabel
-                displayOrder
-                propertyGroupId
-                widgets {
-                  ... on Widget {
-                    type
-                    label
-                    hideLabel
-                    displayOrder
-                  }
-                  ... on PropertyWidget {
-                    type
-                    label
-                    hideLabel
-                    displayOrder
-                    propertyId
-                  }
-                  ... on GroupWidget {
-                    type
-                    label
-                    hideLabel
-                    displayOrder
-                    propertyGroupId
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`);
 
 export default async function IndexPage({
   searchParams
