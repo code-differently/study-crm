@@ -12,7 +12,7 @@ public class EntityPropertyResponse {
 
   private String name;
 
-  private String type;
+  private String typeName;
 
   private Object value;
 

@@ -18,6 +18,6 @@ export class LayoutsAPI extends RESTDataSource {
             authorization: `Bearer ${this.accessToken}`,
         },
     });
-    return result.layouts;
+    return result;
   }
 }

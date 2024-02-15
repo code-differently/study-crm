@@ -1,6 +1,6 @@
 type Query {
     entities(type: String!): [Entity!]!
-    layouts(entityType: String!): [Layout!]!
+    layouts(entityType: String!): LayoutResponse!
 }
 
 type Entity {
@@ -11,19 +11,26 @@ type Entity {
 
 type EntityProperty {
     name: String!
-    type: String!
+    typeName: String!
     value: String!
 }
 
 type Property {
     id: ID!
-    groupId: String!
-    typeId: String!
-    type: String!
-    name: String!
-    label: String!
-    pluralLabel: String!
-    description: String!
+    name: String
+    label: String
+    pluralLabel: String
+    description: String
+    type: PropertyType
+}
+
+type PropertyType {
+    name: String
+    label: String
+    semanticType: String
+    wireType: String
+    isNumeric: Boolean
+    isTimestamp: Boolean
 }
 
 union AnyWidget = Widget | GroupWidget | PropertyWidget
@@ -57,6 +64,11 @@ type PropertyWidget implements IWidget {
     hideLabel: Boolean
     displayOrder: Int
     propertyId: String
+}
+
+type LayoutResponse {
+    layouts: [Layout!]!
+    properties: [Property!]!
 }
 
 type Layout {

@@ -80,7 +80,7 @@ public class EntitiesController {
     Property property = entityProperty.getProperty();
     return EntityPropertyResponse.builder()
         .name(property.getName())
-        .type(property.getPropertyType().getName())
+        .typeName(property.getPropertyType().getName())
         .value(entityProperty.getValue())
         .updatedAt(entityProperty.getUpdatedAt())
         .build();

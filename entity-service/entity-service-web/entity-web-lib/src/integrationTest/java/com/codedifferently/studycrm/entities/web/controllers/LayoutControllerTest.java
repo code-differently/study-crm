@@ -85,7 +85,7 @@ class LayoutControllerTest {
         .andExpect(jsonPath("$.properties[0].id").value(propId.toString()))
         .andExpect(jsonPath("$.properties[0].label").value("somePropLabel"))
         .andExpect(jsonPath("$.properties[0].pluralLabel").value("somePluralLabel"))
-        .andExpect(jsonPath("$.properties[0].propertyType.name").value("examplePropertyType"));
+        .andExpect(jsonPath("$.properties[0].type.name").value("examplePropertyType"));
     verify(layoutService, times(1)).findAllByEntityType(entityType);
     verify(propertyService, times(1)).getProperties(List.of(propId));
   }

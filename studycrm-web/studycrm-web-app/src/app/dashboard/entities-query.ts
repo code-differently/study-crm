@@ -7,75 +7,83 @@ export const ENTITIES_QUERY = gql(/* GraphQL */ `
       type
       properties {
         name
-        type
+        typeName
         value
       }
     }
     layouts(entityType: $type) {
-      id
-      entityType
-      containers {
-        region
-        type
-        widgets {
-          ... on Widget {
-            type
-            label
-            hideLabel
-            displayOrder
-          }
-          ... on PropertyWidget {
-            propertyId
-          }
-          ... on GroupWidget {
-            propertyGroupId
-            widgets {
-              ... on Widget {
-                type
-                label
-                hideLabel
-                displayOrder
-              }
-              ... on PropertyWidget {
-                type
-                label
-                hideLabel
-                displayOrder
-                propertyId
-              }
-              ... on GroupWidget {
-                type
-                label
-                hideLabel
-                displayOrder
-                propertyGroupId
-                widgets {
-                  ... on Widget {
-                    type
-                    label
-                    hideLabel
-                    displayOrder
-                  }
-                  ... on PropertyWidget {
-                    type
-                    label
-                    hideLabel
-                    displayOrder
-                    propertyId
-                  }
-                  ... on GroupWidget {
-                    type
-                    label
-                    hideLabel
-                    displayOrder
-                    propertyGroupId
-                  }
+      layouts {
+        id
+        entityType
+        containers {
+          region
+          type
+          widgets {
+            ... WidgetFields
+            ... PropertyWidgetFields
+            ... on GroupWidget {
+              ... GroupWidgetFields
+              widgets {
+                ... WidgetFields
+                ... PropertyWidgetFields
+                ... on GroupWidget {
+                  ... GroupWidgetFields
                 }
               }
             }
           }
         }
       }
+      properties {
+        ... PropertyFields
+      }
     }
+  }
+
+  fragment PropertyFields on Property {
+    id
+    name
+    label
+    pluralLabel
+    description
+    type {
+      ... PropertyTypeFields
+    }
+  }
+
+  fragment PropertyTypeFields on PropertyType {
+    name
+    label
+    semanticType
+    wireType
+    isNumeric
+    isTimestamp
+  }
+
+  fragment WidgetFields on Widget {
+    ... on Widget {
+      type
+      label
+      hideLabel
+      displayOrder
+    }
+  }
+
+  fragment PropertyWidgetFields on PropertyWidget {
+    ... on PropertyWidget {
+      type
+      label
+      hideLabel
+      displayOrder
+      propertyId
+    }
+  }
+
+  fragment GroupWidgetFields on GroupWidget {
+    type
+    label
+    hideLabel
+    displayOrder
+    propertyGroupId
   }
 `);

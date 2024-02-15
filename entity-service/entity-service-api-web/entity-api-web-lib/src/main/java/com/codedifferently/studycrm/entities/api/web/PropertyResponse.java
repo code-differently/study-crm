@@ -11,9 +11,9 @@ public class PropertyResponse {
 
   private UUID id;
 
-  private PropertyTypeResponse propertyType;
+  private PropertyTypeResponse type;
 
-  private UUID propertyGroupId;
+  private UUID groupId;
 
   private String name;
 

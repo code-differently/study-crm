@@ -162,7 +162,7 @@ class EntitiesControllerTest {
         .andExpect(
             content()
                 .json(
-                    "{\"id\": \"123e4567-e89b-12d3-a456-426614174000\", \"type\": \"contact\", \"properties\": [{\"name\": \"firstName\", \"type\": \"string\", \"value\": \"John\"}]}"));
+                    "{\"id\": \"123e4567-e89b-12d3-a456-426614174000\", \"type\": \"contact\", \"properties\": [{\"name\": \"firstName\", \"typeName\": \"string\", \"value\": \"John\"}]}"));
   }
 
   @Test

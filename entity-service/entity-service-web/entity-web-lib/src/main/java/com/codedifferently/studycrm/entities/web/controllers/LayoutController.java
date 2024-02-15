@@ -137,8 +137,8 @@ public class LayoutController {
   private static PropertyResponse getPropertyResponse(Property property) {
     return PropertyResponse.builder()
         .id(property.getId())
-        .propertyGroupId(property.getPropertyGroupId())
-        .propertyType(getPropertyTypeResponse(property.getPropertyType()))
+        .groupId(property.getPropertyGroupId())
+        .type(getPropertyTypeResponse(property.getPropertyType()))
         .name(property.getName())
         .label(property.getLabel())
         .pluralLabel(property.getPluralLabel())
