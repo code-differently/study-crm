@@ -95,6 +95,11 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
     Objects.requireNonNull(propertyTypes);
     propertyTypeRepository.saveAll(propertyTypes);
 
+    // Create property groups
+    var contactPropertyGroup = PropertyGroup.builder().label("General Information").build();
+    Objects.requireNonNull(contactPropertyGroup);
+    propertyGroupRepository.save(contactPropertyGroup);
+
     // Create properties
     var firstName =
         Property.builder()
@@ -102,6 +107,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
             .label("First Name")
             .description("Contact's first name")
             .propertyType(textPropertyType)
+            .propertyGroupId(contactPropertyGroup.getId())
             .build();
     var lastName =
         Property.builder()
@@ -109,6 +115,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
             .label("Last Name")
             .description("Contact's last name")
             .propertyType(textPropertyType)
+            .propertyGroupId(contactPropertyGroup.getId())
             .build();
     var email =
         Property.builder()
@@ -116,6 +123,7 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
             .label("Email")
             .description("Contact's email address")
             .propertyType(emailPropertyType)
+            .propertyGroupId(contactPropertyGroup.getId())
             .build();
     var phone =
         Property.builder()
@@ -123,19 +131,13 @@ public class ExampleEntitiesInitializer implements CommandLineRunner {
             .label("Phone")
             .description("Contact's phone number")
             .propertyType(phonePropertyType)
+            .propertyGroupId(contactPropertyGroup.getId())
             .build();
     var properties = List.of(firstName, lastName, email, phone);
     Objects.requireNonNull(properties);
-    propertyRepository.saveAll(properties);
 
-    // Create property groups
-    var contactPropertyGroup =
-        PropertyGroup.builder()
-            .label("General Information")
-            .properties(List.of(firstName, lastName, email, phone))
-            .build();
-    Objects.requireNonNull(contactPropertyGroup);
-    propertyGroupRepository.save(contactPropertyGroup);
+    contactPropertyGroup.setProperties(properties);
+    propertyRepository.saveAll(properties);
 
     // Create entity types
     var contactEntityType =

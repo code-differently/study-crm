@@ -4,6 +4,7 @@ import static org.mockito.Mockito.mock;
 
 import com.codedifferently.studycrm.StudyCrmPackageMarker;
 import com.codedifferently.studycrm.entities.domain.EntityService;
+import com.codedifferently.studycrm.entities.domain.PropertyService;
 import com.codedifferently.studycrm.entities.layout.domain.LayoutService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +30,12 @@ public class TestConfiguration {
   @Bean
   public LayoutService mockLayoutService() {
     return mock(LayoutService.class);
+  }
+
+  @Primary
+  @Bean
+  public PropertyService mockPropertyService() {
+    return mock(PropertyService.class);
   }
 
   @Primary

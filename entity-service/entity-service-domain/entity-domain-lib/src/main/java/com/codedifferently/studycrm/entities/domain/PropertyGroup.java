@@ -21,6 +21,6 @@ public class PropertyGroup extends EntityBase {
 
   private String label;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "propertyGroupId")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "propertyGroupId", cascade = CascadeType.ALL)
   private List<Property> properties;
 }

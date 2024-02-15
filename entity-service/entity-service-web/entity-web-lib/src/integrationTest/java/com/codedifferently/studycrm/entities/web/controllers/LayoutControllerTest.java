@@ -5,6 +5,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.codedifferently.studycrm.entities.domain.Property;
+import com.codedifferently.studycrm.entities.domain.PropertyService;
+import com.codedifferently.studycrm.entities.domain.PropertyType;
 import com.codedifferently.studycrm.entities.layout.domain.*;
 import com.codedifferently.studycrm.entities.web.TestConfiguration;
 import java.util.ArrayList;
@@ -27,6 +30,8 @@ class LayoutControllerTest {
 
   @Autowired private LayoutService layoutService;
 
+  @Autowired private PropertyService propertyService;
+
   private static MockMvc mockMvc;
 
   @BeforeAll
@@ -37,15 +42,19 @@ class LayoutControllerTest {
   @BeforeEach
   void beforeEach() {
     reset(layoutService);
+    reset(propertyService);
   }
 
   @Test
   void getAll_ReturnsLayoutsResponse() throws Exception {
     // Arrange
     UUID orgId = UUID.randomUUID();
+    UUID propId = UUID.fromString("00000000-0000-0000-0000-000000000000");
     String entityType = "exampleEntityType";
     List<Layout> layouts = createMockLayouts();
     when(layoutService.findAllByEntityType(entityType)).thenReturn(layouts);
+    when(propertyService.getProperties(List.of(propId)))
+        .thenReturn(List.of(createMockProperty(propId)));
 
     // Act
     var result =
@@ -71,8 +80,14 @@ class LayoutControllerTest {
             jsonPath("$.layouts[0].containers[0].widgets[0].widgets[0].label")
                 .value("Another Example Label"))
         .andExpect(
-            jsonPath("$.layouts[0].containers[0].widgets[0].widgets[0].displayOrder").value(1));
+            jsonPath("$.layouts[0].containers[0].widgets[0].widgets[0].displayOrder").value(1))
+        .andExpect(jsonPath("$.properties").isArray())
+        .andExpect(jsonPath("$.properties[0].id").value(propId.toString()))
+        .andExpect(jsonPath("$.properties[0].label").value("somePropLabel"))
+        .andExpect(jsonPath("$.properties[0].pluralLabel").value("somePluralLabel"))
+        .andExpect(jsonPath("$.properties[0].propertyType.name").value("examplePropertyType"));
     verify(layoutService, times(1)).findAllByEntityType(entityType);
+    verify(propertyService, times(1)).getProperties(List.of(propId));
   }
 
   private List<Layout> createMockLayouts() {
@@ -99,9 +114,11 @@ class LayoutControllerTest {
     List<Widget> widgets = new ArrayList<>();
 
     var childWidget = new PropertyWidget();
+    childWidget.setId(UUID.fromString("00000000-0000-0000-0000-000000000001"));
     childWidget.setType("my_property_widget");
     childWidget.setLabel("Another Example Label");
     childWidget.setHideLabel(false);
+    childWidget.setPropertyId(UUID.fromString("00000000-0000-0000-0000-000000000000"));
     childWidget.setDisplayOrder(1);
 
     var groupWidget = new GroupWidget();
@@ -114,5 +131,22 @@ class LayoutControllerTest {
 
     // Add more mock widgets if needed
     return widgets;
+  }
+
+  private Property createMockProperty(UUID propId) {
+    return Property.builder()
+        .id(propId)
+        .name("exampleName")
+        .label("somePropLabel")
+        .pluralLabel("somePluralLabel")
+        .propertyType(
+            PropertyType.builder()
+                .id(UUID.fromString("00000000-0000-0000-0000-000000000000"))
+                .name("examplePropertyType")
+                .label("someLabel")
+                .wireType("someWireType")
+                .semanticType("someSemanticType")
+                .build())
+        .build();
   }
 }
