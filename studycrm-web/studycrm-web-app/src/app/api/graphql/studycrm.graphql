@@ -1,5 +1,6 @@
 type Query {
-  entities(type: String!): [Entity!]!
+    entities(type: String!): [Entity!]!
+    layouts(entityType: String!): [Layout!]!
 }
 
 type Entity {
@@ -23,4 +24,49 @@ type Property {
     label: String!
     pluralLabel: String!
     description: String!
+}
+
+union AnyWidget = Widget | GroupWidget | PropertyWidget
+
+interface IWidget {
+    type: String!
+    label: String
+    hideLabel: Boolean
+    displayOrder: Int
+}
+
+type Widget implements IWidget {
+    type: String!
+    label: String
+    hideLabel: Boolean
+    displayOrder: Int
+}
+
+type GroupWidget implements IWidget {
+    type: String!
+    label: String
+    hideLabel: Boolean
+    displayOrder: Int
+    propertyGroupId: String!
+    widgets: [AnyWidget!]!
+}
+
+type PropertyWidget implements IWidget {
+    type: String!
+    label: String
+    hideLabel: Boolean
+    displayOrder: Int
+    propertyId: String
+}
+
+type Layout {
+    id: ID!
+    entityType: String!
+    containers: [Container!]!
+}
+
+type Container {
+    region: String
+    type: String
+    widgets: [AnyWidget!]!
 }

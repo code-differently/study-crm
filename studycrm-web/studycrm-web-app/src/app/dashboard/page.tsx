@@ -24,6 +24,72 @@ const entitiesQuery = gql(/* GraphQL */ `
         value
       }
     }
+    layouts(entityType: $type) {
+      id
+      entityType
+      containers {
+        region
+        type
+        widgets {
+          ... on Widget {
+            type
+            label
+            hideLabel
+            displayOrder
+          }
+          ... on PropertyWidget {
+            propertyId
+          }
+          ... on GroupWidget {
+            propertyGroupId
+            widgets {
+              ... on Widget {
+                type
+                label
+                hideLabel
+                displayOrder
+              }
+              ... on PropertyWidget {
+                type
+                label
+                hideLabel
+                displayOrder
+                propertyId
+              }
+              ... on GroupWidget {
+                type
+                label
+                hideLabel
+                displayOrder
+                propertyGroupId
+                widgets {
+                  ... on Widget {
+                    type
+                    label
+                    hideLabel
+                    displayOrder
+                  }
+                  ... on PropertyWidget {
+                    type
+                    label
+                    hideLabel
+                    displayOrder
+                    propertyId
+                  }
+                  ... on GroupWidget {
+                    type
+                    label
+                    hideLabel
+                    displayOrder
+                    propertyGroupId
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 `);
 

@@ -1,10 +1,11 @@
 import { ApolloServer } from '@apollo/server';
 import { auth } from '@/auth';
 import { EntitiesAPI } from './datasources/entities-api';
-import { NextApiRequest } from 'next';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import resolvers from './resolvers';
 import typeDefs from './studycrm.graphql';
+import { ApiContext } from './api-context';
+import { LayoutsAPI } from './datasources/layouts-api';
 
 
 const server = new ApolloServer({
@@ -12,11 +13,6 @@ const server = new ApolloServer({
   typeDefs,
 });
 
-interface ApiContext extends NextApiRequest {
-  dataSources: {
-    entitiesAPI: EntitiesAPI;
-  };
-}
 
 const handler = startServerAndCreateNextHandler<ApiContext>(server, {
     context: async (req) => {
@@ -29,9 +25,11 @@ const handler = startServerAndCreateNextHandler<ApiContext>(server, {
         req,
         dataSources: {
           entitiesAPI: new EntitiesAPI({user, accessToken}),
+          layoutsAPI: new LayoutsAPI({user, accessToken}),
         },
       };
     },
   });
 
+  
 export { handler as GET, handler as POST };
