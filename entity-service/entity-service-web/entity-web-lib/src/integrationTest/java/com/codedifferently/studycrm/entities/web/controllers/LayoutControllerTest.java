@@ -90,8 +90,6 @@ class LayoutControllerTest {
     verify(propertyService, times(1)).getProperties(List.of(propId));
   }
 
-
-
   @Test
   void getAll_FiltersByTypes() throws Exception {
     // Arrange
@@ -99,14 +97,18 @@ class LayoutControllerTest {
     UUID propId = UUID.fromString("00000000-0000-0000-0000-000000000000");
     String entityType = "exampleEntityType";
     List<Layout> layouts = createMockLayouts();
-    when(layoutService.findAllByTypes(orgId, entityType, List.of("list", "detail"))).thenReturn(layouts);
+    when(layoutService.findAllByTypes(orgId, entityType, List.of("list", "detail")))
+        .thenReturn(layouts);
     when(propertyService.getProperties(List.of(propId)))
         .thenReturn(List.of(createMockProperty(propId)));
 
     // Act
     var result =
         mockMvc.perform(
-            get("/organizations/{orgId}/layouts?entityType={entityType}&types=list,detail", orgId, entityType)
+            get(
+                    "/organizations/{orgId}/layouts?entityType={entityType}&types=list,detail",
+                    orgId,
+                    entityType)
                 .contentType(MediaType.APPLICATION_JSON));
 
     // Assert
