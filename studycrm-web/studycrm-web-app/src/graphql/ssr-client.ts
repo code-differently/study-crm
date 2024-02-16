@@ -3,14 +3,15 @@ import { auth } from "@/auth";
 import { EntitiesAPI } from './datasources/entities-api';
 import { LayoutsAPI } from "./datasources/layouts-api";
 import { makeExecutableSchema } from '@graphql-tools/schema';
+import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
 import { SchemaLink } from '@apollo/client/link/schema';
-import resolvers from './resolvers';
+import { resolvers } from './resolvers';
 import typeDefs from './studycrm.graphql';
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 const apolloCache = new InMemoryCache();
 
-export const gqlClient = new ApolloClient({
+export const { getClient } = registerApolloClient(() => new ApolloClient({
   cache: apolloCache,
   link: new SchemaLink({ 
     schema, 
@@ -29,4 +30,4 @@ export const gqlClient = new ApolloClient({
         };
     }
   }),
-});
+}));

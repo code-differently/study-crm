@@ -4,6 +4,7 @@ import Nav from './nav';
 import Toast from './toast';
 import { Suspense } from 'react';
 import { SessionProvider } from 'next-auth/react';
+import { ApolloWrapper } from '@/graphql';
 
 export const metadata = {
   title: 'Next.js App Router + NextAuth + Tailwind CSS',

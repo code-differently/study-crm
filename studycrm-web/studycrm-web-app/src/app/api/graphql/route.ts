@@ -1,11 +1,9 @@
+import { ApiContext } from './api-context';
 import { ApolloServer } from '@apollo/server';
 import { auth } from '@/auth';
-import { EntitiesAPI } from './datasources/entities-api';
+import { EntitiesAPI, LayoutsAPI } from '@/graphql/datasources';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
-import resolvers from './resolvers';
-import typeDefs from './studycrm.graphql';
-import { ApiContext } from './api-context';
-import { LayoutsAPI } from './datasources/layouts-api';
+import { resolvers, typeDefs }  from '@/graphql';
 
 
 const server = new ApolloServer({

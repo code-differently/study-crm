@@ -1,10 +1,10 @@
-import { auth, signIn } from '@/auth';
+import { auth } from '@/auth';
 import { Card, Title, Text } from '@tremor/react';
-import { gqlClient } from '@/app/api/graphql/gql-client';
+import { ENTITIES_QUERY } from './entities-query';
+import { getClient } from '@/graphql';
+import { redirect } from 'next/navigation';
 import Search from './search';
 import UsersTable from './table';
-import { redirect } from 'next/navigation';
-import { ENTITIES_QUERY } from './entities-query';
 
 interface User {
   id: string;
@@ -23,8 +23,8 @@ export default async function IndexPage({
     redirect('/auth/signin');
   }
 
-  const result = await gqlClient.query({
-    query: ENTITIES_QUERY, 
+  const result = await getClient().query({
+    query: ENTITIES_QUERY,
     variables: {type: 'contact'}
   });
   

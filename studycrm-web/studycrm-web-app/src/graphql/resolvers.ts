@@ -1,6 +1,6 @@
 import { Resolvers } from "@apollo/client";
 
-const resolvers: Resolvers = {
+export const resolvers: Resolvers = {
     Query: {
         entities: (_, {type}, { dataSources }) => {
             return dataSources.entitiesAPI.getEntities(type);
@@ -21,5 +21,3 @@ const resolvers: Resolvers = {
       },
     },
 };
-
-export default resolvers;
