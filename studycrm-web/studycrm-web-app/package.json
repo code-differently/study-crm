@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint '*/**/*.{js,jsx,ts,tsx}' --quiet",
-    "format": "prettier --write '*/**/*.{js,jsx,ts,tsx,json,css,md}'",
+    "fix": "prettier --write '*/**/*.{js,jsx,ts,tsx,json,css,md}'",
     "generate": "graphql-codegen",
     "prestart": "npm run generate",
     "predev": "npm run generate"
