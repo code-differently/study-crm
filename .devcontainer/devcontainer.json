@@ -44,7 +44,8 @@
         "fwcd.kotlin",
         "ms-azuretools.vscode-docker",
         "vmware.vscode-boot-dev-pack",
-        "wmanth.jar-viewer"
+        "wmanth.jar-viewer",
+        "esbenp.prettier-vscode"
       ]
     }
   }
