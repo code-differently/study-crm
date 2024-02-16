@@ -1,10 +1,10 @@
-import { RESTDataSource } from "@apollo/datasource-rest";
-import { ServiceConfig } from "./service-config";
+import { RESTDataSource } from '@apollo/datasource-rest';
+import { ServiceConfig } from './service-config';
 
 export class LayoutsAPI extends RESTDataSource {
   private readonly accessToken: string;
   private readonly orgId: string;
-  
+
   constructor(private readonly config: ServiceConfig) {
     super();
     this.accessToken = config.accessToken;
@@ -18,9 +18,9 @@ export class LayoutsAPI extends RESTDataSource {
       url += `&types=${types.join(',')}`;
     }
     const result = await this.get(url, {
-        headers: {
-            authorization: `Bearer ${this.accessToken}`,
-        },
+      headers: {
+        authorization: `Bearer ${this.accessToken}`,
+      },
     });
     return result;
   }

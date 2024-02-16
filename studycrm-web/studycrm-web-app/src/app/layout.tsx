@@ -9,11 +9,11 @@ import { ApolloWrapper } from '@/graphql';
 export const metadata = {
   title: 'Next.js App Router + NextAuth + Tailwind CSS',
   description:
-    'A user admin dashboard configured with Next.js, Postgres, NextAuth, Tailwind CSS, TypeScript, ESLint, and Prettier.'
+    'A user admin dashboard configured with Next.js, Postgres, NextAuth, Tailwind CSS, TypeScript, ESLint, and Prettier.',
 };
 
 export default function RootLayout({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) {
@@ -30,4 +30,4 @@ export default function RootLayout({
       </SessionProvider>
     </html>
   );
-};
+}

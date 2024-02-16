@@ -19,15 +19,15 @@ export const ENTITIES_QUERY = gql(/* GraphQL */ `
         containers {
           templateRegion
           widgets {
-            ... WidgetFields
-            ... PropertyWidgetFields
+            ...WidgetFields
+            ...PropertyWidgetFields
             ... on GroupWidget {
-              ... GroupWidgetFields
+              ...GroupWidgetFields
               widgets {
-                ... WidgetFields
-                ... PropertyWidgetFields
+                ...WidgetFields
+                ...PropertyWidgetFields
                 ... on GroupWidget {
-                  ... GroupWidgetFields
+                  ...GroupWidgetFields
                 }
               }
             }
@@ -35,7 +35,7 @@ export const ENTITIES_QUERY = gql(/* GraphQL */ `
         }
       }
       properties {
-        ... PropertyFields
+        ...PropertyFields
       }
     }
   }
@@ -47,7 +47,7 @@ export const ENTITIES_QUERY = gql(/* GraphQL */ `
     pluralLabel
     description
     type {
-      ... PropertyTypeFields
+      ...PropertyTypeFields
     }
   }
 

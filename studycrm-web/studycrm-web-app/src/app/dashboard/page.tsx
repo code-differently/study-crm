@@ -14,7 +14,7 @@ interface User {
 }
 
 export default async function IndexPage({
-  searchParams
+  searchParams,
 }: {
   searchParams: { q: string };
 }) {
@@ -25,15 +25,18 @@ export default async function IndexPage({
 
   const result = await getClient().query({
     query: ENTITIES_QUERY,
-    variables: {type: 'contact'}
+    variables: { type: 'contact' },
   });
-  
+
   const users = new Array<User>();
-  for (const entity of (result.data?.entities || [])) {
-    const propertyMap = entity.properties.reduce((acc, property) => {
-      acc[property.name] = property.value;
-      return acc;
-    }, {} as Record<string, string>);
+  for (const entity of result.data?.entities || []) {
+    const propertyMap = entity.properties.reduce(
+      (acc, property) => {
+        acc[property.name] = property.value;
+        return acc;
+      },
+      {} as Record<string, string>
+    );
     users.push({
       id: entity.id,
       name: propertyMap['first_name'] + ' ' + propertyMap['last_name'],
