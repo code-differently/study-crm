@@ -8,6 +8,13 @@
             "type": "java",
             "name": "App",
             "request": "launch",
+            "mainClass": "com.codedifferently.studycrm.entities.App",
+            "projectName": "entity-main-app"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
             "mainClass": "com.codedifferently.studycrm.auth.App",
             "projectName": "auth-app-main"
         },
