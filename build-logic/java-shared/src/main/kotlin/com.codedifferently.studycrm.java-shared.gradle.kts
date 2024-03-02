@@ -5,6 +5,7 @@ plugins {
     id("eclipse")
     id("io.freefair.lombok")
     id("com.diffplug.spotless")
+    id("com.adarshr.test-logger")
 }
 
 group = "com.codedifferently.studycrm"
