@@ -18,6 +18,7 @@ export const ENTITIES_QUERY = gql(/* GraphQL */ `
         entityType
         containers {
           templateRegion
+          type
           widgets {
             ...WidgetFields
             ...PropertyWidgetFields
