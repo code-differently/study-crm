@@ -21,6 +21,5 @@ public class UserAuthority extends EntityBase {
   private User user;
 
   @Column(nullable = false)
-  @NotBlank(message = "Authority is required")
-  private String authority;
+  @NotBlank(message = "Authority is required") private String authority;
 }

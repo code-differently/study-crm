@@ -19,8 +19,7 @@ import lombok.experimental.SuperBuilder;
 public class User extends EntityBase {
 
   @Column(nullable = false, unique = true)
-  @NotBlank(message = "Username is required")
-  private String username;
+  @NotBlank(message = "Username is required") private String username;
 
   @Column(nullable = false)
   private String password;
@@ -34,8 +33,7 @@ public class User extends EntityBase {
   private String lastName = "";
 
   @Column(nullable = false, unique = true)
-  @NotBlank(message = "Email is required")
-  private String email;
+  @NotBlank(message = "Email is required") private String email;
 
   @Column(nullable = false)
   @Builder.Default

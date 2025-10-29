@@ -12,10 +12,8 @@ import lombok.*;
 public class CreateOrganizationRequest {
 
   @Getter
-  @NotBlank(message = "Organization name is required")
-  private String organizationName;
+  @NotBlank(message = "Organization name is required") private String organizationName;
 
   @Getter
-  @Valid
-  @NotNull(message = "User details are required") private UserDetails userDetails;
+  @Valid @NotNull(message = "User details are required") private UserDetails userDetails;
 }

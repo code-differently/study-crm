@@ -17,8 +17,7 @@ import lombok.experimental.SuperBuilder;
 public class Organization extends EntityBase {
 
   @Column(nullable = false)
-  @NotBlank(message = "Name is required")
-  private String name;
+  @NotBlank(message = "Name is required") private String name;
 
   @Column(nullable = false)
   private boolean isActive;

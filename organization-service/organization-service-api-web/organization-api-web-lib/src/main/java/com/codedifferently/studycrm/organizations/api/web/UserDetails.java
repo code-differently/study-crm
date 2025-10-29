@@ -10,12 +10,10 @@ import lombok.*;
 public class UserDetails {
 
   @Getter
-  @NotBlank(message = "Username is required")
-  private String username;
+  @NotBlank(message = "Username is required") private String username;
 
   @Getter
-  @NotBlank(message = "Email is required")
-  private String email;
+  @NotBlank(message = "Email is required") private String email;
 
   @Getter private String password;
 

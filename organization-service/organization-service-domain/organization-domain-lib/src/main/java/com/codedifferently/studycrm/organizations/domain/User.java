@@ -21,8 +21,7 @@ import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
 public class User extends EntityBase {
 
   @Column(nullable = false, unique = true)
-  @NotBlank(message = "Username is required")
-  private String username;
+  @NotBlank(message = "Username is required") private String username;
 
   @Column(nullable = false)
   private String firstName;
@@ -31,8 +30,7 @@ public class User extends EntityBase {
   private String lastName;
 
   @Column(nullable = false, unique = true)
-  @NotBlank(message = "Email is required")
-  private String email;
+  @NotBlank(message = "Email is required") private String email;
 
   @JdbcType(VarcharJdbcType.class)
   private UUID defaultOrganizationId;
