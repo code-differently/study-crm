@@ -1,13 +1,17 @@
 package com.codedifferently.studycrm.auth.messaging;
 
-import static io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder.withFailure;
-import static io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder.withSuccess;
 import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.codedifferently.studycrm.auth.api.messaging.commands.CreateAuthUserCommand;
 import com.codedifferently.studycrm.auth.api.messaging.replies.AuthUserAlreadyExists;
@@ -15,14 +19,11 @@ import com.codedifferently.studycrm.auth.api.messaging.replies.AuthUserCreated;
 import com.codedifferently.studycrm.auth.api.messaging.replies.AuthUserNotCreated;
 import com.codedifferently.studycrm.auth.domain.AuthService;
 import com.codedifferently.studycrm.auth.domain.User;
+
+import static io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder.withFailure;
+import static io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder.withSuccess;
 import io.eventuate.tram.commands.consumer.CommandMessage;
 import io.eventuate.tram.messaging.common.Message;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 class AuthCommandHandlerTest {
   @Mock private PasswordEncoder passwordEncoder;
@@ -66,7 +67,7 @@ class AuthCommandHandlerTest {
                 .grantedAuthority("ROLE_USER")
                 .grantedAuthority("ROLE_ADMIN")
                 .build());
-    when(authService.findUserByUsername("testUser")).thenThrow(RuntimeException.class);
+    when(authService.findUserByUsername("testUser")).thenThrow(new RuntimeException("Test exception"));
 
     // Act
     var result = authCommandHandler.createUser(message);
