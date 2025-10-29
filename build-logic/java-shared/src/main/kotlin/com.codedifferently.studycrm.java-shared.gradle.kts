@@ -13,7 +13,7 @@ group = "com.codedifferently.studycrm"
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
@@ -32,7 +32,7 @@ configure<com.diffplug.gradle.spotless.SpotlessExtension> {
   java {
     // don't need to set target, it is inferred from java
 
-    // apply a specific flavor of google-java-format
+    // apply a specific flavor of google-java-format compatible with Java 21
     googleJavaFormat()
     // fix formatting of type annotations
     formatAnnotations()

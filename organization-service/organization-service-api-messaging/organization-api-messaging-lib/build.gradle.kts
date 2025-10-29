@@ -5,6 +5,7 @@ plugins {
 group = "com.codedifferently.studycrm.organization-service.api.messaging"
 
 dependencies {
+    implementation("com.codedifferently.studycrm.common.domain:common-domain-lib")
     implementation("com.codedifferently.studycrm.organization-service.domain:organization-domain-lib")
     implementation("com.codedifferently.studycrm.organization-service.api.web:organization-api-web-lib")
 
