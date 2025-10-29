@@ -106,7 +106,7 @@ reporting {
 
 tasks.named<JacocoReport>("testFullCodeCoverageReport") {
     description = "Build a full test coverage report including test and integrationTest results"
-    dependsOn( "testCodeCoverageReport", "integrationTestCodeCoverageReport" )
+    dependsOn( "testCodeCoverageReport", "integrationTestCodeCoverageReport", "spotlessJava", "spotlessMisc" )
     executionData.setFrom(fileTree( project.rootDir.absolutePath ).include( "**/build/jacoco/*.exec" ))
 
     reports {

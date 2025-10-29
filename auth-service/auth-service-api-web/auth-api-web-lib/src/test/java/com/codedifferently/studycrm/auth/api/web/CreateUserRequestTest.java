@@ -1,6 +1,7 @@
 package com.codedifferently.studycrm.auth.api.web;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 class CreateUserRequestTest {
