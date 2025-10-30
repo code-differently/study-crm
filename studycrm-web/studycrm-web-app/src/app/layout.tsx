@@ -29,7 +29,6 @@ export default function RootLayout({
             </Suspense>
             {children}
             <Toast />
-            {process.env.NODE_ENV === 'development' && <TokenDebugInfo />}
           </ApolloWrapper>
         </SessionProvider>
       </body>

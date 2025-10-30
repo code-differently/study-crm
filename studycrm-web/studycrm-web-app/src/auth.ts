@@ -3,7 +3,8 @@ import NextAuth from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 
 // Helper functions for cleaner Temporal usage
-const nowInSeconds = (): number => Math.floor(Number(Temporal.Now.instant().epochNanoseconds) / 1_000_000_000);
+const nowInSeconds = (): number =>
+  Math.floor(Number(Temporal.Now.instant().epochNanoseconds) / 1_000_000_000);
 const SESSION_DURATION = Temporal.Duration.from({ hours: 8 });
 const REFRESH_BUFFER = Temporal.Duration.from({ minutes: 5 });
 
@@ -77,13 +78,15 @@ export const {
             : 0,
           refreshToken: account.refresh_token,
         } as JWT;
-      } 
-      
+      }
+
       // Return previous token if the access token has not expired yet
       // Add 5 minute buffer to refresh before expiration
       const refreshBufferMs = REFRESH_BUFFER.total('milliseconds');
-      const shouldRefresh = token.expiresAt && Date.now() > (token.expiresAt * 1000 - refreshBufferMs);
-      
+      const shouldRefresh =
+        token.expiresAt &&
+        Date.now() > token.expiresAt * 1000 - refreshBufferMs;
+
       if (!shouldRefresh && !token.error) {
         return token;
       }
@@ -95,23 +98,25 @@ export const {
           `${process.env.AUTH_BASE_URL}/oauth2/token`,
           request
         );
-        
+
         if (!response.ok) {
           const error = await response.json();
           console.error('Token refresh failed:', error);
-          
+
           // Handle specific error cases
           if (error.error === 'invalid_grant') {
-            console.error('Refresh token is invalid or expired. User needs to re-authenticate.');
+            console.error(
+              'Refresh token is invalid or expired. User needs to re-authenticate.'
+            );
             // Clear all token data to force fresh login
             return null;
           }
-          
+
           throw error;
         }
-        
+
         const tokens: any = await response.json();
-        
+
         console.log('Token refresh successful');
         return {
           ...token,
@@ -123,21 +128,21 @@ export const {
         };
       } catch (error: any) {
         console.error('Failed to refresh access token:', error);
-        
+
         // For network errors or other issues, keep trying with existing tokens
         // but mark as error so UI can handle appropriately
         if (error.error === 'invalid_grant' || error.code === 'invalid_grant') {
           // Refresh token is definitely invalid - clear everything
-          return { 
-            ...token, 
+          return {
+            ...token,
             accessToken: '',
             refreshToken: '',
             idToken: undefined,
             expiresAt: 0,
-            error: 'RefreshAccessTokenError' as const 
+            error: 'RefreshAccessTokenError' as const,
           };
         }
-        
+
         // Other errors - return token with error flag
         return { ...token, error: 'RefreshAccessTokenError' as const };
       }
@@ -145,7 +150,10 @@ export const {
     async session({ session, token }) {
       if (token) {
         // If we have a refresh error and no valid tokens, return minimal session
-        if (token.error === 'RefreshAccessTokenError' && (!token.accessToken || token.accessToken === '')) {
+        if (
+          token.error === 'RefreshAccessTokenError' &&
+          (!token.accessToken || token.accessToken === '')
+        ) {
           return {
             ...session,
             user: token.user,
@@ -154,7 +162,7 @@ export const {
             error: token.error,
           };
         }
-        
+
         session.user = token.user;
         session.accessToken = token.accessToken;
         session.idToken = token.idToken;

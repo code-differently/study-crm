@@ -1,8 +1,6 @@
-import { auth } from '@/auth';
 import { Card } from '@tremor/react';
 import { ENTITIES_QUERY } from './entities-query';
 import { getClient } from '@/graphql';
-import { redirect } from 'next/navigation';
 import Search from './search';
 import UsersTable from './table';
 import Widget from '@/app/components/widget';
@@ -14,16 +12,7 @@ interface User {
   email: string;
 }
 
-export default async function IndexPage({
-  searchParams,
-}: {
-  searchParams: { q: string };
-}) {
-  const session = await auth();
-  if (!session) {
-    redirect('/auth/signin');
-  }
-
+export default async function IndexPage() {
   const result = await getClient().query({
     query: ENTITIES_QUERY,
     variables: { type: 'contact' },

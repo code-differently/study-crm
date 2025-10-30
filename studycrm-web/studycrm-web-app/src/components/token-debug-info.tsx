@@ -24,7 +24,9 @@ export function TokenDebugInfo() {
   }
 
   // Calculate token expiration info (assuming we have the JWT)
-  const tokenExpiresAt = session?.accessToken ? decodeJWTExpiration(session.accessToken) : null;
+  const tokenExpiresAt = session?.accessToken
+    ? decodeJWTExpiration(session.accessToken)
+    : null;
   const timeToExpiry = tokenExpiresAt ? tokenExpiresAt - currentTime : null;
   const isExpired = timeToExpiry ? timeToExpiry <= 0 : false;
   const willExpireSoon = timeToExpiry ? timeToExpiry <= 5 * 60 * 1000 : false; // 5 minutes
@@ -40,7 +42,8 @@ export function TokenDebugInfo() {
           <strong>User:</strong> {session?.user?.email || 'N/A'}
         </div>
         <div>
-          <strong>Has Access Token:</strong> {session?.accessToken ? 'Yes' : 'No'}
+          <strong>Has Access Token:</strong>{' '}
+          {session?.accessToken ? 'Yes' : 'No'}
         </div>
         <div>
           <strong>Session Error:</strong> {session?.error || 'None'}
@@ -48,18 +51,24 @@ export function TokenDebugInfo() {
         {tokenExpiresAt && (
           <>
             <div>
-              <strong>Token Expires:</strong> {new Date(tokenExpiresAt).toLocaleTimeString()}
+              <strong>Token Expires:</strong>{' '}
+              {new Date(tokenExpiresAt).toLocaleTimeString()}
             </div>
-            <div className={`${isExpired ? 'text-red-600' : willExpireSoon ? 'text-orange-600' : 'text-green-600'}`}>
-              <strong>Status:</strong> {
-                isExpired ? 'EXPIRED' : 
-                willExpireSoon ? 'EXPIRES SOON' : 
-                'VALID'
-              }
+            <div
+              className={`${isExpired ? 'text-red-600' : willExpireSoon ? 'text-orange-600' : 'text-green-600'}`}
+            >
+              <strong>Status:</strong>{' '}
+              {isExpired
+                ? 'EXPIRED'
+                : willExpireSoon
+                  ? 'EXPIRES SOON'
+                  : 'VALID'}
             </div>
             {timeToExpiry && !isExpired && (
               <div>
-                <strong>Time to expiry:</strong> {Math.floor(timeToExpiry / 60000)}m {Math.floor((timeToExpiry % 60000) / 1000)}s
+                <strong>Time to expiry:</strong>{' '}
+                {Math.floor(timeToExpiry / 60000)}m{' '}
+                {Math.floor((timeToExpiry % 60000) / 1000)}s
               </div>
             )}
           </>

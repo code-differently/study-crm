@@ -25,10 +25,10 @@ export function TokenTestControls() {
           `,
         }),
       });
-      
+
       const result = await response.json();
       console.log('GraphQL response:', result);
-      
+
       if (response.status === 401) {
         console.log('Received 401 - token refresh likely failed');
       }
@@ -50,7 +50,7 @@ export function TokenTestControls() {
   return (
     <div className="bg-white p-4 rounded-lg border space-y-4">
       <h3 className="font-semibold">Token Test Controls</h3>
-      
+
       <div className="space-y-2">
         <button
           onClick={forceTokenRefresh}
@@ -59,7 +59,7 @@ export function TokenTestControls() {
         >
           {isLoading ? 'Testing...' : 'Test Token Refresh (GraphQL Request)'}
         </button>
-        
+
         <button
           onClick={clearSessionAndSignIn}
           disabled={isLoading}
@@ -68,10 +68,16 @@ export function TokenTestControls() {
           Clear Session & Re-authenticate
         </button>
       </div>
-      
+
       <div className="text-sm text-gray-600">
-        <p><strong>Test Token Refresh:</strong> Makes a GraphQL request that will trigger token validation and refresh if needed.</p>
-        <p><strong>Clear Session:</strong> Forces a complete re-authentication flow.</p>
+        <p>
+          <strong>Test Token Refresh:</strong> Makes a GraphQL request that will
+          trigger token validation and refresh if needed.
+        </p>
+        <p>
+          <strong>Clear Session:</strong> Forces a complete re-authentication
+          flow.
+        </p>
       </div>
     </div>
   );

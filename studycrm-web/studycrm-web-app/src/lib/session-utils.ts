@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react';
  */
 export function useAuthenticatedSession() {
   const { data: session, status } = useSession();
-  
+
   return {
     session,
     isAuthenticated: !!session?.user && !session?.error,
