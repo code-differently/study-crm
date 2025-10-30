@@ -50,7 +50,12 @@ static_resources:
                   cluster: auth_service
                   timeout: 0s
               - match:
-                  prefix: "/logout"
+                  prefix: "/connect"
+                route:
+                  cluster: auth_service
+                  timeout: 0s
+              - match:
+                  prefix: "/userinfo"
                 route:
                   cluster: auth_service
                   timeout: 0s

@@ -74,6 +74,8 @@ public class AuthServerSecurityConfig {
             .redirectUri("http://local.studycrm.com/api/auth/callback/studycrm")
             .redirectUri("http://localhost:3000/api/auth/callback/studycrm")
             .redirectUri("https://oauth.pstmn.io/v1/callback")
+            .postLogoutRedirectUri("http://local.studycrm.com/")
+            .postLogoutRedirectUri("http://localhost:3000/")
             .postLogoutRedirectUri("http://127.0.0.1:8080/")
             .scope(OidcScopes.OPENID)
             .scope(OidcScopes.PROFILE)

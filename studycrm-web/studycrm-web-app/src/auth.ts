@@ -22,6 +22,8 @@ export const {
         },
       },
       checks: ['pkce', 'state', 'nonce'],
+      // Configure the end session endpoint for proper OIDC logout
+      wellKnown: `${process.env.STUDYCRM_ISSUER_BASE_URL}/.well-known/openid-configuration`,
       profile(profile) {
         const { roles } = profile;
         const organizationIds =
@@ -49,11 +51,12 @@ export const {
         return {
           user,
           accessToken: account.access_token,
+          idToken: account.id_token,
           expiresAt: account.expires_in
-            ? Math.floor(Date.now() / 1000 + account.expires_in!)
+            ? Math.floor(Date.now() / 1000 + Number(account.expires_in))
             : 0,
           refreshToken: account.refresh_token,
-        };
+        } as JWT;
       } else if (!token.expiresAt || Date.now() < token.expiresAt * 1000) {
         // If the access token has not expired yet, return it
         return token;
@@ -65,12 +68,12 @@ export const {
             `${process.env.AUTH_BASE_URL}/oauth2/token`,
             request
           );
-          const tokens: JWT = await response.json();
+          const tokens: any = await response.json();
           if (!response.ok) throw tokens;
           return {
             ...token,
             accessToken: tokens.access_token,
-            expiresAt: Math.floor(Date.now() / 1000 + tokens.expires_in),
+            expiresAt: Math.floor(Date.now() / 1000 + Number(tokens.expires_in)),
             refreshToken: tokens.refresh_token ?? token.refreshToken,
           };
         } catch (error) {
@@ -78,10 +81,11 @@ export const {
         }
       }
     },
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       if (token) {
         session.user = token.user;
         session.accessToken = token.accessToken;
+        session.idToken = token.idToken;
       }
       return session;
     },
