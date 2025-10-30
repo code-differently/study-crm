@@ -1,5 +1,6 @@
 type Query {
     entities(type: String!): [Entity!]!
+    contacts: [Contact!]!
     layouts(entityType: String!, types: [String!]): LayoutResponse!
 }
 
@@ -82,4 +83,11 @@ type Container {
     templateRegion: String!
     type: String
     widgets: [AnyWidget!]!
+}
+
+type Contact {
+    id: ID!
+    name: String!
+    username: String!
+    email: String!
 }

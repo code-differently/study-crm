@@ -31,6 +31,14 @@ export type Scalars = {
 
 export type AnyWidget = GroupWidget | PropertyWidget | Widget;
 
+export type Contact = {
+  __typename?: 'Contact';
+  email: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  username: Scalars['String']['output'];
+};
+
 export type Container = {
   __typename?: 'Container';
   templateRegion: Scalars['String']['output'];
@@ -114,6 +122,7 @@ export type PropertyWidget = IWidget & {
 
 export type Query = {
   __typename?: 'Query';
+  contacts: Array<Contact>;
   entities: Array<Entity>;
   layouts: LayoutResponse;
 };
@@ -133,6 +142,19 @@ export type Widget = IWidget & {
   hideLabel?: Maybe<Scalars['Boolean']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   type: Scalars['String']['output'];
+};
+
+export type GetContactsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetContactsQuery = {
+  __typename?: 'Query';
+  contacts: Array<{
+    __typename?: 'Contact';
+    id: string;
+    name: string;
+    username: string;
+    email: string;
+  }>;
 };
 
 export type QueryQueryVariables = Exact<{
@@ -436,6 +458,34 @@ export const GroupWidgetFieldsFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<GroupWidgetFieldsFragment, unknown>;
+export const GetContactsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetContacts' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'contacts' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'email' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetContactsQuery, GetContactsQueryVariables>;
 export const QueryDocument = {
   kind: 'Document',
   definitions: [

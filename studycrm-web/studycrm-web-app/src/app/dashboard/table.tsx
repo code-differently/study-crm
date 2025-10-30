@@ -7,14 +7,14 @@ import {
   TableCell,
 } from '@tremor/react';
 
-interface User {
+interface Contact {
   id: string;
   name: string;
   username: string;
   email: string;
 }
 
-export default function UsersTable({ users }: { users: User[] }) {
+export default function ContactsTable({ contacts }: { contacts: Contact[] }) {
   return (
     <Table>
       <TableHead>
@@ -25,7 +25,7 @@ export default function UsersTable({ users }: { users: User[] }) {
         </TableRow>
       </TableHead>
       <TableBody>
-        {users.map((user) => (
+        {contacts.map((user) => (
           <TableRow key={user.id}>
             <TableCell>{user.name}</TableCell>
             <TableCell>{user.username}</TableCell>
