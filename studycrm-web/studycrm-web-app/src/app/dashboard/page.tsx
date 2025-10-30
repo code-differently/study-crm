@@ -3,9 +3,8 @@ import { ENTITIES_QUERY } from './entities-query';
 import { getClient } from '@/graphql';
 import Search from './search';
 import UsersTable from './table';
-import Widget from '@/app/components/widget';
 
-interface User {
+interface Contact {
   id: string;
   name: string;
   username: string;
@@ -18,7 +17,7 @@ export default async function IndexPage() {
     variables: { type: 'contact' },
   });
 
-  const users = new Array<User>();
+  const users = new Array<Contact>();
   for (const entity of result.data?.entities || []) {
     const propertyMap = entity.properties.reduce(
       (acc, property) => {
@@ -41,10 +40,6 @@ export default async function IndexPage() {
       <p>A list of users retrieved from a Postgres database.</p>
       <Search />
       <Card className="mt-6">
-        <Widget
-          entities={result.data!.entities}
-          spec={result.data!.layouts.layouts[0].containers[0]}
-        ></Widget>
         <UsersTable users={users} />
       </Card>
     </main>
