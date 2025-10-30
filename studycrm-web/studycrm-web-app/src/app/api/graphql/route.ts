@@ -14,9 +14,16 @@ const server = new ApolloServer({
 const handler = startServerAndCreateNextHandler<ApiContext>(server, {
   context: async (req) => {
     const session = await auth();
+    
+    // Check for session errors (like token refresh failures)
+    if (session?.error === 'RefreshAccessTokenError') {
+      throw new Error('Authentication expired. Please sign in again.');
+    }
+    
     if (!session?.user?.organizationIds.length || !session?.accessToken) {
       throw new Error('Unauthorized');
     }
+    
     const { user, accessToken } = session;
     return {
       req,

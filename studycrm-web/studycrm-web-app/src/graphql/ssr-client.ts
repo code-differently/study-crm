@@ -27,9 +27,16 @@ export const { getClient } = registerApolloClient(
         schema,
         context: async (req) => {
           const session = await auth();
+          
+          // Check for session errors (like token refresh failures)
+          if (session?.error === 'RefreshAccessTokenError') {
+            throw new Error('Authentication expired. Please sign in again.');
+          }
+          
           if (!session?.user?.organizationIds.length || !session?.accessToken) {
             throw new Error('Unauthorized');
           }
+          
           const { user, accessToken } = session;
           return {
             req,
@@ -37,7 +44,7 @@ export const { getClient } = registerApolloClient(
               entitiesAPI: new EntitiesAPI({ user, accessToken }),
               layoutsAPI: new LayoutsAPI({ user, accessToken }),
             },
-          };
+          };  
         },
       }),
     })

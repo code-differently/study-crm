@@ -13,14 +13,23 @@ export class EntitiesAPI extends RESTDataSource {
   }
 
   async getEntities(type: string) {
-    const result = await this.get(
-      `organizations/${this.orgId}/entities?type=${type}`,
-      {
-        headers: {
-          authorization: `Bearer ${this.accessToken}`,
-        },
+    try {
+      const result = await this.get(
+        `organizations/${this.orgId}/entities?type=${type}`,
+        {
+          headers: {
+            authorization: `Bearer ${this.accessToken}`,
+          },
+        }
+      );
+      return result.entities;
+    } catch (error: any) {
+      // Log token-related errors for debugging
+      if (error.status === 401) {
+        console.error('Authentication failed - token may be expired:', error);
+        throw new Error('Authentication failed. Please refresh the page and sign in again.');
       }
-    );
-    return result.entities;
+      throw error;
+    }
   }
 }

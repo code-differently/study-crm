@@ -3,6 +3,7 @@ import '@/styles/globals.css';
 import Nav from './nav';
 import Toast from './toast';
 import { Suspense } from 'react';
+import { TokenDebugInfo } from '@/components/token-debug-info';
 
 import { ApolloWrapper } from '@/graphql';
 import { SessionProvider } from 'next-auth/react';
@@ -28,6 +29,7 @@ export default function RootLayout({
             </Suspense>
             {children}
             <Toast />
+            {process.env.NODE_ENV === 'development' && <TokenDebugInfo />}
           </ApolloWrapper>
         </SessionProvider>
       </body>
