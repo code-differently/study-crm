@@ -45,7 +45,7 @@ service-name/
 - **Backend**: Spring Security with OAuth2/OIDC using custom `AuthServerSecurityConfig`
 - **Frontend**: NextAuth.js with custom OIDC provider (`auth.ts`)
 - **Token Management**: JWT access tokens with refresh token rotation
-- **Middleware**: Custom proxy (`src/proxy.ts`) handles session validation and redirects
+- **Proxy/Middleware**: Custom proxy (`src/proxy.ts`) handles session validation and redirects, exported via `middleware.ts` for Next.js 15+ compatibility
 
 ### GraphQL Federation
 - **Server-side**: Apollo Server at `/api/graphql` with custom datasources

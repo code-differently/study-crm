@@ -8,12 +8,13 @@ export async function proxy(request: any) {
     // If session is null due to invalid refresh token, NextAuth will handle the redirect
     if (!session) {
       console.log('No session found - NextAuth will handle redirect to signin');
+      return auth(request);
     }
 
     // If token refresh failed, redirect to sign in
     if (session?.error === 'RefreshAccessTokenError') {
       console.log(
-        'Middleware detected refresh token error, redirecting to signin'
+        'Proxy detected refresh token error, redirecting to signin'
       );
       const signInUrl = new URL('/auth/signin', request.url);
       signInUrl.searchParams.set('callbackUrl', request.url);
@@ -24,7 +25,7 @@ export async function proxy(request: any) {
     // Also check if we have a session but no access token (fallback case)
     if (session?.user && (!session.accessToken || session.accessToken === '')) {
       console.log(
-        'Middleware detected session without valid access token, redirecting to signin'
+        'Proxy detected session without valid access token, redirecting to signin'
       );
       const signInUrl = new URL('/auth/signin', request.url);
       signInUrl.searchParams.set('callbackUrl', request.url);
@@ -32,12 +33,12 @@ export async function proxy(request: any) {
       return NextResponse.redirect(signInUrl);
     }
   } catch (error) {
-    console.error('Error in auth middleware:', error);
+    console.error('Error in auth proxy:', error);
     // If there's an error getting the session (e.g., session expired),
     // let NextAuth handle it
   }
 
-  // Use the default auth middleware behavior
+  // Use the default auth behavior
   return auth(request);
 }
 

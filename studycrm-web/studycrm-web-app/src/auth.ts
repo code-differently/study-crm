@@ -108,8 +108,15 @@ export const {
             console.error(
               'Refresh token is invalid or expired. User needs to re-authenticate.'
             );
-            // Clear all token data to force fresh login
-            return null;
+            // Return token with error flag so proxy can handle redirect
+            return {
+              ...token,
+              accessToken: '',
+              refreshToken: '',
+              idToken: undefined,
+              expiresAt: 0,
+              error: 'RefreshAccessTokenError' as const,
+            };
           }
 
           throw error;
