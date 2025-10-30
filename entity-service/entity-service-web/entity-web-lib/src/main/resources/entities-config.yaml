@@ -1,0 +1,121 @@
+# Example Entities Configuration
+# Based on ExampleEntitiesInitializer.java
+# Hierarchy: EntityType -> PropertyGroup -> Properties -> PropertyType
+
+# Property Types (foundational types)
+propertyTypes:
+  - name: "text"
+    label: "Text"
+    semanticType: "Text"
+    wireType: "string"
+    numeric: false
+    timestamp: false
+
+  - name: "number"
+    label: "Number"
+    semanticType: "Number"
+    wireType: "numeric"
+    numeric: true
+    timestamp: false
+
+  - name: "date"
+    label: "Date"
+    semanticType: "Date"
+    wireType: "timestamp"
+    numeric: true
+    timestamp: true
+
+  - name: "email"
+    label: "Email"
+    semanticType: "email"
+    wireType: "string"
+    numeric: false
+    timestamp: false
+
+  - name: "phone"
+    label: "Phone Number"
+    semanticType: "phone"
+    wireType: "string"
+    numeric: false
+    timestamp: false
+
+# Entity Types with their Property Groups and Properties
+entityTypes:
+  - name: "contact"
+    label: "Contact"
+    pluralLabel: "Contacts"
+    entityClass: "contact"
+    propertyGroups:
+      - label: "General Information"
+        properties:
+          - name: "first_name"
+            label: "First Name"
+            description: "Contact's first name"
+            propertyType: "text"
+
+          - name: "last_name"
+            label: "Last Name"
+            description: "Contact's last name"
+            propertyType: "text"
+
+          - name: "email"
+            label: "Email"
+            description: "Contact's email address"
+            propertyType: "email"
+
+          - name: "phone"
+            label: "Phone"
+            description: "Contact's phone number"
+            propertyType: "phone"
+
+# Layouts Configuration (references the entity type structure above)
+layouts:
+  # Details Layout
+  - entityType: "contact"
+    templateName: "contact_details"
+    containers:
+      - label: "General Information"
+        templateRegion: "general_details"
+        containerType: "accordion"
+        widgets:
+          - type: "group"
+            label: "General Information"
+            propertyGroup: "General Information"
+            propertyWidgets:
+              - propertyName: "first_name"
+                label: "First Name"
+                displayOrder: 0
+              - propertyName: "last_name"
+                label: "Last Name"
+                displayOrder: 1
+              - propertyName: "email"
+                label: "Email"
+                displayOrder: 2
+              - propertyName: "phone"
+                label: "Phone"
+                displayOrder: 3
+
+  # List Layout
+  - entityType: "contact"
+    templateName: "contacts_list"
+    containers:
+      - label: "General Information"
+        templateRegion: "contacts_table"
+        containerType: "table"
+        widgets:
+          - type: "property"
+            propertyName: "first_name"
+            label: "First Name"
+            displayOrder: 0
+          - type: "property"
+            propertyName: "last_name"
+            label: "Last Name"
+            displayOrder: 1
+          - type: "property"
+            propertyName: "email"
+            label: "Email"
+            displayOrder: 2
+          - type: "property"
+            propertyName: "phone"
+            label: "Phone"
+            displayOrder: 3

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { QueryQuery } from '../../../gen/gql/graphql';
+import type { QueryQuery } from '@/gql/graphql';
 
 export interface WidgetProps {
   entities: QueryQuery['entities'];
