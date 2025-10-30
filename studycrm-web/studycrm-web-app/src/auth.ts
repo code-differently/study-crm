@@ -73,7 +73,9 @@ export const {
           return {
             ...token,
             accessToken: tokens.access_token,
-            expiresAt: Math.floor(Date.now() / 1000 + Number(tokens.expires_in)),
+            expiresAt: Math.floor(
+              Date.now() / 1000 + Number(tokens.expires_in)
+            ),
             refreshToken: tokens.refresh_token ?? token.refreshToken,
           };
         } catch (error) {

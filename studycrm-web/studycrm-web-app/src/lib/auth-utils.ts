@@ -7,11 +7,11 @@ import { signOut, useSession } from 'next-auth/react';
 export async function performOIDCLogout(idToken?: string) {
   // First, sign out from NextAuth locally
   await signOut({ redirect: false });
-  
+
   // Use iframe approach to call logout endpoint silently, then redirect manually
   // This is necessary because the OIDC server doesn't properly handle post_logout_redirect_uri
   const logoutUrl = constructOIDCLogoutUrl(idToken);
-  
+
   try {
     // Call logout endpoint via iframe to clear server-side session
     await performLogoutViaIframe(logoutUrl);
@@ -19,7 +19,7 @@ export async function performOIDCLogout(idToken?: string) {
     console.warn('Silent logout via iframe failed:', error);
     // Continue anyway - at least NextAuth session is cleared
   }
-  
+
   // Always redirect to home page after logout
   window.location.href = '/';
 }
@@ -32,12 +32,12 @@ function performLogoutViaIframe(logoutUrl: string): Promise<void> {
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
     iframe.src = logoutUrl;
-    
+
     const timeout = setTimeout(() => {
       document.body.removeChild(iframe);
       reject(new Error('Logout timeout'));
     }, 5000);
-    
+
     iframe.onload = () => {
       clearTimeout(timeout);
       setTimeout(() => {
@@ -45,13 +45,13 @@ function performLogoutViaIframe(logoutUrl: string): Promise<void> {
         resolve();
       }, 500);
     };
-    
+
     iframe.onerror = () => {
       clearTimeout(timeout);
       document.body.removeChild(iframe);
       reject(new Error('Iframe load error'));
     };
-    
+
     document.body.appendChild(iframe);
   });
 }
@@ -61,7 +61,7 @@ function performLogoutViaIframe(logoutUrl: string): Promise<void> {
  */
 export function useOIDCLogout() {
   const { data: session } = useSession();
-  
+
   return () => {
     const idToken = session?.idToken;
     performOIDCLogout(idToken);
@@ -74,39 +74,39 @@ export function useOIDCLogout() {
 function constructOIDCLogoutUrl(idToken?: string): string {
   const issuerBaseUrl = process.env.NEXT_PUBLIC_STUDYCRM_ISSUER_BASE_URL;
   const clientId = process.env.NEXT_PUBLIC_STUDYCRM_CLIENT_ID;
-  
+
   if (!issuerBaseUrl) {
     console.error('NEXT_PUBLIC_STUDYCRM_ISSUER_BASE_URL is not defined');
     return '/';
   }
-  
+
   // Construct the logout URL using the correct OIDC end session endpoint
   const logoutUrl = new URL(`${issuerBaseUrl}/connect/logout`);
-  
+
   // Add post logout redirect URI - redirect back to home page
   const postLogoutRedirectUri = `${window.location.origin}/`;
   logoutUrl.searchParams.set('post_logout_redirect_uri', postLogoutRedirectUri);
-  
+
   // Add client_id if available
   if (clientId) {
     logoutUrl.searchParams.set('client_id', clientId);
   }
-  
+
   // Add id_token_hint if available for a more complete logout
   if (idToken) {
     logoutUrl.searchParams.set('id_token_hint', idToken);
   }
-  
+
   return logoutUrl.toString();
 }
 
 /**
- * Alternative approach: Perform logout by calling NextAuth signOut with 
+ * Alternative approach: Perform logout by calling NextAuth signOut with
  * a callback URL that points to the OIDC logout endpoint
  */
 export async function performOIDCLogoutWithCallback() {
   const oidcLogoutUrl = constructOIDCLogoutUrl();
-  
+
   // Use NextAuth's signOut with callbackUrl pointing to OIDC logout
   await signOut({
     callbackUrl: oidcLogoutUrl,

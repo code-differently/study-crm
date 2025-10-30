@@ -52,7 +52,10 @@ export default async function IndexPage({
       <Text>A list of users retrieved from a Postgres database.</Text>
       <Search />
       <Card className="mt-6">
-        <Widget entities={result.data!.entities} spec={result.data!.layouts.layouts[0].containers[0]}></Widget>
+        <Widget
+          entities={result.data!.entities}
+          spec={result.data!.layouts.layouts[0].containers[0]}
+        ></Widget>
         <UsersTable users={users} />
       </Card>
     </main>
