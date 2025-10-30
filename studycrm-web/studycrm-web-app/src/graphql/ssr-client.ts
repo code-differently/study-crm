@@ -1,12 +1,20 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { auth } from '@/auth';
+import { cookies } from 'next/headers';
 import { EntitiesAPI } from './datasources/entities-api';
 import { LayoutsAPI } from './datasources/layouts-api';
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import { registerApolloClient } from '@apollo/experimental-nextjs-app-support/rsc';
+import { registerApolloClient } from '@apollo/client-integration-nextjs';
 import { SchemaLink } from '@apollo/client/link/schema';
 import { resolvers } from './resolvers';
-import typeDefs from './studycrm.graphql';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+// Read the GraphQL schema file directly
+const typeDefs = readFileSync(
+  join(process.cwd(), 'src/graphql/studycrm.graphql'),
+  'utf8'
+);
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 const apolloCache = new InMemoryCache();

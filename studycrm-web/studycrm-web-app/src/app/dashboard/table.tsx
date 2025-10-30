@@ -5,7 +5,6 @@ import {
   TableHeaderCell,
   TableBody,
   TableCell,
-  Text,
 } from '@tremor/react';
 
 interface User {
@@ -29,12 +28,8 @@ export default function UsersTable({ users }: { users: User[] }) {
         {users.map((user) => (
           <TableRow key={user.id}>
             <TableCell>{user.name}</TableCell>
-            <TableCell>
-              <Text>{user.username}</Text>
-            </TableCell>
-            <TableCell>
-              <Text>{user.email}</Text>
-            </TableCell>
+            <TableCell>{user.username}</TableCell>
+            <TableCell>{user.email}</TableCell>
           </TableRow>
         ))}
       </TableBody>

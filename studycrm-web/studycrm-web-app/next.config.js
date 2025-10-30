@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Allow development origins for local development
+  allowedDevOrigins: ['local.studycrm.com'],
   images: {
     remotePatterns: [
       {
@@ -12,15 +14,8 @@ const nextConfig = {
       }
     ]
   },
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.(graphql|gql)/,
-      exclude: /node_modules/,
-      loader: "graphql-tag/loader"
-    });
-
-    return config;
-  }
+  // React Compiler configuration (moved out of experimental in Next.js 16)
+  reactCompiler: false,
 }
 
 module.exports = nextConfig

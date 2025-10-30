@@ -1,4 +1,4 @@
-import { gql } from '@/gql';
+import { gql } from '@apollo/client';
 
 export const ENTITIES_QUERY = gql(/* GraphQL */ `
   query Query($type: String!) {

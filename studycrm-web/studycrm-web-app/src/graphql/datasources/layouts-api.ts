@@ -8,7 +8,7 @@ export class LayoutsAPI extends RESTDataSource {
   constructor(private readonly config: ServiceConfig) {
     super();
     this.accessToken = config.accessToken;
-    this.orgId = config.user.organizationIds[0];
+    this.orgId = config.user.organizationIds?.[0] || '';
     this.baseURL = `${process.env.API_SERVER_URL}/`;
   }
 

@@ -13,6 +13,7 @@ const config: CodegenConfig = {
       }
     }
   },
+  allowPartialOutputs: true,
 };
 
 export default config;

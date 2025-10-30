@@ -3,8 +3,9 @@ import '@/styles/globals.css';
 import Nav from './nav';
 import Toast from './toast';
 import { Suspense } from 'react';
-import { SessionProvider } from 'next-auth/react';
+
 import { ApolloWrapper } from '@/graphql';
+import { SessionProvider } from 'next-auth/react';
 
 export const metadata = {
   title: 'Next.js App Router + NextAuth + Tailwind CSS',
@@ -19,15 +20,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full bg-gray-50">
-      <SessionProvider>
-        <body className="h-full">
-          <Suspense>
-            <Nav />
-          </Suspense>
-          {children}
-          <Toast />
-        </body>
-      </SessionProvider>
+      <body className="h-full">
+        <SessionProvider>
+          <ApolloWrapper>
+            <Suspense>
+              <Nav />
+            </Suspense>
+            {children}
+            <Toast />
+          </ApolloWrapper>
+        </SessionProvider>
+      </body>
     </html>
   );
 }

@@ -17,13 +17,15 @@ export const {
       issuer: process.env.STUDYCRM_ISSUER_BASE_URL,
       authorization: {
         params: {
-          scope: 'openid',
-          response_mode: 'form_post',
+          scope: 'openid profile',
         },
       },
       checks: ['pkce', 'state', 'nonce'],
       // Configure the end session endpoint for proper OIDC logout
       wellKnown: `${process.env.STUDYCRM_ISSUER_BASE_URL}/.well-known/openid-configuration`,
+      client: {
+        authorization_signed_response_alg: 'RS256',
+      },
       profile(profile) {
         const { roles } = profile;
         const organizationIds =
@@ -43,6 +45,18 @@ export const {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
+    maxAge: 24 * 60 * 60, // 24 hours
+  },
+  cookies: {
+    pkceCodeVerifier: {
+      name: 'next-auth.pkce.code_verifier',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: false, // Set to true in production with HTTPS
+      },
+    },
   },
   callbacks: {
     async jwt({ token, account, user }) {
@@ -95,6 +109,7 @@ export const {
   pages: {
     signIn: '/auth/signin',
   },
+  debug: process.env.NODE_ENV === 'development',
 });
 
 function getRefreshTokenRequest(token: JWT) {

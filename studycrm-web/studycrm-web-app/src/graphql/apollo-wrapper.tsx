@@ -3,10 +3,10 @@
 import { ApolloLink, HttpLink } from '@apollo/client';
 import {
   ApolloNextAppProvider,
-  NextSSRApolloClient,
-  NextSSRInMemoryCache,
+  ApolloClient as NextSSRApolloClient,
+  InMemoryCache as NextSSRInMemoryCache,
   SSRMultipartLink,
-} from '@apollo/experimental-nextjs-app-support/ssr';
+} from '@apollo/client-integration-nextjs';
 
 function makeClient() {
   const httpLink = new HttpLink({

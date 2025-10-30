@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import { Card, Title, Text } from '@tremor/react';
+import { Card } from '@tremor/react';
 import { ENTITIES_QUERY } from './entities-query';
 import { getClient } from '@/graphql';
 import { redirect } from 'next/navigation';
@@ -48,8 +48,8 @@ export default async function IndexPage({
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
-      <Title>Users</Title>
-      <Text>A list of users retrieved from a Postgres database.</Text>
+      <h1>Users</h1>
+      <p>A list of users retrieved from a Postgres database.</p>
       <Search />
       <Card className="mt-6">
         <Widget

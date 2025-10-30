@@ -79,7 +79,7 @@ public class AuthServerSecurityConfig {
             .postLogoutRedirectUri("http://127.0.0.1:8080/")
             .scope(OidcScopes.OPENID)
             .scope(OidcScopes.PROFILE)
-            .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+            .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
             .build();
 
     return new InMemoryRegisteredClientRepository(oidcClient);
