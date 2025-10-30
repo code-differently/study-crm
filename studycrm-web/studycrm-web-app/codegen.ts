@@ -7,13 +7,11 @@ const config: CodegenConfig = {
   generates: {
     './gen/gql/': {
       preset: 'client',
-      plugins: [],
       presetConfig: {
         gqlTagName: 'gql',
       }
     }
   },
-  allowPartialOutputs: true,
 };
 
 export default config;
